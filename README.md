@@ -5,3 +5,5 @@ CITS5505 group project
   - 2.sign in page -yunfang
   - 3.profile page -zhuowen
   - 4.book review page -alex
+- the useful entensions in vscode:Git Graph,Git History, GitLens, Git supercharged
+
