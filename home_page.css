@@ -1,0 +1,22 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.book_rank_box {
+    border: 1px solid #f5c722;
+    text-align: center;
+    padding: 20px;
+}
+
+.main_content_box {
+    border: 1px solid #EFEAD8;
+    text-align: center;
+    padding: 20px;
+}
+
+.hot_request_box {
+
+    border: 1px solid #EFEAD8;
+    text-align: center;
+    padding: 20px;
+}
