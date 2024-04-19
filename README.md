@@ -1,6 +1,6 @@
 # CITS5505-Project2
 CITS5505 group project 
-- 2024.4.19 meeting result:
+- 2024.4.19 meeting result(if this module can add back end):
   - 1.home page -xiao
   - 2.sign in page -yunfang
   - 3.profile page -zhuowen
