@@ -7,16 +7,14 @@
 
 }
 
-.book_rank_box {
-    border: 1px solid #f5c722;
-    text-align: center;
-    padding: 20px;
-}
+
 
 .main_content_box {
     border: 1px solid #EFEAD8;
     text-align: center;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .hot_request_box {
@@ -24,4 +22,166 @@
     border: 1px solid #EFEAD8;
     text-align: center;
     padding: 20px;
+}
+
+h1 {
+    text-indent: 1em;
+    line-height: 30px;
+    font-size: 20px;
+    color: white;
+
+    background-color: #6D8B74;
+    background-repeat: no-repeat;
+    background-position: 100px center;
+}
+
+.book_rank_link {
+    color: #1a66b3;
+    font-size: 15px;
+    line-height: 28px;
+}
+
+.book_rank_link:link {
+    text-decoration: none;
+}
+
+.book_rank_link:hover {
+    text-decoration: underline;
+}
+
+
+.book_rank_box {
+    border: 1px solid #ffffff;
+    background: linear-gradient(to top, #D0C9C0, #f8f8f3);
+    padding: 11px;
+}
+
+.col-md-2 {
+    padding: 0px;
+}
+
+.maincontent_part1 {
+    display: flex;
+    justify-content: center;
+}
+
+#carouselExampleAutoplaying {
+    width: 90%;
+    max-height: 400px;
+    display: flex;
+    left: 10%;
+}
+
+.carousel-inner img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(78, 78, 78, 0.918);
+}
+
+.carousel-control-prev {
+    left: -10%;
+}
+
+.carousel-control-next {
+    right: 10%;
+}
+
+.booklist {
+    float: left;
+}
+
+.maincontent_part2,
+.maincontent_part3 {
+    margin: 20px 0;
+    padding: 20px 10px;
+}
+
+.maincontent_part3 {
+    background-color: #f4f4f4;
+}
+
+.bookline,
+.rewardsline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 5px;
+    list-style: none;
+    width: 100%;
+}
+
+
+
+.rewardsline>li,
+.bookline>li {
+    margin: 0 10px;
+    max-width: 100%;
+}
+
+.book_align_list,
+.rewards_align_list {
+    width: 100%;
+}
+
+@media (max-width: 980px) {
+
+    .bookline,
+    .rewardsline {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 5px;
+        margin: 5px;
+        list-style: none;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .bookline li,
+    .rewardsline>li {
+        width: 100px;
+    }
+
+    .book_align_list,
+    .rewards_align_list {
+        width: 100%;
+    }
+}
+
+button {
+    background-color: #ffffff00;
+    border-color: rgba(255, 255, 255, 0);
+}
+
+.like_click {
+    display: flex;
+    justify-content: space-between;
+}
+
+.indi_rewards_box {
+    border: 1px solid white;
+}
+
+.rewards_item_info {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 2px 0;
+    padding: 15px 2px 0 2px;
+    background-color: #ffffff;
+}
+
+.rewards_item_name {
+    border-right: 1.5px solid black;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.rewards_points {
+    padding-top: 1px;
 }
