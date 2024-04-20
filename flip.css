@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url('../img/01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+.flip-container {
+    perspective: 1000;
+    backdrop-filter: blur(8px);
+}
+.flipper {
+    padding: 30px;
+    width: 400px;
+    height:550px;
+    position: relative;
+    border: 2px solid white;
+    border-radius: 20px;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+form {
+    display: grid;
+}
+input {
+    border:none;
+    outline: none;
+    height: 60px;
+    margin-bottom: 25px;
+    background: none;
+    border-bottom: 2px solid white;
+}
+.title{
+text-align: center;
+}
+.flipbutton{
+    color:#4096ee;
+    text-decoration:none;
+}
+.login, .register, .reset{
+    position: absolute;
+    padding:10px 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    backface-visibility: hidden;
+}
+.login{
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+.register {
+    transform: rotateY(180deg);
+}
+.reset {
+    transform: rotateY(180deg);
+}
+.flip {
+    transform: rotateY(180deg);
+}
+.invisible {
+    visibility: hidden;
+}
