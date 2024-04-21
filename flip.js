@@ -6,18 +6,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     toRegister.onclick = function(){
         document.querySelector("#flipper").classList.toggle("flip");
-        document.querySelector("#reset").classList.add("invisible");
+        document.querySelector(".reset").style.visibility = "hidden";
+        document.querySelector(".register").style.visibility = "visible";
+        document.querySelector(".register").style.pointerEvents = "auto";
+        document.querySelector(".login").style.visibility = "hidden";
+        document.querySelector(".login").style.pointerEvents = "none";
+        
     };
     toLogin_1.onclick = function(){
         document.querySelector("#flipper").classList.toggle("flip");
-        document.querySelector("#reset").classList.remove("invisible");
-    };
-    toLogin_2.onclick = function(){
-        document.querySelector("#flipper").classList.toggle("flip");
-        document.querySelector("#register").classList.remove("invisible");
+        document.querySelector(".reset").style.visibility = "hidden";
+        document.querySelector(".register").style.visibility = "hidden";
+        document.querySelector(".register").style.pointerEvents = "none";
+        document.querySelector(".login").style.visibility = "visible";
+        document.querySelector(".login").style.pointerEvents = "auto";
     };
     toReset.onclick = function(){
         document.querySelector("#flipper").classList.toggle("flip");
-        document.querySelector("#register").classList.add("invisible");
+        document.querySelector(".register").style.visibility = "hidden";
+        document.querySelector(".reset").style.visibility = "visible";
+        document.querySelector(".reset").style.pointerEvents = "auto";
+        document.querySelector(".login").style.visibility = "hidden";
+        document.querySelector(".login").style.pointerEvents = "none";
     }
+    toLogin_2.onclick = function(){
+        document.querySelector("#flipper").classList.toggle("flip");
+        document.querySelector(".reset").style.visibility = "hidden";
+        document.querySelector(".register").style.visibility = "hidden";
+        document.querySelector(".register").style.pointerEvents = "none";
+        document.querySelector(".login").style.visibility = "visible";
+        document.querySelector(".login").style.pointerEvents = "auto";
+    };
 });
