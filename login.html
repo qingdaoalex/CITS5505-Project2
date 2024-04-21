@@ -25,7 +25,12 @@
                             <div class="form-box">
                                 <i class="ri-user-3-line input-icon"></i>
                                 <div class="input-box">
-                                    <input type="text" required class="input-area" id="login-user-name" placeholder=" ">
+                                    <input 
+                                        required 
+                                        type="text" 
+                                        class="input-area" id="login-user-name" 
+                                        placeholder=" "
+                                        maxlength="20">
                                     <label for="login-user-name" class="input-label">User name</label>
                                 </div>
                             </div>
@@ -34,7 +39,12 @@
                             <div class="form-box">
                                 <i class="ri-lock-2-line input-icon"></i>
                                 <div class="input-box">
-                                    <input type="password" required class="input-area" id="login-password" placeholder=" ">
+                                    <input 
+                                        required 
+                                        type="password" 
+                                        class="input-area" id="login-password" 
+                                        placeholder=" "
+                                        maxlength="20">
                                     <label for="login-password" class="input-label">Password</label>
                                 </div>
                             </div>
@@ -63,11 +73,13 @@
                                 <i class="ri-user-3-line input-icon"></i>
                                 <div class="input-box">
                                     <input 
-                                            type="text" 
-                                            required 
-                                            class="input-area" id="register-user-name" 
-                                            placeholder=" "
-                                            maxlength="5">
+                                        required 
+                                        type="text" 
+                                        class="input-area" id="register-user-name" 
+                                        placeholder=" "
+                                        maxlength="20"
+                                        pattern="[a-zA-Z0-9_]+" 
+                                        title="Only alphabets, numbers, and underscore'_' are allowed">
                                     <label for="register-user-name" class="input-label">User name</label>
                                 </div>
                             </div>
@@ -76,7 +88,12 @@
                             <div class="form-box">
                                 <i class="ri-lock-2-line input-icon"></i>
                                 <div class="input-box">
-                                    <input type="password" required class="input-area" id="register-password" placeholder=" ">
+                                    <input 
+                                        required     
+                                        type="password" 
+                                        class="input-area" id="register-password" 
+                                        placeholder=" "
+                                        maxlength="20">
                                     <label for="register-password" class="input-label">Password</label>
                                 </div>
                             </div>
@@ -85,7 +102,12 @@
                             <div class="form-box">
                                 <i class="ri-question-line input-icon"></i>
                                 <div class="input-box">
-                                    <input type="text" required class="input-area" id="security-question" placeholder=" ">
+                                    <input
+                                        required 
+                                        type="text" 
+                                        class="input-area" id="security-question" 
+                                        placeholder=" "
+                                        maxlength="30">
                                     <label for="security-question" class="input-label">What's your favorite book?</label>
                                 </div>
                             </div>
@@ -142,5 +164,6 @@
             </div>
         </div>
         <script src="flip.js"></script>
+        <script src="register-limit.js"></script>
     </body>
 </html>
