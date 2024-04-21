@@ -11,8 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".register").style.pointerEvents = "auto";
         document.querySelector(".login").style.visibility = "hidden";
         document.querySelector(".login").style.pointerEvents = "none";
-        
     };
+    // Check if the URL contains "#register" and trigger the click event on toRegister
+    if (window.location.hash === "#register") {
+        toRegister.onclick();
+    }
     toLogin_1.onclick = function(){
         document.querySelector("#flipper").classList.toggle("flip");
         document.querySelector(".reset").style.visibility = "hidden";
