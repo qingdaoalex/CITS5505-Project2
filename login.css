@@ -217,3 +217,12 @@ because they are same size and larger than button in reset part. */
 .flip {
     transform: rotateY(180deg);
 }
+/* -- Add media query -- */
+@media only screen and (max-width: 480px) {
+    .flip-container {
+        width: 95%; 
+    }
+    .flipper {
+        width: 99%;
+    }
+}
