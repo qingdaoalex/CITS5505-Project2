@@ -25,20 +25,21 @@
 }
 
 h1 {
-    text-indent: 1em;
+    /* text-indent: 1em; */
     line-height: 30px;
     font-size: 20px;
     color: white;
-
+    text-align: center;
     background-color: #6D8B74;
     background-repeat: no-repeat;
     background-position: 100px center;
 }
 
 .book_rank_link {
-    color: #1a66b3;
-    font-size: 15px;
-    line-height: 28px;
+    color: #17314a;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: 'Aptos';
 }
 
 .book_rank_link:link {
@@ -46,7 +47,7 @@ h1 {
 }
 
 .book_rank_link:hover {
-    text-decoration: underline;
+    background-color: #D0C9C0;
 }
 
 
@@ -54,6 +55,10 @@ h1 {
     border: 1px solid #ffffff;
     background: linear-gradient(to top, #D0C9C0, #f8f8f3);
     padding: 11px;
+}
+
+.book_rank_image {
+    width: 8%;
 }
 
 .col-md-2 {
@@ -159,13 +164,28 @@ button {
     border-color: rgba(255, 255, 255, 0);
 }
 
-.like_click {
+.like_click,
+.like_and_number_box {
     display: flex;
     justify-content: space-between;
 }
 
+.like_click {
+    text-align: left;
+}
+
+.heart_button {
+    display: flex;
+    justify-content: center;
+}
+
+.number_of_likes {
+    display: flex;
+    align-items: center;
+}
+
 .indi_rewards_box {
-    border: 1px solid white;
+    align-items: center;
 }
 
 .rewards_item_info {
