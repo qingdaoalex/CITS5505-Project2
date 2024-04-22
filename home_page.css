@@ -25,7 +25,6 @@
 }
 
 h1 {
-    /* text-indent: 1em; */
     line-height: 30px;
     font-size: 20px;
     color: white;
@@ -51,7 +50,8 @@ h1 {
 }
 
 
-.book_rank_box {
+.book_rank_box,
+.hot_request_box {
     border: 1px solid #ffffff;
     background: linear-gradient(to top, #D0C9C0, #f8f8f3);
     padding: 11px;
@@ -128,12 +128,12 @@ h1 {
     max-width: 100%;
 }
 
-.book_align_list,
+
 .rewards_align_list {
     width: 100%;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 9800px) {
 
     .bookline,
     .rewardsline {
@@ -148,14 +148,32 @@ h1 {
         flex-wrap: wrap;
     }
 
-    .bookline li,
-    .rewardsline>li {
-        width: 100px;
+    .bookline li {
+        width: 150px;
     }
 
-    .book_align_list,
+    .rewardsline>li {
+        width: 220px;
+    }
+
+    .book_align_list {
+        width: 100%;
+        height: 100%;
+    }
+
     .rewards_align_list {
         width: 100%;
+    }
+
+    .rewards_item_info {
+        display: flex;
+        justify-content: center;
+        margin: 0 0 2px 0;
+        padding: 15px 2px 0 2px;
+        background-color: #ffffff;
+        overflow: auto;
+        height: 28%;
+        align-items: center;
     }
 }
 
@@ -172,6 +190,10 @@ button {
 
 .like_click {
     text-align: left;
+    border: 1px solid rgba(37, 37, 37, 0.866);
+    border-radius: 10px;
+    margin: 8px 0px;
+    padding: 0 2px;
 }
 
 .heart_button {
@@ -179,22 +201,20 @@ button {
     justify-content: center;
 }
 
-.number_of_likes {
+.number_of_likes,
+.review_words {
     display: flex;
     align-items: center;
 }
+
+
 
 .indi_rewards_box {
     align-items: center;
+    overflow: auto;
 }
 
-.rewards_item_info {
-    display: flex;
-    justify-content: center;
-    margin: 0 0 2px 0;
-    padding: 15px 2px 0 2px;
-    background-color: #ffffff;
-}
+
 
 .rewards_item_name {
     border-right: 1.5px solid black;
