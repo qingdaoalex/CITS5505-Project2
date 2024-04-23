@@ -13,15 +13,16 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+    <nav class="navbar navbar-light-green navbar-expand-sm">
         <div class="container-fluid d-flex justify-content-between align-items-center w-100">
             <div class="d-flex flex-grow-1 justify-content-start"><a class="navbar-brand " href="#">LOGO image</a></div>
             <div class="d-flex flex-grow-1 justify-content-between align-items-center">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2 transparent-input" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success search-button" type="submit">Search</button>
                 </form>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,7 +31,7 @@
             <div class=" dropdown justify-content-end" data-bs-hover="dropdown" style="text-align: right; width: 10%;">
                 <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false" style="padding: 0;">
-                    <img src="image/user.png" alt="user profile photo" style="width: 30%;">
+                    <img src="image/user.png" alt="user profile photo" style="width: 25%;">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="right: 2%;">
                     <li><a class=" dropdown-item" href="#">My account</a></li>
@@ -49,7 +50,7 @@
     </nav>
     <div class="bigbox ">
         <div class="row">
-            <div class="col-sm-3 col-md-2 mb-2">
+            <div class="col-sm-3 col-md-2 mb-2 firstbox">
                 <div class="book_rank_box">
                     <h1>BOOK RANK</h1>
                     <img class="book_rank_image" src="image/book_rank01.gif" alt="">
@@ -75,7 +76,7 @@
 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-8 mb-5">
+            <div class="col-sm-6 col-md-8 mb-5 secondbox">
                 <div class="main_content_box">
                     <div class="maincontent_part1">
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
@@ -106,7 +107,10 @@
                             </button>
                         </div>
                     </div>
-                    <div class="maincontent_part2" style="border: 2px solid black;">
+                    <div class="maincontent_part2">
+                        <div>
+                            <h4 class="box_information_title">Books</h4>
+                        </div>
                         <ul class="bookline">
                             <li>
                                 <div class="a"><img class="book_align_list" src="image/book1cover.jpg" alt=""></div>
@@ -226,7 +230,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="maincontent_part3" style="border: 2px solid black;">
+                    <div class="maincontent_part3">
+                        <div>
+                            <h4 class="box_information_title">Rewards</h4>
+                        </div>
                         <ul class="rewardsline">
                             <li>
                                 <div class="each_big_rewards_box"><img class="rewards_align_list" src="image/pen.jpg"
@@ -320,7 +327,7 @@
 
                 </div>
             </div>
-            <div class="col-sm-3 col-md-2 mb-2">
+            <div class="col-sm-3 col-md-2 mb-2 thirdbox">
                 <div class="hot_request_box">
                     <h1>BOOK REVIEW</h1>
                     <div class="like_click">

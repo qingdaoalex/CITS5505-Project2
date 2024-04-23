@@ -1,14 +1,50 @@
+body {
+    background-color: #F5EFE6;
+}
+
 .dropdown:hover .dropdown-menu {
     display: block;
 }
 
-.bigbox {
-    margin: 2% 2%;
+.navbar-light-green {
+    background-color: #5F7161;
+}
 
+.navbar-brand {
+    color: white;
+    font-weight: bold;
+}
+
+.transparent-input {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    border: none;
+}
+
+.search-button {
+    border-color: white;
+    color: white;
+}
+
+.dropdown-toggle::after {
+    border-top-color: white !important;
+}
+
+/* .bigbox {
+    padding: 2% 2%;
+} */
+.firstbox,
+.thirdbox {
+    margin-top: 2%;
+}
+
+.secondbox {
+    background-color: rgba(238, 235, 221, 0.967);
+    padding-top: 2%;
 }
 
 .main_content_box {
-    border: 1px solid #EFEAD8;
+
     text-align: center;
     padding: 20px;
     display: flex;
@@ -26,17 +62,27 @@ h1 {
     line-height: 30px;
     font-size: 20px;
     color: white;
+    font-weight: bolder;
     text-align: center;
     background-color: #6D8B74;
     background-repeat: no-repeat;
     background-position: 100px center;
 }
 
+.box_information_title {
+    color: #8795a1;
+    text-align: left;
+    border-bottom: 1px solid rgb(41, 40, 40);
+    padding-bottom: 7px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
 .book_rank_link {
     color: #17314a;
     font-size: 20px;
     line-height: 40px;
-    font-family: 'Aptos';
+    font-family: 'Ink Free';
 }
 
 .book_rank_link:link {
@@ -50,8 +96,8 @@ h1 {
 
 .book_rank_box,
 .hot_request_box {
-    border: 1px solid #ffffff;
-    background: linear-gradient(to top, #D0C9C0, #f8f8f3);
+    /* border: 1px solid #ffffff; */
+    /* background: linear-gradient(to top, #D0C9C0, #f8f8f3); */
     padding: 11px;
 }
 
@@ -59,9 +105,11 @@ h1 {
     width: 8%;
 }
 
-.col-md-2 {
+.col-md-3 {
     padding: 0px;
 }
+
+
 
 .maincontent_part1 {
     display: flex;
@@ -93,21 +141,18 @@ h1 {
     right: 10%;
 }
 
-.maincontent_part2,
-.maincontent_part3 {
-    margin: 20px 0;
-    padding: 20px 10px;
+.maincontent_part2 {
+    margin-top: 30px;
+    /* padding: 20px 10px; */
 }
 
-.maincontent_part3 {
-    background-color: #f4f4f4;
-}
+
 
 @media (max-width: 9800px) {
     .bookline>li {
-        width: 150px;
-        padding: 5px;
-        margin: 10px;
+        width: 120px;
+        padding: 2px;
+        margin: 2px;
     }
 
     .bookline {
@@ -163,7 +208,7 @@ h1 {
         justify-content: center;
         margin: 0px;
         padding: 0px 0px 0px 0px;
-        background-color: #ffffff;
+        background-color: #D0C9C0;
         height: 36%;
         border-bottom-right-radius: 20%;
         width: 100%;
@@ -185,7 +230,9 @@ h1 {
         text-align: left;
         margin: 0px;
         padding: 0px;
-
+        width: 60%;
+        border-radius: 60px;
+        background-color: #889f8b;
     }
 }
 
@@ -205,7 +252,7 @@ button {
 
 .like_click {
     text-align: left;
-    border: 1px solid rgba(37, 37, 37, 0.866);
+    border: 1px solid #6D8B74;
     border-radius: 10px;
     margin: 8px 0px;
     padding: 0 2px;
@@ -220,4 +267,5 @@ button {
 .review_words {
     display: flex;
     align-items: center;
+    font-family: 'MV Boli';
 }
