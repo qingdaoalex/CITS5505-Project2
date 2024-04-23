@@ -7,8 +7,6 @@
 
 }
 
-
-
 .main_content_box {
     border: 1px solid #EFEAD8;
     text-align: center;
@@ -95,10 +93,6 @@ h1 {
     right: 10%;
 }
 
-.booklist {
-    float: left;
-}
-
 .maincontent_part2,
 .maincontent_part3 {
     margin: 20px 0;
@@ -109,51 +103,22 @@ h1 {
     background-color: #f4f4f4;
 }
 
-.bookline,
-.rewardsline {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 5px;
-    margin: 5px;
-    list-style: none;
-    width: 100%;
-}
-
-
-
-.rewardsline>li,
-.bookline>li {
-    margin: 0 10px;
-    max-width: 100%;
-}
-
-
-.rewards_align_list {
-    width: 100%;
-}
-
 @media (max-width: 9800px) {
+    .bookline>li {
+        width: 150px;
+        padding: 5px;
+        margin: 10px;
+    }
 
-    .bookline,
-    .rewardsline {
+    .bookline {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         padding: 5px;
         margin: 5px;
         list-style: none;
-        width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
-    }
-
-    .bookline li {
-        width: 150px;
-    }
-
-    .rewardsline>li {
-        width: 220px;
     }
 
     .book_align_list {
@@ -161,19 +126,66 @@ h1 {
         height: 100%;
     }
 
+    .rewardsline>li {
+        width: 180px;
+        height: auto;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .rewardsline {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 5px;
+        margin: 10px;
+        list-style: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
     .rewards_align_list {
         width: 100%;
+        border-top-left-radius: 20%;
+
+    }
+
+    .each_big_rewards_box {
+        overflow: auto;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .rewards_item_info {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        margin: 0 0 2px 0;
-        padding: 15px 2px 0 2px;
+        margin: 0px;
+        padding: 0px 0px 0px 0px;
         background-color: #ffffff;
-        overflow: auto;
-        height: 28%;
+        height: 36%;
+        border-bottom-right-radius: 20%;
+        width: 100%;
+
+
+    }
+
+    .rewards_item_name {
+        text-align: left;
+        border-bottom: 1.5px solid black;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
         align-items: center;
+        width: 100%;
+    }
+
+    .rewards_points {
+        padding-top: 1px;
+        text-align: left;
+        margin: 0px;
+        padding: 0px;
+
     }
 }
 
@@ -186,7 +198,10 @@ button {
 .like_and_number_box {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+
 }
+
 
 .like_click {
     text-align: left;
@@ -198,30 +213,11 @@ button {
 
 .heart_button {
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 .number_of_likes,
 .review_words {
     display: flex;
     align-items: center;
-}
-
-
-
-.indi_rewards_box {
-    align-items: center;
-    overflow: auto;
-}
-
-
-
-.rewards_item_name {
-    border-right: 1.5px solid black;
-    margin-right: 10px;
-    padding-right: 10px;
-}
-
-.rewards_points {
-    padding-top: 1px;
 }
