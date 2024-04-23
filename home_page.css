@@ -1,5 +1,6 @@
 body {
     background-color: #F5EFE6;
+    overflow-x: hidden;
 }
 
 .dropdown:hover .dropdown-menu {
