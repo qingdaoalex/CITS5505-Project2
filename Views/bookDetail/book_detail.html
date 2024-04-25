@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="shortcut icon" href="image/icon.ico" type="image/x-icon" />
+	<link href="https://www.w3school.com.cn/lib/bs/bootstrap.css" rel="stylesheet">
+	<script src="https://www.w3school.com.cn/lib/bs/bootstrap.js"></script>
+	<link rel="stylesheet" href="bookDetail.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-light-green navbar-expand-sm">
+		<div class="container-fluid d-flex justify-content-between align-items-center w-100">
+			<div class="d-flex flex-grow-1 justify-content-start"><a class="navbar-brand " href="#">LOGO image</a></div>
+			<div class="d-flex flex-grow-1 justify-content-between align-items-center">
+				<form class="d-flex" role="search">
+					<input class="form-control me-2 transparent-input" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success search-button" type="submit">Search</button>
+				</form>
+				<button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class=" dropdown justify-content-end" data-bs-hover="dropdown" style="text-align: right; width: 10%;">
+				<a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+					style="padding: 0;">
+					<img src="image/user.png" alt="user profile photo" style="width: 25%;">
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="right: 2%;">
+					<li><a class=" dropdown-item" href="#">My account</a></li>
+					<li><a class="dropdown-item" href="#">Review management</a></li>
+					<li><a class="dropdown-item" href="#">My lists</a></li>
+					<li><a class="dropdown-item" href="#">My rewards action</a></li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li><a class="dropdown-item" href="#">Sign in</a><a class="dropdown-item" href="#">Log
+							in</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col">
+		</div>
+		<div class="col-8">
+			<div class="book-detail-page">
+				<div class="book-detail-page-left">
+					<div class="book-detail-top">
+						<div class="book-cover">
+							<img class="book-cover-image" src="../../image/romeo_and_juliet_bookcover.jpg" alt="">
+
+						</div>
+						<div class="book-detail">
+							<div class="book-title">
+								{{Romeo And Juliet}}
+							</div>
+							<span class="book-author"> Author: {{Author}}</span>
+							<span class="book-year"> Year: {{Year}}</span>
+							<span class="book-year"> Word counts: {{word counts}}</span>
+
+							<div class="book-summary">
+								An age-old vendetta between two powerful families erupts into bloodshed. A group of
+								masked
+								Montagues
+								risk further conflict by gatecrashing a Capulet party. A young lovesick Romeo Montague
+								falls
+								instantly in love with Juliet Capulet, who is due to marry her father’s choice, the
+								County
+								Paris.
+
+								<span id="dots">...</span> <span id="more">With the help of Juliet’s nurse, the women
+									arrange
+									for the couple to marry the next day, but Romeo’s
+									attempt to halt a street fight leads to the death of Juliet’s own cousin, Tybalt,
+									for which
+									Romeo is
+									banished. In a desperate attempt to be reunited with Romeo, Juliet follows the
+									Friar’s plot and
+									fakes her own death. The message fails to reach Romeo, and believing Juliet dead, he
+									takes his
+									life
+									in her tomb. Juliet wakes to find Romeo’s corpse beside her and kills herself. The
+									grieving
+									family
+									agree to end their feud.</span>
+								<!-- <button onclick="readMore()" id="readMoreBtm">Read more</button> -->
+								<!-- <button type="button" class="btn" id="readMoreBtm" onclick="readMore()">Read more</button> -->
+								<div style="color:blue" type="button" class="btn" id="readMoreBtm" onclick="readMore()">
+									Read more</div>
+
+
+							</div>
+						</div>
+
+					</div>
+					<div class="book-detail-bottom">
+						<div class="post">
+							<div class="post__avatar"></div>
+							<h3 class="post__author">
+								{{Post Author}}
+							</h3>
+							<h4 class="post__timestamp">
+								28/03/2024 13:51
+							</h4>
+							<p class="post__body">
+								Romeo and Juliet written by the notorious William Shakespeare is a classic. The overall plot was
+								impeccable. Two young lovers are cursed by their rival families to never see each other. It makes the
+								readers feel sympathetic towards the main characters who can’t have the one thing they want.
+								Shakespeare’s ability to turn the play from a comedy to a tragedy is often praised and for a good reason
+								as the story would take a quick turn. Shakespeare also did a good job using dramatic irony consistently
+								in the story which I personally don’t enjoy that much as I feel it just spoils the story however it was
+								his intention.
+							</p>
+							<div class="post__actions">
+								<div class="post-button-box">
+									<div class="like_and_number_box">
+										<div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+													class="bi bi-suit-heart" viewBox="0 0 16 16">
+													<path
+														d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+												</svg>
+											</button></div>
+										<div class="number_of_likes">245</div>
+										<div class="number_of_likes">&nbsp;Number of comments: <span>&nbsp;2</span></div>
+
+									</div>
+								</div>
+
+								<div class="button button--fill comment-trigger" style="background-color: #D0C9C0;">
+									<span>Comment...</span>
+								</div>
+								<!-- <div class="button button--flag" >
+									<i class="fa fa-comment-o"></i><i class="fa fa-comment solid"></i>2
+								</div> -->
+								<div class="post__comments">
+									<div class="comment-group">
+										<div class="post">
+											<div class="post__avatar comment__avatar"></div>
+											<h3 class="post__author">
+												{{post author}}
+											</h3>
+											<h4 class="post__timestamp">
+												28/03/2024 13:51
+											</h4>
+											<p class="post__body">
+												I agree with you!
+											</p>
+										</div>
+										<div class="post">
+											<div class="post__avatar comment__avatar"></div>
+											<h3 class="post__author">
+												{{post author}}
+											</h3>
+											<h4 class="post__timestamp">
+												28/03/2024 13:51
+											</h4>
+											<p class="post__body">
+												Me too.
+											</p>
+										</div>
+									</div>
+									<div class="comment-form">
+										<div class="comment-form__avatar"></div>
+										<textarea></textarea>
+										<div class="comment-form__actions">
+											<div class="button button--light cancel">
+												Cancel
+											</div>
+											<div class="button button--confirm">
+												Comment
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="book-detail-page-right">
+
+				</div>
+
+			</div>
+		</div>
+		<div class="col-2">
+			<div class="book_rank_box">
+				<h1>BOOK RANK</h1>
+				<img class="book_rank_image" src="../../image/book_rank01.gif" alt="">
+				<a class="book_rank_link" href="#">Romeo and Juliet</a><br>
+				<img class="book_rank_image" src="../../image/book_rank02.gif" alt="">
+				<a class="book_rank_link" href="#">Pride and Prejudice</a><br>
+				<img class="book_rank_image" src="../../image/book_rank03.gif" alt="">
+				<a class="book_rank_link" href="#">Animal Farm</a><br>
+				<img class="book_rank_image" src="../../image/book_rank04.gif" alt="">
+				<a class="book_rank_link" href="#">Twilight</a><br>
+				<img class="book_rank_image" src="../../image/book_rank05.gif" alt="">
+				<a class="book_rank_link" href="#">Harry Potter</a><br>
+				<img class="book_rank_image" src="../../image/book_rank06.gif" alt="">
+				<a class="book_rank_link" href="#">The Good Earth</a><br>
+				<img class="book_rank_image" src="../../image/book_rank07.gif" alt="">
+				<a class="book_rank_link" href="#">The Diary of a Young Girl</a><br>
+				<img class="book_rank_image" src="../../image/book_rank08.gif" alt="">
+				<a class="book_rank_link" href="#">Joy Luck Club</a><br>
+				<img class="book_rank_image" src="../../image/book_rank09.gif" alt="">
+				<a class="book_rank_link" href="#">Daddy-Long-Legs</a><br>
+				<img class="book_rank_image" src="../../image/book_rank10.gif" alt="">
+				<a class="book_rank_link" href="#">Sorrows of Young Werther</a><br>
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- <footer>
+        <div class="container" style="background-color:rgb(0, 0, 0); color:rgb(0, 0, 0);">
+            <div style="float:right;">Author: Xiao Zhang (23363869) Yunfang Lyu (23685059)
+                Jinshu Zhang (23773086)
+                Alex Wang (24123115)
+                Philip Wu (23902134)
+            </div>
+        </div>
+    </footer> -->
+	<script>
+		$(document).ready(function () {
+			$('.like-button').click(function () {
+				var heart = $(this).find('.bi-suit-heart');
+				var numberOfLikes = $(this).closest('.like_click').find('.number_of_likes');
+				var currentLikes = parseInt(numberOfLikes.text());
+
+				if (heart.hasClass('filled')) {
+					heart.removeClass('filled');
+					heart.html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/></svg>');
+					numberOfLikes.text(currentLikes - 1);
+				} else {
+					heart.addClass('filled');
+					heart.html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="color: red;"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1"/></svg>');
+					numberOfLikes.text(currentLikes + 1);
+				}
+			});
+		});
+
+		function readMore() {
+			var dots = document.getElementById("dots");
+			var moreText = document.getElementById("more");
+			var btnText = document.getElementById("readMoreBtm");
+
+			if (dots.style.display === "none") {
+				dots.style.display = "inline";
+				btnText.innerHTML = "Read more";
+				moreText.style.display = "none";
+			} else {
+				dots.style.display = "none";
+				btnText.innerHTML = "Read less";
+				moreText.style.display = "inline";
+			}
+		}
+
+		$(".comment-trigger").click(function () {
+			$(this).parent().parent().toggleClass("post--commenting");
+		});
+
+		$(".button--flag").click(function () {
+			$(this).parent().parent().toggleClass("post--commenting");
+		});
+
+
+		$(".button--confirm").click(function () {
+			$(this).parent().parent().parent().parent().parent().toggleClass("post--commenting");
+		});
+
+		$(".button.cancel").click(function () {
+			$(this).parent().parent().parent().parent().parent().toggleClass("post--commenting");
+		});
+	</script>
+
+</body>
+
+</html>
