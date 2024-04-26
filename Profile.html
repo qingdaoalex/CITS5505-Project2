@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Noto Sans SC", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      .container {
+        display: flex;
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: 250px;
+        background-color: #d0c9c0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        color: #6d8b74;
+      }
+      .content {
+        flex-grow: 1;
+        padding: 20px;
+        background-color: #fff;
+      }
+      a {
+        display: block;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: #333;
+        border-left: 3px solid transparent;
+        transition: all 0.3s ease;
+      }
+      a:hover {
+        border-left-color: #0056b3;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <a href="#" id="profile">Personal Information</a>
+        <a href="#" id="comments">Comments Management</a>
+        <a href="#" id="points">Rewards</a>
+        <a href="#" id="security">Security Settings</a>
+      </div>
+      <div class="content" id="contentArea">
+        <!-- contents will update as side bar get clicked -->
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setupStaticLinks();
+      });
+
+      function setupStaticLinks() {
+        document
+          .getElementById("profile")
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            loadContent(
+              "profileSubpage/personalInformation.html",
+              initPersonalInfo
+            );
+          });
+        document
+          .getElementById("comments")
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            loadContent("profileSubpage/comments.html", initCommentsManagement);
+          });
+        document
+          .getElementById("points")
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            loadContent("profileSubpage/points.html", initRewards);
+          });
+        document
+          .getElementById("security")
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            loadContent("profileSubpage/security.html", initSecuritySettings);
+          });
+      }
+
+      function loadContent(url) {
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to load: " + response.statusText);
+            }
+            return response.text();
+          })
+          .then((html) => {
+            const contentArea = document.getElementById("contentArea");
+            contentArea.innerHTML = html;
+            // 调用对应的初始化函数
+            switch (url) {
+              case "profileSubpage/personalInformation.html":
+                initPersonalInfo();
+                break;
+              case "profileSubpage/comments.html":
+                initCommentsManagement(); // 确保名称正确
+                break;
+              case "profileSubpage/security.html":
+                initSecuritySettings(); // 确保此函数已定义并名称正确
+                break;
+              case "profileSubpage/points.html":
+                initRewards(); // 确保此函数已定义并名称正确
+                break;
+              default:
+                console.error("No init function for: ", url);
+                break;
+            }
+          })
+          .catch((error) => {
+            console.error("Error loading the content:", error);
+            document.getElementById(
+              "contentArea"
+            ).innerHTML = `<p>Error loading the content: ${error.message}</p>`;
+          });
+      }
+
+      // 初始化个人信息页面的函数，需要在 personalInformation 页面加载后调用
+      function initPersonalInfo() {
+        const editBtn = document.getElementById("editBtn");
+        const saveBtn = document.getElementById("saveBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+
+        // 绑定显示编辑表单的事件
+        if (editBtn) {
+          editBtn.addEventListener("click", function () {
+            document.getElementById("editForm").style.display = "block";
+            editBtn.style.display = "none";
+          });
+        }
+
+        // 绑定保存更改的事件
+        if (saveBtn) {
+          saveBtn.addEventListener("click", function () {
+            saveChanges(); // 调用保存更改函数
+          });
+        }
+
+        // 绑定取消更改的事件
+        if (cancelBtn) {
+          cancelBtn.addEventListener("click", function () {
+            cancelChanges(); // 调用取消更改函数
+          });
+        }
+      }
+
+      function initCommentsManagement() {
+        var tabs = document.getElementsByClassName("tablinks");
+        if (tabs.length > 0) {
+          for (let tab of tabs) {
+            tab.addEventListener("click", function (event) {
+              openTab(event, this.getAttribute("data-tabname"));
+            });
+          }
+          // 默认打开第一个标签
+          tabs[0].click();
+        } else {
+          console.error(
+            "Tab links not found: The content might not be loaded yet."
+          );
+        }
+      }
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        if (tabcontent.length === 0) {
+          console.error(
+            "Tab content not found: The content might not be loaded yet."
+          );
+          return; // 退出函数防止进一步的错误
+        }
+
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        var activeTab = document.getElementById(tabName);
+        if (activeTab) {
+          activeTab.style.display = "block";
+          evt.currentTarget.className += " active";
+        } else {
+          console.error(
+            "Active tab not found: Check if the tab ID is correct."
+          );
+        }
+      }
+
+      function initSecuritySettings() {
+        // 可能需要添加事件监听器或其他初始化代码
+        console.log("Security Settings initialized");
+        // 例如，为表单添加事件监听器
+        const passwordForm = document.getElementById("passwordForm");
+        if (passwordForm) {
+          passwordForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            changePassword(); // 调用更改密码的函数
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
