@@ -81,3 +81,12 @@ def register():
         logging.warning('Unknown error occurred during registration.')
     
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/reset', methods=['GET', 'POST'])
+def reset():
+    return render_template('reset.html', title="Reset Password")
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
