@@ -32,7 +32,7 @@
 			<ul>
 				<li>
 					<img class="profile-photo" src="{{ url_for('static', filename='user.png') }}" alt="user profile photo">
-					<span>User</span>
+					<span>{{ current_user.username }}</span>
 				</li>
 				<li>
 					<a href="{{ url_for('index') }}">
@@ -53,16 +53,19 @@
 					</a>
 				</li>
 				<li>
+					{% if current_user.is_anonymous %}
 					<a href="{{ url_for('login') }}">
 						<i class="fa fa-arrow-pointer"></i>
 						<span>Log in</span>
 					</a>
 				</li>
 				<li>
+					{% else %}
 					<a href="{{ url_for('logout') }}">
 						<i class="fa fa-right-to-bracket"></i>
 						<span>Log out</span>
 					</a>
+					{% endif %}
 				</li>
 			</ul>
 		</div>
@@ -92,16 +95,29 @@
         const checkbox = document.getElementById("checkbox");
         const searchContainer = document.querySelector(".search-container");
 
-        checkbox.addEventListener("change", function () {
+        const mediaQuery = window.matchMedia("(max-width: 700px)");
+
+        function handleWidthChange(mediaQuery) {
+            if (mediaQuery.matches) {
+                checkbox.addEventListener("change", toggleSearchContainer);
+            } else {
+                checkbox.removeEventListener("change", toggleSearchContainer);
+                searchContainer.style.visibility = "visible"; // Show search container by default if media width is greater than 500px
+            }
+        }
+
+        function toggleSearchContainer() {
             if (checkbox.checked) {
                 searchContainer.style.visibility = "visible";
             } else {
                 searchContainer.style.visibility = "hidden";
             }
-        });
-    });
-	</script>
+        }
 
+        handleWidthChange(mediaQuery); // Call initially to set up the listener based on current width
+        mediaQuery.addListener(handleWidthChange); // Listen for width changes
+    });
+</script>
 
 </body>
 
