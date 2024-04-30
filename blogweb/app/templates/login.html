@@ -51,7 +51,7 @@
 							{{ form.remember_me(class="check-box",id="login-check") }}
 							{{ form.remember_me.label(class="check-label") }}
 						</div>
-						<a class="flipbutton login-forgot" class="submit-button" href="#">Forgot Password?</a>
+						<a class="flipbutton login-forgot" class="submit-button" href="{{ url_for('reset') }}">Forgot Password?</a>
 					</div>
 					{{ form.submit(class="submit-button",id="login-button") }}
 					<p class="reminder">
