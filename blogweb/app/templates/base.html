@@ -9,7 +9,8 @@
 		{% if title %}
 		<title>Welcome - {{ title }}</title>
 		{% else %}
-		<title>Welcome to webapp!</title>
+		
+		<title>{% block title %}Welcome to webapp!{% endblock %}</title>
 		{% endif %}
 		<!-- Mobile Specific Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@
 	<body>
 		<nav>
 			<div class="sidebar">
-				<input type="checkbox" id="checkbox">
+				<input type="checkbox" id="checkbox" checked>
 				<label for="checkbox">
 					<i class="fa fa-outdent"></i>
 				</label>
@@ -47,7 +48,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="{{ url_for('user', username=current_user.username) }}">
 							<i class="fa fa-user"></i>
 							<span>Profile</span>
 						</a>
@@ -82,7 +83,8 @@
 			<div class="heading">
 				<h2>Write your book review now!</h2>
 			</div>
-			{% block content %}{% endblock %}
+		</div>
+			
 			<script>
 				document.addEventListener("DOMContentLoaded", function () {
 						const checkbox = document.getElementById("checkbox");
@@ -97,5 +99,6 @@
 						});
 				});
 			</script>
+			{% block content %}{% endblock %}
 	</body>
 </html>
