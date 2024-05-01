@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Information</title>
+    <style>
+      /* styles.css */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+
+      .profile-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
+      }
+
+      .profile-container h1 {
+        color: #333;
+      }
+      .user-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+
+      input[type="file"] {
+        margin-top: 5px;
+      }
+
+      .info-view p,
+      form label {
+        margin: 10px 0;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #0056b3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #003d82;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="profile-container">
+      <h1>Personal Information</h1>
+      <div class="info-view">
+        <img
+          src="default-avatar.png"
+          alt="User Avatar"
+          id="userAvatar"
+          class="user-avatar"
+        />
+        <p><strong>Username：</strong><span id="username">Philip</span></p>
+        <p>
+          <strong>Email：</strong><span id="email">Philip@example.com</span>
+        </p>
+        <p><strong>Bio：</strong><span id="bio"></span></p>
+        <button id="editBtn">Edit</button>
+      </div>
+      <form id="editForm" style="display: none">
+        <label for="usernameInput">Username：</label>
+        <input type="text" id="usernameInput" value="Username" /><br />
+        <label for="emailInput">Email：</label>
+        <input type="email" id="emailInput" value="Philip@example.com" /><br />
+        <label for="bioInput">Bio：</label>
+        <textarea id="bioInput">Bio here</textarea><br />
+        <button type="button" id="saveBtn">Save</button>
+        <button type="button" id="cancelBtn">Cancel</button><br /><br />
+        <label for="avatarInput">Change avatar:</label>
+        <input type="file" id="avatarInput" accept="image/*" />
+        <button type="button" onclick="saveChanges()">Save</button>
+        <button type="button" onclick="cancelChanges()">Cancel</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("editBtn").addEventListener("click", function () {
+        document.getElementById("editForm").style.display = "block";
+        document.getElementById("editBtn").style.display = "none";
+      });
+
+      function saveChanges() {
+        var username = document.getElementById("usernameInput").value;
+        var email = document.getElementById("emailInput").value;
+        var bio = document.getElementById("bioInput").value;
+
+        document.getElementById("username").textContent = username;
+        document.getElementById("email").textContent = email;
+        document.getElementById("bio").textContent = bio;
+
+        document.getElementById("editForm").style.display = "none";
+        document.getElementById("editBtn").style.display = "block";
+      }
+
+      function cancelChanges() {
+        document.getElementById("editForm").style.display = "none";
+        document.getElementById("editBtn").style.display = "block";
+      }
+    </script>
+  </body>
+</html>

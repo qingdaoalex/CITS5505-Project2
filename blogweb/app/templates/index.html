@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+</div>
+	<div class="main-content">
+		<h1>Hi, {{ current_user.username }}!</h1>
+		<form action="" method="POST">
+			{{ form.hidden_tag() }}			
+			<label for="content">Comment:</label><br>
+			<textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+			{{ form.submit() }}
+	</form><br>
+	<h2>Latest Comments:</h2><br>
+		{% for post in posts %}
+		<p><strong>{{ post.author.username }}</strong> said: </p>
+		<p>{{ post.body }}</p>
+		<p>Posted on:  {{ post.timestamp }}</p><hr>
+		
+
+		{% endfor %}
+		{% endblock %}
+
+	
