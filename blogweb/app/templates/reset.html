@@ -23,16 +23,17 @@
 	<div class="flip-container">
 		<div class="flipper" id="flipper">
 			<div class="reset" id="reset">
-				<form class="form-container" id="validation-form" action="#" method="POST">
+				<form class="form-container" action="" method="POST" novalidate>
+					{{ form.hidden_tag() }}
 					<h1 class="form-title">Reset Password</h1>
 					<div class="form-content">
 						<div class="form-box">
 							<i class="ri-mail-line input-icon"></i>
 							<div class="input-box">
-								<input required type="text" class="input-area" id="email-send" placeholder=" ">
-								<label for="email-send" class="input-label">Email address</label>
+								{{ form.email(size=64, class="input-area", placeholder=" ") }}
+								{{ form.email.label(class="input-label") }}
 							</div>
-							<button type="submit" id="send-button">send</button>
+							{{ form.submit(id="send-button") }}
 						</div>
 					</div>
 					<div class="form-content">
