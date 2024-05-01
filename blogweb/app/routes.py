@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegistrationForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app.models import User, Post
-from datetime import datetime
+from datetime import datetime, timezone
 import pytz
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -106,7 +106,13 @@ def not_found_error(error):
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
+        {'author': user, 'body': 'Test post #1 im mike'},
+        {'author': user, 'body': 'Test post #2 hello everyone'}
     ]
     return render_template('user.html', user=user, posts=posts)
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now(timezone.utc)
+        db.session.commit()
