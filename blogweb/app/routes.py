@@ -7,8 +7,6 @@ import sqlalchemy as sa
 from app.models import User, Post
 from datetime import datetime
 import pytz
-import logging
-logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -70,36 +68,19 @@ def register():
     
     form = RegistrationForm()
     if form.validate_on_submit():
-        try:
-            user = User(username=form.username.data, email=form.email.data)
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            logging.info('User registered successfully.')
-            flash('Congratulations, you are now a registered user!')
-            return redirect(url_for('login'))
-        except Exception as e:
-            logging.error(f'Error registering user: {str(e)}')
-            db.session.rollback()
-            flash('An error occurred while registering. Please try again later.', 'error')
-    
-    # Log if form validation fails or if the request method is not POST
-    if form.errors:
-        logging.error(f'Form validation failed: {form.errors}')
-    elif request.method != 'POST':
-        logging.info('Register page loaded (GET request).')
-    else:
-        logging.warning('Unknown error occurred during registration.')
-    
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        logging.info('User registered successfully.')
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
     return render_template('reset.html', title="Reset Password")
 
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('404.html'), 404
 
 @app.route('/user/<username>')
 @login_required
