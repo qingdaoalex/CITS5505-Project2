@@ -2,3 +2,4 @@
 /blogweb/__pycache__
 /blogweb/venv
 /blogweb/app/__pycache__
+blogweb/app.db

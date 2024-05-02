@@ -11,6 +11,7 @@
 
 .comments-list {
   margin-top: 30px;
+  /* position: relative; */
   display: flex;
 }
 
@@ -93,135 +94,135 @@
   margin-right: 10px;
 }
 
-<<<<<<< HEAD .sidebar ul li a i,
+<<<<<<< HEAD
+.sidebar ul li a i,
 .sidebar ul li form button i {
-  font-size: 18px;
-  margin: 0 15px;
+	font-size: 18px;
+	margin: 0 15px;
 }
 
 .sidebar ul li a span,
 .sidebar ul li form button span {
-  font-size: 14px;
+	font-size: 14px;
+=======
+.comment-box .comment-name a {
+  color: #283035;
+}
 
-  =======.comment-box .comment-name a {
-    color: #283035;
-  }
+.comment-box .comment-head span {
+  float: left;
+  color: #999;
+  font-size: 13px;
+  position: relative;
+  top: 1px;
+>>>>>>> origin
+}
 
-  .comment-box .comment-head span {
-    float: left;
-    color: #999;
-    font-size: 13px;
-    position: relative;
-    top: 1px;
-    >>>>>>>origin
-  }
+.comment-box .comment-content {
+  background: #FFF;
+  padding: 12px;
+  font-size: 15px;
+  color: #595959;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+/* -- Delete form -- */
+.sidebar ul li form {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
 
-  .comment-box .comment-content {
-    background: #FFF;
-    padding: 12px;
-    font-size: 15px;
-    color: #595959;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    border-radius: 0 0 4px 4px;
-  }
+<<<<<<< HEAD
+.sidebar ul li form button {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	color: #d2d2d2;
+	text-decoration: none;
+	border: none;
+	background: none;
+	padding: 0;
+}
 
-  /* -- Delete form -- */
-  .sidebar ul li form {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
+.sidebar ul li form button:hover {
+	color: #fff;
+}
 
-  <<<<<<< HEAD .sidebar ul li form button {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    color: #d2d2d2;
-    text-decoration: none;
-    border: none;
-    background: none;
-    padding: 0;
-  }
+/* -- Sidebar check -- */
+.sidebar input:checked+label {
+	left: 0;
+}
 
-  .sidebar ul li form button:hover {
-    color: #fff;
-  }
+.sidebar input:checked+label i {
+	transform: rotateY(180deg);
+}
 
-  /* -- Sidebar check -- */
-  .sidebar input:checked+label {
-    left: 0;
-  }
+.sidebar input:checked~ul {
+	left: -160px;
+}
 
-  .sidebar input:checked+label i {
-    transform: rotateY(180deg);
-  }
+/* -- Hero image -- */
+.hero-image {
+	position: relative;
+	margin-bottom: 2%;
+}
+.hero-image img {
+	width: 100%;
+	height: 25vh;
+	object-fit: cover;
+	object-position: center;
+	overflow: hidden;
+	opacity: 0.3;
+}
 
-  .sidebar input:checked~ul {
-    left: -160px;
-  }
+.hero-image {
+	background-color: #000;
+}
 
-  /* -- Hero image -- */
-  .hero-image {
-    position: relative;
-    margin-bottom: 2%;
-  }
+/* Text Effect */
+.heading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	text-align: center;
+	z-index: 0;
+}
 
-  .hero-image img {
-    width: 100%;
-    height: 25vh;
-    object-fit: cover;
-    object-position: center;
-    overflow: hidden;
-    opacity: 0.3;
-  }
+.heading h2 {
+	font-size: 50px;
+	color: #fff;
+	text-align: center;
+	overflow: hidden;
+	background: linear-gradient(90deg, #000, #fff, #000);
+	background-repeat: no-repeat;
+	background-size: 80%;
+	animation: light 5s linear infinite;
+	background-clip: text;
+}
 
-  .hero-image {
-    background-color: #000;
-  }
+@keyframes light {
+	0% {
+		background-position: -300%;
+	}
 
-  /* Text Effect */
-  .heading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
-    z-index: 0;
-  }
-
-  .heading h2 {
-    font-size: 50px;
-    color: #fff;
-    text-align: center;
-    overflow: hidden;
-    background: linear-gradient(90deg, #000, #fff, #000);
-    background-repeat: no-repeat;
-    background-size: 80%;
-    animation: light 5s linear infinite;
-    background-clip: text;
-  }
-
-  @keyframes light {
-    0% {
-      background-position: -300%;
-    }
-
-    100% {
-      background-position: 300%;
-    }
-
-    =======.comment-box .comment-name.by-author:after {
-      content: 'autor';
-      background: #03658c;
-      color: #FFF;
-      font-size: 12px;
-      padding: 3px 5px;
-      font-weight: 700;
-      margin-left: 10px;
-      border-radius: 3px;
-      >>>>>>>origin
-    }
+	100% {
+		background-position: 300%;
+	}
+=======
+.comment-box .comment-name.by-author:after {
+  content: 'autor';
+  background: #03658c;
+  color: #FFF;
+  font-size: 12px;
+  padding: 3px 5px;
+  font-weight: 700;
+  margin-left: 10px;
+  border-radius: 3px;
+>>>>>>> origin
+}
