@@ -5,7 +5,6 @@
 }
 
 body {
-	width: 100vm;
 	min-height: 100vh;
 	background-color: #f2f2f2;
 }
@@ -135,7 +134,6 @@ body {
 	object-position: center;
 	overflow: hidden;
 	opacity: 0.3;
-	filter: alpha(opacity=30);
 }
 
 .hero-image {
@@ -163,7 +161,6 @@ body {
 	background-size: 80%;
 	animation: light 5s linear infinite;
 	background-clip: text;
-	-webkit-text-fill-color: rgba(255, 255, 255, 0);
 }
 
 @keyframes light {
