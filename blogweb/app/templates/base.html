@@ -67,6 +67,14 @@
 							<i class="fa fa-right-to-bracket"></i>
 							<span>Log out</span>
 						</a>
+					</li>
+					<li>
+						<form id="delete-form" action="{{ url_for('delete_account') }}" method="post">
+							<button type="submit">
+									<i class="fa fa-delete-left"></i>
+									<span>Delete</span>
+							</button>
+					</form>					
 						{% endif %}
 					</li>
 				</ul>
@@ -99,6 +107,12 @@
 								}
 						});
 				});
+				document.getElementById("delete-form").addEventListener("submit", function(event) {
+					event.preventDefault(); // Prevent the default form submission
+					if (confirm("Are you sure you want to delete your account?")) {
+							this.submit(); // If user confirms, submit the form
+					}
+    		});
 			</script>
 			{% block content %}{% endblock %}
 	</body>
