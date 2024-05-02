@@ -19,32 +19,10 @@
 	<body>
 		<img src="{{ url_for('static', filename='background.jpg') }}" alt="background image">
 		{% block content %}{% endblock %}
-		{% with messages = get_flashed_messages() %}
-    	{% if messages %}
-        {% for message in messages %}
-            <div class="flash-message">{{ message }}</div>
-        {% endfor %}
-			{% endif %}
-		{% endwith %}
+		
 
 		<!-- JavaScripts -->
 		<script src="{{ url_for('static', filename='flip.js') }}"></script>
-		<script>
-			// Function to handle flash messages and display them as alerts
-			function handleFlashMessages() {
-            // Get all flash messages
-            var flashMessages = document.querySelectorAll('.flash-message');
-            
-            // Loop through each flash message
-            flashMessages.forEach(function(message) {
-                // Show flash message as an alert
-                alert(message.innerText.trim());
-            });
-        }
-        // Call the function when the page is loaded
-        window.onload = function() {
-            handleFlashMessages();
-        };
-		</script>
+		
 	</body>
 </html>
