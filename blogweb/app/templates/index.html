@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
 
 
 {% block content %}
@@ -7,18 +10,38 @@
 		<h1>Hi, {{ current_user.username }}!</h1>
 		<form action="" method="POST">
 			{{ form.hidden_tag() }}			
-			<label for="content">Comment:</label><br>
-			<textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
-			{{ form.submit() }}
-	</form><br>
-	<h2>Latest Comments:</h2><br>
-		{% for post in posts %}
-		<p><strong>{{ post.author.username }}</strong> said: </p>
-		<p>{{ post.body }}</p>
-		<p>Posted on:  {{ post.timestamp }}</p><hr>
-		
-
-		{% endfor %}
-		{% endblock %}
+			<p>
+				{{ form.post.label }}<br><br>
+				{{ form.post(cols=50, rows=4) }}<br>
+				{% for error in form.post.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+		</p>
+		<p>{{ form.submit() }}</p>
+</form>
+{% for post in posts %}
+<p>
+{{ post.author.username }} says: <b>{{ post.body }}</b>
+</p>
+{% endfor %}
+		<div class="comments-container">
+			<h3>Comment</h3>
+			<div id="comments-list" class="comments-list">
+				<div class="comment-avatar"><img
+						src="{{ current_user.avatar(180) }}" alt="image"></div>
+				<div class="comment-box">
+					<div class="comment-head">
+						<h6 class="comment-name by-author"><a href="#">Agustin Ortiz</a></h6>
+						<span>timestamp 2024.04.27 14:00</span>
+						<i class="fa fa-heart"></i>
+					</div>
+					<div class="comment-content">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae,
+						praesentium optio, sapiente distinctio illo?
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
 
 	

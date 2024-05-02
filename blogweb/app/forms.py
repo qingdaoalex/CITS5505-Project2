@@ -50,3 +50,6 @@ class EditProfileForm(FlaskForm):
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Submit')
+    
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
