@@ -62,6 +62,21 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/delete', methods=['POST'])
+@login_required
+def delete_account():
+    user_id = current_user.id
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        logout_user()  # Logout the user after deletion
+        flash('Your account has been deleted successfully.')
+        return redirect(url_for('index'))
+    else:
+        flash('User not found.')
+        return redirect(url_for('index'))
+    
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:

@@ -185,7 +185,7 @@ body {
     text-decoration: underline;
 }
 /* -- Continue flip effect setting */
-.login, .register, .reset {
+.login, .register, .reset, .delete {
     position: absolute;
     left: 50%;
     top:50%;
