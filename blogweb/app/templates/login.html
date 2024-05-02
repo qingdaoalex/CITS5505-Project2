@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<!-- Basic Page Needs -->
-	<meta charset="UTF-8">
-	<meta name="description" content="This is a login page for our web app.">
-	<meta name="author" content="Yunfang Lyu(23685059)">
-	<meta name="keywords" content="login">
-	<title>{{ title }}</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<!-- Stylesheets -->
-	<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='love.png') }}">
-	<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
-
-</head>
-
-<body>
-	<img src="{{ url_for('static', filename='background.jpg') }}" alt="background image">
+{% extends "base2.html" %}
+{% block content %}
 	<div class="flip-container">
 		<div class="flipper" id="flipper">
 			<div class="login" id="login">
@@ -63,28 +42,4 @@
 			</div>
 		</div>
 	</div>
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-	<ul>
-			{% for message in messages %}
-			<li>{{ message }}</li>
-			{% endfor %}
-	</ul>
-	{% endif %}
-	{% endwith %}
-	<!-- JavaScripts -->
-	<script src="{{ url_for('static', filename='flip.js') }}"></script>
-	{% if form.username.errors %}
-    <script>
-        alert("Username field: {{ form.username.errors[0] }}");
-    </script>
-	{% endif %}
-	{% if form.password.errors %}
-			<script>
-					alert("Password field: {{ form.password.errors[0] }}");
-			</script>
-	{% endif %}
-
-</body>
-
-</html>
+{% endblock %}

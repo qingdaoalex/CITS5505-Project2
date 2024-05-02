@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Basic Page Needs -->
+		<meta charset="UTF-8">
+		<meta name="description" content="This is the login, register, reset password pages for our web app.">
+		<meta name="author" content="Yunfang Lyu(23685059)">
+		<meta name="keywords" content="login, register, reset password">
+		<title>{{ title }}</title>
+		<!-- Mobile Specific Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!-- Stylesheets -->
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='love.png') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+	</head>
+	<body>
+		<img src="{{ url_for('static', filename='background.jpg') }}" alt="background image">
+		{% block content %}{% endblock %}
+		{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+        {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+			{% endif %}
+		{% endwith %}
+
+		<!-- JavaScripts -->
+		<script src="{{ url_for('static', filename='flip.js') }}"></script>
+		<script>
+			// Function to handle flash messages and display them as alerts
+			function handleFlashMessages() {
+            // Get all flash messages
+            var flashMessages = document.querySelectorAll('.flash-message');
+            
+            // Loop through each flash message
+            flashMessages.forEach(function(message) {
+                // Show flash message as an alert
+                alert(message.innerText.trim());
+            });
+        }
+        // Call the function when the page is loaded
+        window.onload = function() {
+            handleFlashMessages();
+        };
+		</script>
+	</body>
+</html>
