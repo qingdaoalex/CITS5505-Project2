@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+{% block styles %}
+{{ super() }} 
+<link rel="stylesheet" href="{{ url_for('static', filename='edit_profile.css') }}">{% endblock %}
+{% block content %}
+    <div class="profile-container">
+      <h1>Personal Information</h1>
+      <div class="info-view">
+        <img src="{{ user.avatar(128) }}">
+        <p><strong>Username: </strong><span id="username">{{ user.username }}</span></p>
+        <p>
+          <strong>Email: </strong><span id="email">{{ user.email }}</span>
+        </p>
+        <p><strong>About me: </strong><span id="bio">{{ user.about_me }}</span></p>
+        <button id="editBtn">Edit</button>
+      </div>
+      <form id="editForm" style="display: none" action="" method="post">
+          {{ form.hidden_tag() }}
+          {{ form.username.label }}
+          {{ form.username(size=32) }}<br>
+          {% for error in form.username.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}<br>        
+          {{ form.about_me.label }}<br>
+          {{ form.about_me(cols=50, rows=4) }}<br>
+          {% for error in form.about_me.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}<br>
+          {{ form.submit() }}<br /><br />
+        <label for="avatarInput">Change avatar:</label>
+        <input type="file" id="avatarInput" accept="image/*" /><br><br>
+        <button type="button" onclick="saveChanges()">Save</button>        
+      </form>
+    </div>
+    <script>
+      document.getElementById("editBtn").addEventListener("click", function () {
+        document.getElementById("editForm").style.display = "block";
+        document.getElementById("editBtn").style.display = "none";
+      });
+    
+      document.getElementById("saveBtn").addEventListener("click", function () {
+        var username = document.getElementById("usernameInput").value;
+        var bio = document.getElementById("bioInput").value;
+    
+        document.getElementById("username").textContent = username;
+        document.getElementById("bio").textContent = bio;
+    
+        document.getElementById("editForm").style.display = "none";
+        document.getElementById("editBtn").style.display = "block";
+      });
+    </script>
+{% endblock %}
