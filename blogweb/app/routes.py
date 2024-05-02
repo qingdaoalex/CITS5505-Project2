@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from urllib.parse import urlsplit
-from app import app, db
+from app import app, db, mail
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
@@ -89,7 +89,7 @@ def reset_password_request():
             send_password_reset_email(user)
         flash('Check your email for the instructions to reset your password')
         return redirect(url_for('login'))
-    return render_template('reset.html',
+    return render_template('reset-request.html',
                            title='Reset Password', form=form)
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -105,8 +105,7 @@ def reset_password(token):
         db.session.commit()
         flash('Your password has been reset.')
         return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
-
+    return render_template('reset.html',form=form)
 
 @app.route('/user/<username>')
 @login_required
