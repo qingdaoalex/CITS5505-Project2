@@ -8,8 +8,7 @@ class Config:
     # Mail configuration
     MAIL_SERVER = 'smtp.qq.com'
     MAIL_PORT = 465
+    MAIL_USE_SSL = True
     MAIL_USERNAME = 'cits5505webapp@qq.com'
     MAIL_PASSWORD = 'woddizqutfukcjja'
-    MAIL_USE_TLS = False
-    MAIL_USE_TLS = True
-    ADMINS = ['cits5505webapp@qq.com']
+    ADMINS = ['l98lavie@gmail.com']
