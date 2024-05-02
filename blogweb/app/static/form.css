@@ -160,16 +160,6 @@ body {
     text-decoration: underline;
 }
 
-
-/* -- Send email button -- */
-#send-button {
-    background: none;
-    border: solid 1.5px;
-    border-radius: 0.5rem;
-    padding: 5px;
-    color: var(--white-color);
-    font-size: var(--normal-font-size);
-}
 /* -- All submit buttons -- */
 .submit-button {
     width:100%;
