@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+
+{% block content %}
+</div>
+	<div class="main-content">
+		<h1>Hi, {{ current_user.username }}!</h1>
+		<form action="" method="POST">
+			{{ form.hidden_tag() }}			
+			<p>
+				{{ form.post.label }}<br><br>
+				{{ form.post(cols=50, rows=4) }}<br>
+				{% for error in form.post.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+		</p>
+		<p>{{ form.submit() }}</p>
+</form>
+{% for post in posts %}
+<p>
+{{ post.author.username }} says: <b>{{ post.body }}</b>
+</p>
+{% endfor %}
+<h3>Comment</h3>
+{% for post in posts %}
+		<div class="comments-container">
+			
+			<div id="comments-list" class="comments-list">
+				<div class="comment-avatar"><img
+						src="{{ current_user.avatar(180) }}" alt="image"></div>
+				<div class="comment-box">
+					<div class="comment-head">
+						<h6 class="comment-name by-author"><a href="#">{{ post.author.username }}</a></h6>
+						<span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+						<i class="fa fa-heart"></i>
+					</div>
+					<div class="comment-content">{{ post.body }}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+{% endblock %}
+
+	
