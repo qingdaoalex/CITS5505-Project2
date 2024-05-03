@@ -1,4 +1,6 @@
-#!/Users/alexuwa/Desktop/microblog/venv/bin/python3
+#!/bin/sh
+'''exec' "/Users/alexuwa/Desktop/microblog 2/venv/bin/python3.12" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

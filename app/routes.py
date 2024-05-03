@@ -7,6 +7,9 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, CommentForm
 from app.forms import CommentForm
 
 from app.models import User
+# Lecture
+# from app.models import Student
+
 
 
 from datetime import datetime, timezone
@@ -52,7 +55,26 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+# lecture
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     print(request.method)
+#     form = LoginForm()
+#     if request.method=="GET" :
+#         return render_template("login.html", form=form)
+#     studentID = form.uwa_id.data
+#     student = Student.query.get(studentID)
+#     if not student:
+#         flash("no such student")
+#         return render_template("login.htlm", form = form)
+#     password = form.password.data
+#     if not student.check_password(password):
+#         flash("invalid password")
+#         return render_template("login.html", form=form)
+    
 
+ 
+    
 @app.route('/logout')
 def logout():
     logout_user()

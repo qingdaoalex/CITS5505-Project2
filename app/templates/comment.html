@@ -6,6 +6,8 @@
         {{ form.hidden_tag() }}
   
         <p>
+            <!-- username = StringField('Uusername', validators=[DataRequired()]) -->
+
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}<br>
             {{ form.comment.label }}<br>
