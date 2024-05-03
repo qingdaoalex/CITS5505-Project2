@@ -3,7 +3,9 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 import sqlalchemy as sa
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, CommentForm
+from app.forms import CommentForm
+
 from app.models import User
 
 
@@ -97,3 +99,25 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+@app.route('/comment', methods=['GET', 'POST'])
+@login_required
+def edit_comment():
+    form = CommentForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.comment = form.comment.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit_comment'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.comment.data = current_user.comment
+
+    return render_template('comment.html', title='comment',form=form)
+
+# @app.route('/book_detail', methods=['GET', 'POST'])
+# @login_required
+# def book_detail():
+    
+#     return render_template('book_detail.html', title='book detail')

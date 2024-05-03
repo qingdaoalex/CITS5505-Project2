@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
     # users and posts, and for that reason it isn't in the database diagram. 
     # Likewise, the Post class has an author field that is also initialized as a relationship. 
     # These two attributes allow the application to access the connected user and post entries.
-
+    comment: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
     about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
     last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(default=lambda: datetime.now(timezone.utc))
 
