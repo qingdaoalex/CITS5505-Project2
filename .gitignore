@@ -4,3 +4,6 @@
 /blogweb/app/__pycache__
 blogweb/app.db
 /blogweb/logs
+*.pyc
+logs/
+venv/
