@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="image/icon.ico" type="image/x-icon" />
+    <link href="https://www.w3school.com.cn/lib/bs/bootstrap.css" rel="stylesheet">
+    <script src="https://www.w3school.com.cn/lib/bs/bootstrap.js"></script>
+    <link rel="stylesheet" href="home_page.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light-green navbar-expand-sm">
+        <div class="container-fluid d-flex justify-content-between align-items-center w-100">
+            <div class="d-flex flex-grow-1 justify-content-start"><a class="navbar-brand " href="#">LOGO image</a></div>
+            <div class="d-flex flex-grow-1 justify-content-between align-items-center">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2 transparent-input" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success search-button" type="submit">Search</button>
+                </form>
+                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class=" dropdown justify-content-end" data-bs-hover="dropdown" style="text-align: right; width: 10%;">
+                <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="padding: 0;">
+                    <img src="image/user.png" alt="user profile photo" style="width: 25%;">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="right: 2%;">
+                    <li><a class=" dropdown-item" href="#">My account</a></li>
+                    <li><a class="dropdown-item" href="#">Review management</a></li>
+                    <li><a class="dropdown-item" href="#">My lists</a></li>
+                    <li><a class="dropdown-item" href="#">My rewards action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign in</a><a class="dropdown-item" href="#">Log
+                            in</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <div class="bigbox ">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 mb-2 firstbox">
+                <div class="book_rank_box">
+                    <h1>BOOK RANK</h1>
+                    <img class="book_rank_image" src="image/book_rank01.gif" alt="">
+                    <a class="book_rank_link" href="#">Romeo and Juliet</a><br>
+                    <img class="book_rank_image" src="image/book_rank02.gif" alt="">
+                    <a class="book_rank_link" href="#">Pride and Prejudice</a><br>
+                    <img class="book_rank_image" src="image/book_rank03.gif" alt="">
+                    <a class="book_rank_link" href="#">Animal Farm</a><br>
+                    <img class="book_rank_image" src="image/book_rank04.gif" alt="">
+                    <a class="book_rank_link" href="#">Twilight</a><br>
+                    <img class="book_rank_image" src="image/book_rank05.gif" alt="">
+                    <a class="book_rank_link" href="#">Harry Potter</a><br>
+                    <img class="book_rank_image" src="image/book_rank06.gif" alt="">
+                    <a class="book_rank_link" href="#">The Good Earth</a><br>
+                    <img class="book_rank_image" src="image/book_rank07.gif" alt="">
+                    <a class="book_rank_link" href="#">The Diary of a Young Girl</a><br>
+                    <img class="book_rank_image" src="image/book_rank08.gif" alt="">
+                    <a class="book_rank_link" href="#">Joy Luck Club</a><br>
+                    <img class="book_rank_image" src="image/book_rank09.gif" alt="">
+                    <a class="book_rank_link" href="#">Daddy-Long-Legs</a><br>
+                    <img class="book_rank_image" src="image/book_rank10.gif" alt="">
+                    <a class="book_rank_link" href="#">Sorrows of Young Werther</a><br>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-8 mb-5 secondbox">
+                <div class="main_content_box">
+                    <div class="maincontent_part1">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="image/romeo_and_juliet.jpg" class="d-block w-100" alt="romeo_and_juliet">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="image/pride_and_prijudice.jpg" class="d-block w-100"
+                                        alt="pride_and_prijudice">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="image/Twilight.jpg" class="d-block w-100" alt="Twilight">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="image/Harry_Potter.jpg" class="d-block w-100" alt="Harry_Potter">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="maincontent_part2">
+                        <div>
+                            <h4 class="box_information_title">Books</h4>
+                        </div>
+                        <ul class="bookline">
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/book1cover.jpg" alt=""></div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list"
+                                        src="image/pride_and_prijudice_bookcover.jpg" alt=""></div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/Harry_Potter_bookcover.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/Animal Farm_bookcover.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/Daddy-Long-Legs_bookcover.jpg"
+                                        alt="">
+
+                                    <div>
+                                        <div><a href="">title</a>
+                                        </div>
+                                        <div>
+                                            <p>description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="bookline">
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/romeo_and_juliet_bookcover.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list"
+                                        src="image/The Diary of a Young Girl_bookcover.jpg" alt=""></div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/The Good Earth_bookcover.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/Twilight_bookcover.jpg" alt="">
+                                </div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description ce Superfluorescent Highlighter Shuttle Art Brush Penscd</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="a"><img class="book_align_list" src="image/book1cover.jpg" alt=""></div>
+                                <div>
+                                    <div><a href="">title</a>
+                                    </div>
+                                    <div>
+                                        <p>description Ice Superfluorescent Highlighter Shuttle Art Brush Penscd</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="maincontent_part3">
+                        <div>
+                            <h4 class="box_information_title">Rewards</h4>
+                        </div>
+                        <ul class="rewardsline">
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list" src="image/pen.jpg"
+                                        alt="">
+
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">Shuttle Art Brush Penscd</p>
+                                        <p class="rewards_points">100 points</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/sticker_note.jpg" alt="">
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">Transparent Sticky Note Pad</p>
+                                        <p class="rewards_points">120 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/highliger.jpg" alt="">
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">Ice Superfluorescent Highlighter</p>
+                                        <p class="rewards_points">150 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/notebook.jpg" alt="">
+
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">TAKA PRYOR Lined Journal Notebook</p>
+                                        <p class="rewards_points">180 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="rewardsline">
+
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/bookmark.jpg" alt="">
+
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">Moon book mark</p>
+                                        <p class="rewards_points">200 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/bookreward1.jpg" alt="">
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">The Long Haul: Diary of a Wimpy Kid</p>
+                                        <p class="rewards_points">500 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/bookreward2.jpg" alt="">
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">The Old Man and Sea</p>
+                                        <p class="rewards_points">600 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="each_big_rewards_box"><img class="rewards_align_list"
+                                        src="image/bookreward3.jpg" alt="">
+
+                                    <div class="rewards_item_info">
+                                        <p class="rewards_item_name">War and Peace</p>
+                                        <p class="rewards_points">700 points</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-3 col-md-2 mb-2 thirdbox">
+                <div class="hot_request_box">
+                    <h1>BOOK REVIEW</h1>
+                    <div class="like_click">
+                        <div class="review_words">Characters so vivid, they leap off the page. A must-read!</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+                                </button></div>
+                            <div class="number_of_likes">245</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">A rollercoaster of emotions from start to finish. Bravo</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">149</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">Heartfelt and poignant, this book tugs at all the right emotions.
+                        </div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()"
+                                    style="align-items: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">121</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">Engaging plot with richly developed characters. 5 stars!</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">103</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">An immersive world that pulls you in from the very first sentence
+                        </div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">96</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">Masterful storytelling that keeps you guessing until the end.</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">87</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">A literary gem that deserves a spot on every bookshelf. Simply
+                            brilliant!</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">82</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">A thought-provoking read that stays with you long after the last page.
+                        </div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">73</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">Captivating narrative with unexpected twists! Couldn't put it down!
+                        </div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">61</div>
+                        </div>
+                    </div>
+                    <div class="like_click">
+                        <div class="review_words">How amazing this book is!</div>
+                        <div class="like_and_number_box">
+                            <div class="heart_button"><button id="likeButton" class="like-button" onclick="like()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+
+                                </button></div>
+                            <div class="number_of_likes">54</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container" style="background-color:rgb(0, 0, 0); color:rgb(0, 0, 0);">
+            <div style="float:right;">Author: Xiao Zhang (23363869) Yunfang Lyu (23685059)
+                Jinshu Zhang (23773086)
+                Alex Wang (24123115)
+                Philip Wu (23902134)
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $('.like-button').click(function () {
+                var heart = $(this).find('.bi-suit-heart');
+                var numberOfLikes = $(this).closest('.like_click').find('.number_of_likes');
+                var currentLikes = parseInt(numberOfLikes.text());
+
+                if (heart.hasClass('filled')) {
+                    heart.removeClass('filled');
+                    heart.html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/></svg>');
+                    numberOfLikes.text(currentLikes - 1);
+                } else {
+                    heart.addClass('filled');
+                    heart.html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="color: red;"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1"/></svg>');
+                    numberOfLikes.text(currentLikes + 1);
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
