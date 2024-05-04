@@ -118,7 +118,7 @@ function limitNameLength(event) {
 
 // Function to handle email input validation
 function validateEmail() {
-  let email = emailInput.value;
+  let email = emailInput.value.trim(); // Trim whitespace from input
 
   let emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!emailIsValid) {
