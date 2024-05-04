@@ -15,6 +15,7 @@
 		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='love.png') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<img src="{{ url_for('static', filename='background.jpg') }}" alt="background image">
@@ -29,6 +30,6 @@
 							{% endfor %}
 					{% endif %}
 			{% endwith %}
-	</script>	
+		</script>	
 	</body>
 </html>
