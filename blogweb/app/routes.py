@@ -21,6 +21,7 @@ def index():
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
+    
     page = request.args.get('page', 1, type=int)
     posts = db.paginate(current_user.following_posts(), page=page,
                         per_page=app.config['POSTS_PER_PAGE'], error_out=False)
@@ -29,7 +30,7 @@ def index():
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('index.html', title='Home', form=form,
-                           posts=posts.items, next_url=next_url,
+                           posts=posts, next_url=next_url,
                            prev_url=prev_url)
 
 
