@@ -118,10 +118,7 @@ def reset_password(token):
 @login_required
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
-    posts = [
-        {'author': user, 'body': 'Test post #1 im mike'},
-        {'author': user, 'body': 'Test post #2 hello everyone'}
-    ]
+    posts = db.session.scalars(current_user.following_posts()).all()
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts, form=form)
 
