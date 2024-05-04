@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, session
+from flask import render_template, flash, redirect, url_for, request, session, jsonify
 from urllib.parse import urlsplit
 from app import app, db, mail
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm
@@ -84,6 +84,12 @@ def register():
     
     form = RegistrationForm()
     if form.validate_on_submit():
+        # Check if username or email already exists
+        existing_user = User.query.filter((User.username == form.username.data) | (User.email == form.email.data)).first()
+        if existing_user:
+            flash('Username or email already exists.', 'error')
+            return redirect(url_for('register'))
+        # Create new user
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -91,6 +97,20 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/check_availability', methods=['POST'])
+def check_availability():
+    username = request.json.get('username')
+    email = request.json.get('email')
+
+    existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
+    if existing_user:
+        if existing_user.username == username:
+            return jsonify({'available': False, 'field': 'username'})
+        else:
+            return jsonify({'available': False, 'field': 'email'})
+    else:
+        return jsonify({'available': True})
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():

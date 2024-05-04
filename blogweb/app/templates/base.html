@@ -109,7 +109,7 @@
 				});
 				document.getElementById("delete-form").addEventListener("submit", function(event) {
 					event.preventDefault(); // Prevent the default form submission
-					if (confirm("Are you sure you want to delete your account?")) {
+					if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
 							this.submit(); // If user confirms, submit the form
 					}
     		});
