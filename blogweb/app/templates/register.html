@@ -52,4 +52,42 @@
 			</div>
 		</div>
 	</div>
+	<script>
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+			event.preventDefault(); // Prevent the form from submitting
+			});
+
+		document.getElementById('register-user-name').addEventListener('input', function() {
+			var username = this.value;
+			var usernameIsValid = /^[a-zA-Z0-9]{4,19}$/.test(username);
+			if (!usernameIsValid) {
+					this.style.backgroundColor = '#F7B7A6';
+					alert("Username can only contain numbers or alphabets, and must be between 4 to 19 characters long.");
+			} else {
+					this.style.backgroundColor = ''; 
+			}
+		});
+
+
+		document.getElementById('register-password').addEventListener('input', function() {
+			var password = this.value;
+			var passwordIsValid = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{7,19}$/.test(password);
+			if (passwordIsValid) {
+					this.style.backgroundColor = '#DAF7A6';
+			} else {
+					this.style.backgroundColor = '#F7B7A6';
+			}
+		});
+
+		document.getElementById('confirm-password').addEventListener('input', function() {
+			var confirmPassword = this.value;
+			var password = document.getElementById('register-password').value;
+			var passwordsMatch = password === confirmPassword;
+			if (passwordsMatch) {
+					this.style.backgroundColor = 'lightgreen';
+			} else {
+					this.style.backgroundColor = 'salmon';
+			}
+		});
+	</script>
 {% endblock %}
