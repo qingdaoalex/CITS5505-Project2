@@ -15,7 +15,7 @@ How to run the web page:
 2. Install all needed packages
 - pip install -r requirements.txt
 
-3. Initialize database:
+3. Initialize database(Before initialize database make sure there is no **"migrations"** folder):
 - $flask db init
 - $flask db migrate
 - $flask db upgrade
