@@ -19,7 +19,6 @@ def index():
         current_user.timestamp = datetime.now()
         db.session.add(post)
         db.session.commit()
-        flash('Your post is now live!')
         return redirect(url_for('index'))
     
     page = request.args.get('page', 1, type=int)
