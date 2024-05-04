@@ -12,3 +12,4 @@ class Config:
     MAIL_USERNAME = 'cits5505webapp@qq.com'
     MAIL_PASSWORD = 'woddizqutfukcjja'
     ADMINS = ['l98lavie@gmail.com']
+    POSTS_PER_PAGE = 25
