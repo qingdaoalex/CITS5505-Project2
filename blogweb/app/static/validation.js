@@ -73,11 +73,11 @@ function validateUsername() {
 
   if (!usernameIsValid) {
     userNameInput.style.backgroundColor = ALERT_COLOR;
-    nameAlertShown = false;
+    usernameAlertShown = false;
   } else {
     userNameInput.style.backgroundColor = SUCCESS_COLOR;
     // Update the variable to indicate that the username alert has been shown
-    nameAlertShown = true;
+    usernameAlertShown = true;
   }
 }
 
