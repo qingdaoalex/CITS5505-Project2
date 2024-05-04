@@ -6,7 +6,7 @@ CITS5505 group project plan (4.19-4.26)
   - 4.book review page -alex
 - the useful entensions in vscode:Git Graph,Git History, GitLens, Git supercharged
 
-how to run the web page:
+How to run the web page:
 1. Create virtual environment：
 - (linux) $ python3 -m venv venv then $ source venv/bin/activate
 - (bash) $ python -m venv venv then $ source venv/Scripts/activate 
