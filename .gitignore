@@ -1,0 +1,5 @@
+migrations/
+blogweb/app.db
+*.pyc
+logs/
+venv/
