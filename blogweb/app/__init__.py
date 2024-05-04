@@ -18,6 +18,9 @@ login = LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
 
+if __name__ == '__main__':
+    app.run(debug=True)
+
 if not app.debug:
     if app.config['MAIL_SERVER']:
         auth = None
