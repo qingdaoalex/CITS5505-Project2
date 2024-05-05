@@ -3,6 +3,6 @@
       <td style:"width=70px"><img src="{{ post.author.avatar(80) }}"></td>
       <td>
         <strong>{{ post.author.username }}</strong> said:<br>{{ post.body }}<br>
-        Posted on:  {{ post.timestamp }}</td>
+        Posted on:  {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
   </tr>
 </table><hr>
