@@ -168,7 +168,7 @@ def before_request():
 @login_required
 def edit_profile():
     form = EditProfileForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(current_user.username):
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.email = form.email.data
