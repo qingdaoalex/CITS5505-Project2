@@ -7,6 +7,7 @@
 </div>
 	<div class="main-content">
 		<h1>Hi, {{ current_user.username }}!</h1>
+		{% if form %}
 		<form action="" method="POST">
 			{{ form.hidden_tag() }}			
 			<p>
@@ -18,24 +19,10 @@
 		</p>
 		<p>{{ form.submit() }}</p>
 </form>
+{% endif %}
 <h3>Comment</h3>
 {% for post in posts %}
-		<div class="comments-container">
-			
-			<div id="comments-list" class="comments-list">
-				<div class="comment-avatar"><img
-						src="{{ current_user.avatar(180) }}" alt="image"></div>
-				<div class="comment-box">
-					<div class="comment-head">
-						<h6 class="comment-name by-author"><a href="#">{{ post.author.username }}</a></h6>
-						<span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-						<i class="fa fa-heart"></i>
-					</div>
-					<div class="comment-content">{{ post.body }}
-					</div>
-				</div>
-			</div>
-		</div>
+{% include '_post.html' %}
 		{% endfor %}
 
 		<nav aria-label="Page navigation example">
