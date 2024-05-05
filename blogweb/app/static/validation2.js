@@ -6,22 +6,14 @@ const PASSWORD_MAX_LENGTH = 20;
 const ALERT_COLOR = '#F7B7A6';
 const SUCCESS_COLOR = '';
 
-// Variable to keep track of whether specific alert message has been shown
-var usernameExistsAlertShown = false;
-var emailExistsAlertShown = false;
-
 // Selectors
 const userNameInput = document.getElementById('reset-username');
 const emailInput = document.getElementById('reset-email');
-const aboutInput = document.getElementById('about-me');
 
 // Event listeners
 userNameInput.addEventListener('input', validateUsername);
 userNameInput.addEventListener('keypress', limitNameLength);
-userNameInput.addEventListener('blur', checkUsernameAvailability);
 emailInput.addEventListener('input', validateEmail);
-emailInput.addEventListener('blur', checkEmailAvailability);
-aboutInput.addEventListener('keypress', limitInput);
 
 // Function to validate username input
 function validateUsername() {
@@ -47,24 +39,6 @@ function limitNameLength(event) {
   }
 }
 
-// Function to check the availability of a username
-function checkUsernameAvailability() {
-  let username = userNameInput.value; // Get the value of the username input field
-  $.ajax({
-    url: '/check_availability',
-    type: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify({username: username}),
-    success: function(response) {
-      if (!response.available) {
-        userNameInput.style.backgroundColor = FORBIDDEN_COLOR;
-      } else {
-        userNameInput.style.backgroundColor = SUCCESS_COLOR;
-      }
-    }
-  });
-}
-
 // Function to handle email input validation
 function validateEmail() {
   let email = emailInput.value.trim(); // Trim whitespace from input
@@ -75,25 +49,4 @@ function validateEmail() {
     } else {
       emailInput.style.backgroundColor = SUCCESS_COLOR;
     }
-}
-
-// Function to check the availability of the email
-function checkEmailAvailability() {
-  let email = emailInput.value;
-
-  if (!emailExistsAlertShown) {
-    $.ajax({
-      url: '/check_availability',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({email: email}),
-      success: function(response) {
-        if (!response.available) {
-          emailInput.style.backgroundColor = FORBIDDEN_COLOR;
-        } else {
-          emailInput.style.backgroundColor = SUCCESS_COLOR;
-        }
-      } 
-    });
-  }
 }
