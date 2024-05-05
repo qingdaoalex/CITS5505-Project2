@@ -17,18 +17,18 @@
       </div>
       <form id="editForm" style="display: none" action="" method="post">
           {{ form.hidden_tag() }}
-          {{ form.username.label }}
-          {{ form.username(size=32) }}<br>
+          {{ form.username.label() }}
+          {{ form.username(size=32, id="reset-username")}}<br>
           {% for error in form.username.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}<br>
           {{ form.email.label }}
-          {{ form.email(size=32) }}<br>
+          {{ form.email(size=32, id="reset-email") }}<br>
           {% for error in form.email.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}<br>        
           {{ form.about_me.label }}<br>
-          {{ form.about_me(cols=50, rows=4) }}<br>
+          {{ form.about_me(cols=50, rows=4, id="about-me") }}<br>
           {% for error in form.about_me.errors %}
           <span style="color: red;">[{{ error }}]</span>
           {% endfor %}<br>
@@ -55,4 +55,6 @@
         document.getElementById("editBtn").style.display = "block";
       });
     </script>
+    <script src="{{ url_for('static', filename='validation2.js') }}"></script>
+
 {% endblock %}
