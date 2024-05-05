@@ -135,7 +135,6 @@ function validateEmail() {
   let emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!emailIsValid || email.includes(' ')) {
       emailInput.style.backgroundColor = ALERT_COLOR;
-      
     } else {
       emailInput.style.backgroundColor = SUCCESS_COLOR;
     }
