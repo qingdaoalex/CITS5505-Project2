@@ -4,11 +4,14 @@ const USERNAME_MAX_LENGTH = 20;
 const PASSWORD_MIN_LENGTH = 6;
 const PASSWORD_MAX_LENGTH = 20;
 const ALERT_COLOR = '#F7B7A6';
+const FORBIDDEN_COLOR = 'red';
 const SUCCESS_COLOR = '';
 
 // Variable to keep track of whether specific alert message has been shown
 var usernameAlertShown = false;
 var usernameExistsAlertShown = false;
+var emailAlertShown = false;
+var emailExistsAlertShown = false;
 var passwordAlertShown = false;
 
 // Selectors
@@ -24,6 +27,7 @@ userNameInput.addEventListener('focus', showUsernameAlert);
 userNameInput.addEventListener('input', validateUsername);
 userNameInput.addEventListener('blur', checkUsernameAvailability);
 userNameInput.addEventListener('keypress', limitNameLength);
+emailInput.addEventListener('blur', showEmailAlert);
 emailInput.addEventListener('input', validateEmail);
 emailInput.addEventListener('blur', checkEmailAvailability);
 passwordInput.addEventListener('focus', showPasswordAlert);
@@ -96,10 +100,10 @@ function checkUsernameAvailability() {
       success: function(response) {
         if (!response.available) {
           alert('Username already exists.');
-          userNameInput.style.backgroundColor = ALERT_COLOR;
+          userNameInput.style.backgroundColor = FORBIDDEN_COLOR;
           usernameExistsAlertShown = true; 
         } else {
-          userNameInput.style.backgroundColor = SUCCESS_COLOR; 
+          usernameExistsAlertShown = false;
         }
       }
     });
@@ -116,14 +120,22 @@ function limitNameLength(event) {
   }
 }
 
+// Function to show an alert message for email input
+function showEmailAlert() {
+  if (!emailAlertShown) {
+    alert("Please input a valid email address.");
+    emailAlertShown = true;
+  }
+}
+
 // Function to handle email input validation
 function validateEmail() {
   let email = emailInput.value.trim(); // Trim whitespace from input
 
   let emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailIsValid) {
+    if (!emailIsValid || email.includes(' ')) {
       emailInput.style.backgroundColor = ALERT_COLOR;
-      return; 
+      
     } else {
       emailInput.style.backgroundColor = SUCCESS_COLOR;
     }
@@ -133,20 +145,23 @@ function validateEmail() {
 function checkEmailAvailability() {
   let email = emailInput.value;
 
-  $.ajax({
-    url: '/check_availability',
-    type: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify({email: email}),
-    success: function(response) {
-      if (!response.available) {
-        alert('Email already exists.');
-        emailInput.style.backgroundColor = ALERT_COLOR;
-      } else {
-        emailInput.style.backgroundColor = SUCCESS_COLOR;
-      }
-    }
-  });
+  if (!emailExistsAlertShown) {
+    $.ajax({
+      url: '/check_availability',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({email: email}),
+      success: function(response) {
+        if (!response.available) {
+          alert('Email already exists.');
+          emailInput.style.backgroundColor = FORBIDDEN_COLOR;
+          emailExistsAlertShown = true; 
+        } else {
+          emailExistsAlertShown = false;
+        }
+      } 
+    });
+  }
 }
 
 // Function to show an alert message for password input
