@@ -37,13 +37,49 @@
 {% endfor %}
 
 
-{% if prev_url %}
-    <a href="{{ prev_url }}">Newer posts</a>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% if posts.has_prev %}
+     
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=1) }}">First</a></li>
+      <li class="page-item"><a class="page-link" href="{{ prev_url }}">Prev</a></li>
+    {% else %}
+      
+      <li class="page-item disabled"><span class="page-link">First</span></li>
     {% endif %}
-    {% if next_url %}
-    <a href="{{ next_url }}">Older posts</a>
-{% endif %}
 
+    {% if posts.page > 4 %}
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=1) }}">1</a></li>
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+    {% endif %}
 
-  </div>
+    {% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
+      <li class="page-item {% if p == posts.page %}active{% endif %}">
+        {% if p == posts.page %}
+          <span class="page-link">{{ p }}</span>
+        {% else %}
+          <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+
+    {% if posts.page < posts.pages - 3 %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a></li>
+    {% endif %}
+
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.next_num) }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.pages) }}">Last</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+      <li class="page-item disabled"><span class="page-link">Last</span></li>
+    {% endif %}
+
+  </ul>
+</nav>
+
 {% endblock %}

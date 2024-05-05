@@ -1,4 +1,5 @@
 migrations/
+blogweb/app.db
 app.db
 *.pyc
 logs/
