@@ -2,7 +2,9 @@
   <tr valign="top">
       <td style:"width=70px"><img src="{{ post.author.avatar(80) }}" style="width: 100px; height: 100px;"></td>
       <td>
-        <strong>{{ post.author.username }}</strong> said:<br>{{ post.body }}<br>
+        <strong>
+          <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
+        </strong> said:<br>{{ post.body }}<br>
         Posted on:  {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
   </tr>
 </table><hr>
