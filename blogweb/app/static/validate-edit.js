@@ -41,7 +41,6 @@ function validateForm(event) {
   }
 }
 
-
 // Function to validate username input
 function validateUsername() {
   let username = userNameInput.value; // Get the value of the username input field

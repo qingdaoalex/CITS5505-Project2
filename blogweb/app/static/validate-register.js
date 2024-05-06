@@ -37,7 +37,6 @@ confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
 
 // Functions
 // Function to validate the entire form before submission
-// Function to validate the entire form before submission
 function validateForm(event) {
   var isValid = true;
 

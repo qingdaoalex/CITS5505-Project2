@@ -4,6 +4,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Le
 import sqlalchemy as sa
 from app import db
 from app.models import User
+import re
 
 class LoginForm(FlaskForm):
 	username = StringField('User name', validators=[DataRequired()])
@@ -19,9 +20,17 @@ class RegistrationForm(FlaskForm):
 	submit = SubmitField('Register')
 
 	def validate_username(self, username):
-		user = db.session.scalar(sa.select(User).where(
-			User.username == username.data))
-		if user is not None:
+		# Check if username length is between 3 and 20 characters
+		if len(username.data) < 3 or len(username.data) > 20:
+			raise ValidationError('Username must be between 3 and 20 characters long.')
+
+		# Check if username contains only letters and numbers
+		if not re.match("^[a-zA-Z0-9]+$", username.data):
+			raise ValidationError('Username can only contain letters and numbers.')
+		
+		# Check if username already exists in the database
+		user = User.query.filter_by(username=username.data).first()
+		if user:
 			raise ValidationError('Please use a different username.')
 
 	def validate_email(self, email):
@@ -29,6 +38,22 @@ class RegistrationForm(FlaskForm):
 			User.email == email.data))
 		if user is not None:
 			raise ValidationError('Please use a different email address.')
+	
+	def validate_password(self, password):
+		# Validate password length and complexity
+		min_length = 6
+		max_length = 20
+		if len(password.data) < min_length or len(password.data) > max_length:
+			raise ValidationError('Password must be between 6 and 20 characters long.')
+		if not any(char.isdigit() for char in password.data):
+			raise ValidationError('Password must contain at least one number.')
+		if not any(char.isalpha() for char in password.data):
+			raise ValidationError('Password must contain at least one letter.')
+
+	def validate_password2(self, password2):
+		# Check if passwords match
+		if self.password.data != password2.data:
+			raise ValidationError('Passwords do not match.')
 
 class ResetPasswordRequestForm(FlaskForm):
 	email = StringField('Email', validators=[DataRequired(), Email()])
@@ -39,6 +64,22 @@ class ResetPasswordForm(FlaskForm):
 	password2 = PasswordField(
 		'Repeat Password', validators=[DataRequired(), EqualTo('password')])
 	submit = SubmitField('Reset')
+
+	def validate_password(self, password):
+		# Validate password length and complexity
+		min_length = 6
+		max_length = 20
+		if len(password.data) < min_length or len(password.data) > max_length:
+			raise ValidationError('Password must be between 6 and 20 characters long.')
+		if not any(char.isdigit() for char in password.data):
+			raise ValidationError('Password must contain at least one number.')
+		if not any(char.isalpha() for char in password.data):
+			raise ValidationError('Password must contain at least one letter.')
+
+	def validate_password2(self, password2):
+		# Check if passwords match
+		if self.password.data != password2.data:
+			raise ValidationError('Passwords do not match.')
 
 class PostForm(FlaskForm):
 	post = TextAreaField('Say something', validators=[
