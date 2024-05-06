@@ -94,26 +94,25 @@
 			</div>
 		</div>
 		{% block content %}{% endblock %}	
-			<script>
-				document.addEventListener("DOMContentLoaded", function () {
-						const checkbox = document.getElementById("checkbox");
-						const searchContainer = document.querySelector(".search-container");
-		
-						checkbox.addEventListener("change", function () {
-								if (checkbox.checked) {
-										searchContainer.style.visibility = "visible";
-								} else {
-										searchContainer.style.visibility = "hidden";
-								}
-						});
-				});
-				document.getElementById("delete-form").addEventListener("submit", function(event) {
-					event.preventDefault(); // Prevent the default form submission
-					if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
-							this.submit(); // If user confirms, submit the form
-					}
-    		});
-			</script>
-			
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+					const checkbox = document.getElementById("checkbox");
+					const searchContainer = document.querySelector(".search-container");
+	
+					checkbox.addEventListener("change", function () {
+							if (checkbox.checked) {
+									searchContainer.style.visibility = "visible";
+							} else {
+									searchContainer.style.visibility = "hidden";
+							}
+					});
+			});
+			document.getElementById("delete-form").addEventListener("submit", function(event) {
+				event.preventDefault(); // Prevent the default form submission
+				if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
+						this.submit(); // If user confirms, submit the form
+				}
+			});
+		</script>
 	</body>
 </html>

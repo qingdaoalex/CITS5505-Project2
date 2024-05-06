@@ -3,7 +3,8 @@ body {
   background-color: #f4f4f4;
 }
 
-.profile-container {
+
+.edit-container {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -12,29 +13,97 @@ body {
   margin: 20px auto;
 }
 
-.profile-container h1 {
+.edit-container h1 {
   color: #333;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+/* -- Avatar -- */
+.avatar-upload {
+  position: relative;
   margin-bottom: 10px;
 }
 
-input[type="file"] {
-  margin-top: 5px;
+.avatar-edit {
+  position: absolute;
+  left: 65px;
+  top: -2px;
+  z-index: 1;
 }
 
-.info-view p,
-form label {
+#image-upload {
+  display: none;
+}
+
+#image-upload + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all .2s ease-in-out;
+}
+
+#image-upload + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+
+#image-upload + label::after {
+  content: "\f040";
+  font-family: 'FontAwesome';
+  color: #757575;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+/* -- Image upload submit button -- */
+#image-button {
+  position: absolute;
+  top: 75px;
+  left: 45px;
+}
+/* -- Set default button -- */
+#image-default {
+  position: absolute;
+  top:15px;
+  left:45px;
+  background: none;
+  background-color: #F0F0F0;
+  color: black;
+  border: 1px solid;
+  border-color: gray;
+  border-radius: 2px;
+  padding: 1px;
+
+}
+
+/* -- Avatar location -- */
+#user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  margin-bottom: 10px;
+  border: 2px solid;
+  border-color: #333;
+}
+
+#editForm label {
   margin: 10px 0;
 }
 
-input[type="text"],
-input[type="email"],
-textarea {
+#editForm input[type="text"],
+#editForm input[type="email"],
+#editForm textarea {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -43,6 +112,7 @@ textarea {
   border-radius: 4px;
 }
 
+/* -- Edit button -- */
 button {
   margin-top: 10px;
   padding: 10px 15px;
