@@ -22,26 +22,19 @@
   // Functions
   // Function to validate the entire form before submission
   function validateForm(event) {
-    var isValid = true;
   
     // Validate password
     if (!validatePassword()) {
-      isValid = false;
+      alert("Please enter a valid password.");
+      event.preventDefault(); // Prevent form submission
+      return;
     }
+
     // Validate confirm password
     if (!validateConfirmPassword()) {
-      isValid = false;
-    }
-  
-    // Check if all fields are valid before allowing form submission
-    if (passwordInput.style.backgroundColor === ALERT_COLOR || passwordInput.value.trim() === '' ||
-        confirmPasswordInput.style.backgroundColor === ALERT_COLOR || confirmPasswordInput.value.trim() === '') {
-      isValid = false;
-    }
-  
-    if (!isValid) {
-      alert('Please fill in all fields and correct the errors.');
+      alert("Passwords do not match.");
       event.preventDefault(); // Prevent form submission
+      return;
     }
   }
   
@@ -56,22 +49,19 @@ function showPasswordAlert() {
 
 // Function to validate password input
 function validatePassword() {
-  let password = passwordInput.value; // Get the value of the password input field
-  
-  // Construct the regular expression dynamically using string concatenation
+  let password = passwordInput.value.trim();
   let regex = new RegExp(`^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{${PASSWORD_MIN_LENGTH},${PASSWORD_MAX_LENGTH}}$`);
-  
-  let passwordIsValid = regex.test(password); // Test if the password matches the regular expression
-  
-  if (password.length < PASSWORD_MIN_LENGTH || password.length > PASSWORD_MAX_LENGTH || !passwordIsValid) {
-    passwordInput.style.backgroundColor = ALERT_COLOR;
-    passwordIsValid = false; // Set the flag to false if the password doesn't meet the criteria
-  } else {
-    passwordInput.style.backgroundColor = SUCCESS_COLOR; 
-  }
+  let passwordIsValid = regex.test(password);
 
-  return passwordIsValid; // Return the flag indicating password validity
+  if (!passwordIsValid) {
+    passwordInput.style.backgroundColor = ALERT_COLOR;
+    return false;
+  } else {
+    passwordInput.style.backgroundColor = SUCCESS_COLOR;
+    return true;
+  }
 }
+
 
 // Function to limit password input length
 function limitPasswordLength(event) {
@@ -85,13 +75,15 @@ function limitPasswordLength(event) {
 
 // Function to validate the confirmation of password input
 function validateConfirmPassword() {
-  let password = passwordInput.value;
-  let confirmPassword = confirmPasswordInput.value;
-  let passwordsMatch = password === confirmPassword; // Check if the password and confirm password match
+  let password = passwordInput.value.trim();
+  let confirmPassword = confirmPasswordInput.value.trim();
+  let passwordsMatch = password === confirmPassword;
+
   if (!passwordsMatch) {
     confirmPasswordInput.style.backgroundColor = ALERT_COLOR;
-    alert("Password donot match.")
+    return false;
   } else {
     confirmPasswordInput.style.backgroundColor = SUCCESS_COLOR;
+    return true;
   }
 }

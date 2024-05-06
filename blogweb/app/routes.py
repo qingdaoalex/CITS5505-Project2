@@ -105,13 +105,31 @@ def check_availability():
 	username = request.json.get('username')
 	email = request.json.get('email')
 	existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
+
 	if existing_user:
+		# Check if the existing user's username matches the input username
 		if existing_user.username == username:
-			return jsonify({'available': False, 'field': 'username'})
+			# If the input username matches the current user's username, return available
+			if current_user.is_authenticated and current_user.username == username:
+				username_available = True
+			else:
+				username_available = False
 		else:
-			return jsonify({'available': False, 'field': 'email'})
+			username_available = True
+
+		# Check if the existing user's email matches the input email
+		if existing_user.email == email:
+			# If the input email matches the current user's email, return available
+			if current_user.is_authenticated and current_user.email == email:
+				email_available = True
+			else:
+				email_available = False
+		else:
+			email_available = True
+
+		return jsonify({'username_available': username_available, 'email_available': email_available})
 	else:
-		return jsonify({'available': True})
+		return jsonify({'username_available': True, 'email_available': True})
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
