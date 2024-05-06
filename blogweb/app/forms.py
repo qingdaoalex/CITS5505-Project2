@@ -99,10 +99,25 @@ class EditProfileForm(FlaskForm):
 
 	def validate_username(self, username):
 		if username.data != self.original_username:
-				user = db.session.scalar(sa.select(User).where(
-					User.username == self.username.data))
-				if user is not None:
-					raise ValidationError('Please use a different username.')
+			# Check if username length is between 3 and 20 characters
+			if len(username.data) < 3 or len(username.data) > 20:
+				raise ValidationError('Username must be between 3 and 20 characters long.')
+
+			# Check if username contains only letters and numbers
+			if not re.match("^[a-zA-Z0-9]+$", username.data):
+				raise ValidationError('Username can only contain letters and numbers.')
+			
+			# Check if username already exists in the database
+			user = User.query.filter_by(username=username.data).first()
+			if user:
+				raise ValidationError('Please use a different username.')
+			return
+
+	def validate_email(self, email):
+		user = db.session.scalar(sa.select(User).where(
+			User.email == email.data))
+		if user is not None:
+			raise ValidationError('Please use a different email address.')
 	
 	def validate_email(self, email):
 			if email.data != self.original_email:
