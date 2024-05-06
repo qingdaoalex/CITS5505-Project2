@@ -43,7 +43,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="{{ url_for('messages') }}">
 							<i class="fa fa-message"></i>
 							<span>Messages</span>
 						</a>
@@ -93,27 +93,32 @@
 				<h2>Post your comments now!</h2>
 			</div>
 		</div>
-		{% block content %}{% endblock %}	
-			<script>
-				document.addEventListener("DOMContentLoaded", function () {
-						const checkbox = document.getElementById("checkbox");
-						const searchContainer = document.querySelector(".search-container");
-		
-						checkbox.addEventListener("change", function () {
-								if (checkbox.checked) {
-										searchContainer.style.visibility = "visible";
-								} else {
-										searchContainer.style.visibility = "hidden";
-								}
-						});
-				});
-				document.getElementById("delete-form").addEventListener("submit", function(event) {
-					event.preventDefault(); // Prevent the default form submission
-					if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
-							this.submit(); // If user confirms, submit the form
-					}
-    		});
-			</script>
-			
+		{% block content %}{% endblock %}
+		<div class="assistant">
+
+
+		</div>	
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+					const checkbox = document.getElementById("checkbox");
+					const searchContainer = document.querySelector(".search-container");
+	
+					checkbox.addEventListener("change", function () {
+							if (checkbox.checked) {
+									searchContainer.style.visibility = "visible";
+							} else {
+									searchContainer.style.visibility = "hidden";
+							}
+					});
+			});
+			document.getElementById("delete-form").addEventListener("submit", function(event) {
+				event.preventDefault(); // Prevent the default form submission
+				if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
+						this.submit(); // If user confirms, submit the form
+				}
+			});
+		</script>
+		<script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
+		<script src="{{ url_for('static', filename='live2D.js') }}"></script>
 	</body>
 </html>

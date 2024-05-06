@@ -30,6 +30,7 @@
 							<div class="input-box">
 								{{ form.password(size=32, class="input-area", id="register-password", placeholder=" ") }}
 								{{ form.password.label(class="input-label") }}
+								<label></label>
 							</div>
 						</div>
 					</div>
@@ -39,6 +40,7 @@
 							<div class="input-box">
 								{{ form.password2(size=32, class="input-area", id="confirm-password", placeholder=" ") }}
 								{{ form.password2.label(class="input-label") }}
+								<label></label>
 							</div>
 						</div>
 					</div>
@@ -52,5 +54,5 @@
 			</div>
 		</div>
 	</div>
-	<script src="{{ url_for('static', filename='validation.js') }}"></script>
+	<script src="{{ url_for('static', filename='validate-register.js') }}"></script>
 {% endblock %}
