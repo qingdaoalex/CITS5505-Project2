@@ -73,9 +73,6 @@ function validateForm(event) {
   }
 }
 
-
-
-
 // Function to show an alert message for username input
 // Make sure the alert message shows only once
 function showUsernameAlert() {

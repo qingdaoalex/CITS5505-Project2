@@ -7,13 +7,40 @@ const ALERT_COLOR = '#F7B7A6';
 const SUCCESS_COLOR = '';
 
 // Selectors
+const editForm = document.getElementById('editForm');
 const userNameInput = document.getElementById('reset-username');
 const emailInput = document.getElementById('reset-email');
 
 // Event listeners
+editForm.addEventListener('submit', validateForm);
 userNameInput.addEventListener('input', validateUsername);
 userNameInput.addEventListener('keypress', limitNameLength);
 emailInput.addEventListener('input', validateEmail);
+
+function validateForm(event) {
+  var isValid = true;
+
+  // Validate username
+  if (!validateUsername()) {
+    isValid = false;
+  }
+  // Validate email
+  if (!validateEmail()) {
+    isValid = false;
+  }
+
+  // Check if all fields are valid before allowing form submission
+  if (userNameInput.style.backgroundColor === ALERT_COLOR || userNameInput.value.trim() === '' ||
+      emailInput.style.backgroundColor === ALERT_COLOR || emailInput.value.trim() === '') {
+    isValid = false;
+  }
+
+  if (!isValid) {
+    alert('Please correct the errors.');
+    event.preventDefault(); // Prevent form submission
+  }
+}
+
 
 // Function to validate username input
 function validateUsername() {
