@@ -1,0 +1,40 @@
+{% extends "base2.html" %}
+{% block content %}
+	<div class="flip-container">
+		<div class="flipper" id="flipper">
+			<div class="reset" id="reset">
+				<form class="form-container" id="reset-form" action="" method="POST" novalidate>
+					{{ form.hidden_tag() }}
+					<h1 class="form-title">Reset Password</h1>
+					<div class="form-content">
+						<div class="form-box">
+							<i class="ri-lock-2-line input-icon"></i>
+							<div class="input-box">
+								{{ form.password(size=32, class="input-area", id="reset-password", placeholder=" ") }}
+								{{ form.password.label(class="input-label") }}
+								<label></label>
+							</div>
+						</div>
+					</div>
+					<div class="form-content">
+						<div class="form-box">
+							<i class="ri-lock-2-line input-icon"></i>
+							<div class="input-box">
+								{{ form.password2(size=32, class="input-area", id="reset-confirm", placeholder=" ") }}
+								{{ form.password2.label(class="input-label") }}
+								<label></label>
+							</div>
+						</div>
+					</div>
+					{{ form.submit(class="submit-button") }}
+					<p class="reminder">
+						Successful?
+						<br>
+						<a class="flipbutton" href="{{ url_for('login') }}">Login Here</a>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static', filename='validate-reset.js') }}"></script>
+	{% endblock %}

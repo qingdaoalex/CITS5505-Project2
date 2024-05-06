@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block content %}
+</div>
+	<div class="main-content">
+		<h1>Hi, {{ current_user.username }}!</h1>
+		{% if form %}
+		<form action="" method="POST">
+			{{ form.hidden_tag() }}			
+			<p>
+				{{ form.post.label }}<br><br>
+				{{ form.post(cols=50, rows=4) }}<br>
+				{% for error in form.post.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+		</p>
+		<p>{{ form.submit() }}</p>
+</form>
+{% endif %}
+<h3>Comment</h3>
+{% for post in posts %}
+{% include '_post.html' %}
+		{% endfor %}
+
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+		
+				{% if posts.has_prev %}
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
+				{% else %}
+					<li class="page-item disabled"><span class="page-link">First</span></li>
+				{% endif %}
+		
+				{% if posts.page > 4 %}
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
+					<li class="page-item disabled"><span class="page-link">...</span></li>
+				{% endif %}
+		
+				{% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
+					<li class="page-item {% if p == posts.page %}active{% endif %}">
+						{% if p == posts.page %}
+							<span class="page-link">{{ p }}</span>
+						{% else %}
+							<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+		
+				{% if posts.page < posts.pages - 3 %}
+					<li class="page-item disabled"><span class="page-link">...</span></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.pages) }}">{{ posts.pages }}</a></li>
+				{% endif %}
+		
+				{% if posts.has_next %}
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.pages) }}">Last</a></li>
+				{% else %}
+					<li class="page-item disabled"><span class="page-link">Next</span></li>
+					<li class="page-item disabled"><span class="page-link">Last</span></li>
+				{% endif %}		
+			</ul>
+		</nav>		
+{% endblock %}
+
+	

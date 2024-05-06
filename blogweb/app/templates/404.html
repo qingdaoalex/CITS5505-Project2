@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic Page Needs -->
+    <meta charset="UTF-8">
+    <meta name="description" content="This is a 404 error page for our web app.">
+    <meta name="author" content="Yunfang Lyu(23685059)">
+    <meta name="keywords" content="404 status">
+    <title>404 Error Page</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Creepster" >
+  </head>
+  <body>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='background.jpg') }}" alt="background image">
+      <div class="container">
+        <div id="heading-container">
+          <h1 class="center-text" id="heading">404 NOT FOUND</h1>
+        </div>
+        <div class="eye-container">
+          <div class="eyes" id="left-eye">
+            <div class="pupils" id="left-pupil"></div>
+          </div>
+          <div class="eyes" id="right-eye">
+            <div class="pupils" id="right-pupil"></div>
+          </div>
+        </div>
+        <div class="center-text">
+          <h3>WHO TURNED OFF THE LIGHT?</h3>
+          <h2>Can not find anything</h2>
+          <br>
+          <a href="{{ url_for('index') }}">Go Back Home</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
