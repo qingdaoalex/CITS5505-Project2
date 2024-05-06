@@ -6,69 +6,69 @@ from app import db
 from app.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField('User name', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+	username = StringField('User name', validators=[DataRequired()])
+	password = PasswordField('Password', validators=[DataRequired()])
+	remember_me = BooleanField('Remember Me')
+	submit = SubmitField('Sign In')
 
 class RegistrationForm(FlaskForm):
-    username = StringField('User name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Register')
+	username = StringField('User name', validators=[DataRequired()])
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	password = PasswordField('Password', validators=[DataRequired()])
+	password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+	submit = SubmitField('Register')
 
-    def validate_username(self, username):
-        user = db.session.scalar(sa.select(User).where(
-            User.username == username.data))
-        if user is not None:
-            raise ValidationError('Please use a different username.')
+	def validate_username(self, username):
+		user = db.session.scalar(sa.select(User).where(
+			User.username == username.data))
+		if user is not None:
+			raise ValidationError('Please use a different username.')
 
-    def validate_email(self, email):
-        user = db.session.scalar(sa.select(User).where(
-            User.email == email.data))
-        if user is not None:
-            raise ValidationError('Please use a different email address.')
+	def validate_email(self, email):
+		user = db.session.scalar(sa.select(User).where(
+			User.email == email.data))
+		if user is not None:
+			raise ValidationError('Please use a different email address.')
 
 class ResetPasswordRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Send')
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	submit = SubmitField('Send')
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Reset')
+	password = PasswordField('Password', validators=[DataRequired()])
+	password2 = PasswordField(
+		'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+	submit = SubmitField('Reset')
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[
-        DataRequired(), Length(min=1, max=140)])
-    submit = SubmitField('Post Comment')
+	post = TextAreaField('Say something', validators=[
+		DataRequired(), Length(min=1, max=140)])
+	submit = SubmitField('Post Comment')
     
 class EditProfileForm(FlaskForm):
-    username = StringField('Username(3 to 20 characters, number or letter)', validators=[DataRequired()])
-    about_me = TextAreaField('About me(140 maximum length)', validators=[Length(min=0, max=140)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Submit')
+	username = StringField('Username(3 to 20 characters, number or letter)', validators=[DataRequired()])
+	about_me = TextAreaField('About me(140 maximum length)', validators=[Length(min=0, max=140)])
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	submit = SubmitField('Submit')
 
-    def __init__(self, original_username, original_email, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.original_username = original_username
-        self.original_email = original_email
+	def __init__(self, original_username, original_email, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.original_username = original_username
+		self.original_email = original_email
 
-    def validate_username(self, username):
-        if username.data != self.original_username:
-            user = db.session.scalar(sa.select(User).where(
-                User.username == self.username.data))
-            if user is not None:
-                raise ValidationError('Please use a different username.')
-    
-    def validate_email(self, email):
-        if email.data != self.original_email:
-            user = db.session.scalar(sa.select(User).where(User.email == email.data))
-            if user is not None:
-                raise ValidationError('Please use a different email.')
-    
+	def validate_username(self, username):
+		if username.data != self.original_username:
+				user = db.session.scalar(sa.select(User).where(
+					User.username == self.username.data))
+				if user is not None:
+					raise ValidationError('Please use a different username.')
+	
+	def validate_email(self, email):
+			if email.data != self.original_email:
+				user = db.session.scalar(sa.select(User).where(User.email == email.data))
+				if user is not None:
+						raise ValidationError('Please use a different email.')
+
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
