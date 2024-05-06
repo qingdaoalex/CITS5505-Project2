@@ -308,7 +308,7 @@ def send_message(recipient):
         msg = Message(author=current_user, recipient=user,body=form.message.data)
         db.session.add(msg)
         db.session.commit()
-        flash('Your message has been sent.')
+        #flash('Your message has been sent.')
         return redirect(url_for('user', username=recipient))
     return render_template('send_message.html', title=('Send Message'),form=form, recipient=recipient)
   
@@ -324,4 +324,4 @@ def messages():
         if messages.has_next else None
     prev_url = url_for('messages', page=messages.prev_num) \
         if messages.has_prev else None
-    return render_template('messages.html',messages=messages.items,next_url=next_url, prev_url=prev_url)
+    return render_template('messages.html',messages=messages,next_url=next_url, prev_url=prev_url)
