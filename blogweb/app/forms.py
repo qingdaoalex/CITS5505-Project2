@@ -41,10 +41,20 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Reset')
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[
+    title = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=140)])
+    content = TextAreaField('Content', validators=[
+        DataRequired(), Length(min=1, max=500)])
     submit = SubmitField('Post Comment')
     
+
+######### reply
+
+class ReplyForm(FlaskForm):
+    content = TextAreaField('Reply', validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Submit')
+
+####
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])

@@ -4,76 +4,83 @@
 {% endblock %}
 
 {% block content %}
-</div>
-	<div class="main-content">
-		<h1>Hi, {{ current_user.username }}!</h1>
-		<form action="" method="POST">
-			{{ form.hidden_tag() }}			
-			<p>
-				{{ form.post.label }}<br><br>
-				{{ form.post(cols=50, rows=4) }}<br>
-				{% for error in form.post.errors %}
-				<span style="color: red;">[{{ error }}]</span>
-				{% endfor %}
-		</p>
-		<p>{{ form.submit() }}</p>
-</form>
-<h3>Comment</h3>
-{% for post in posts %}
-		<div class="comments-container">
-			
-			<div id="comments-list" class="comments-list">
-				<div class="comment-avatar"><img
-						src="{{ current_user.avatar(180) }}" alt="image"></div>
-				<div class="comment-box">
-					<div class="comment-head">
-						<h6 class="comment-name by-author"><a href="#">{{ post.author.username }}</a></h6>
-						<span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-						<i class="fa fa-heart"></i>
-					</div>
-					<div class="comment-content">{{ post.body }}
-					</div>
-				</div>
-			</div>
-		</div>
-		{% endfor %}
-	<nav>
-			<ul style="list-style: none; padding: 0; display: flex; justify-content: center;">
-					{% if posts.has_prev %}
-							<li style="margin-right: 5px;"><a href="{{ url_for('index', page=1) }}">« First</a></li>
-							<li style="display: inline;"><a href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
-					{% else %}
-							<li style="margin-right: 5px;">« First</li>
-					{% endif %}
-	
-					{% if posts.page > 4 %}
-							<li style="margin-right: 5px;"><a href="{{ url_for('index', page=1) }}">1</a></li>
-							<li style="margin-right: 5px;">...</li>
-					{% endif %}
-	
-					{% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
-							<li style="margin-right: 5px; {% if p == posts.page %}font-weight: bold;{% endif %}">
-									{% if p == posts.page %}
-											<span style="font-weight: bold;">{{ p }}</span>
-									{% else %}
-											<a href="{{ url_for('index', page=p) }}">{{ p }}</a>
-									{% endif %}
-							</li>
-					{% endfor %}
-	
-					{% if posts.page < posts.pages - 3 %}
-							<li style="margin-right: 5px;">...</li>
-							<li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.pages) }}">{{ posts.pages }}</a></li>
-					{% endif %}
-	
-					{% if posts.has_next %}
-							<li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
-							<li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.pages) }}">Last »</a></li>
-					{% else %}
-							<li style="margin-right: 5px;">Last »</li>
-					{% endif %}
-			</ul>
-	</nav>
-{% endblock %}
+<div class="main-content">
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=50) }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(cols=50, rows=4) }}<br>
+            {% for error in form.content.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <h3>Recent Posts</h3>
+    {% for post in posts %}
+    <div class="comments-container">
+        <div id="comments-list" class="comments-list">
+            <div class="comment-avatar">
+                <img src="{{ post.author.avatar(180) }}" alt="image">
+            </div>
+            <div class="comment-box">
+                <div class="comment-head">
+                    <h6 class="comment-name by-author"><a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></h6>
+                    <span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    <i class="fa fa-heart"></i>
+                </div>
+                <div class="comment-content">
+                    <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
+                    <p>{{ post.content }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <nav>
+        <ul style="list-style: none; padding: 0; display: flex; justify-content: center;">
+            {% if posts.has_prev %}
+            <li style="margin-right: 5px;"><a href="{{ url_for('index', page=1) }}">« First</a></li>
+            <li style="display: inline;"><a href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
+            {% else %}
+            <li style="margin-right: 5px;">« First</li>
+            {% endif %}
 
-	
+            {% if posts.page > 4 %}
+            <li style="margin-right: 5px;"><a href="{{ url_for('index', page=1) }}">1</a></li>
+            <li style="margin-right: 5px;">...</li>
+            {% endif %}
+
+            {% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
+            <li style="margin-right: 5px; {% if p == posts.page %}font-weight: bold;{% endif %}">
+                {% if p == posts.page %}
+                <span style="font-weight: bold;">{{ p }}</span>
+                {% else %}
+                <a href="{{ url_for('index', page=p) }}">{{ p }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+
+            {% if posts.page < posts.pages - 3 %}
+            <li style="margin-right: 5px;">...</li>
+            <li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.pages) }}">{{ posts.pages }}</a></li>
+            {% endif %}
+
+            {% if posts.has_next %}
+            <li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
+            <li style="margin-right: 5px;"><a href="{{ url_for('index', page=posts.pages) }}">Last »</a></li>
+            {% else %}
+            <li style="margin-right: 5px;">Last »</li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}
