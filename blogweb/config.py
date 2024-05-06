@@ -13,4 +13,6 @@ class Config:
     MAIL_USERNAME = 'cits5505webapp@qq.com'
     MAIL_PASSWORD = 'woddizqutfukcjja'
     ADMINS = ['l98lavie@gmail.com']
-    
+    # Upload configuration
+    UPLOAD_PATH = os.path.join(basedir, 'app', 'static', 'avatar')
+    MAX_FILE_SIZE_BYTES = 500 * 1024
