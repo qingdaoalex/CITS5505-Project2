@@ -12,7 +12,6 @@ from time import time
 import jwt
 from flask import url_for
 
-
 followers = sa.Table(
   'followers',
   db.metadata,
@@ -118,9 +117,7 @@ class User(UserMixin, db.Model):
       .group_by(Post)
       .order_by(Post.timestamp.desc())
     )
-  
-
-
+ 
 class Post(db.Model):
   id: so.Mapped[int] = so.mapped_column(primary_key=True)
   body: so.Mapped[str] = so.mapped_column(sa.String(140))
@@ -132,8 +129,6 @@ class Post(db.Model):
 
   def __repr__(self):
     return '<Post {}>'.format(self.body)
-    
-    
     
 @login.user_loader
 def load_user(id):
