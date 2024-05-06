@@ -315,7 +315,7 @@ def send_message(recipient):
 @app.route('/messages')
 @login_required
 def messages():
-    current_user.last_message_read_time = datetime.now(timezone.utc)
+    current_user.last_message_read_time = datetime.now()
     db.session.commit()
     page = request.args.get('page', 1, type=int)
     query = current_user.messages_received.select().order_by(Message.timestamp.desc())
@@ -325,3 +325,4 @@ def messages():
     prev_url = url_for('messages', page=messages.prev_num) \
         if messages.has_prev else None
     return render_template('messages.html',messages=messages,next_url=next_url, prev_url=prev_url)
+
