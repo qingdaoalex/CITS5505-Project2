@@ -125,7 +125,7 @@ class Reply(db.Model):
 
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     content: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
-    timestamp: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=datetime.utcnow)
+    timestamp: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=lambda: datetime.now())
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'))
     post_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('post.id'))
 
