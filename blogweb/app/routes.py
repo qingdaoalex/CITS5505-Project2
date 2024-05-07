@@ -1,10 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app
 from urllib.parse import urlsplit
 from app import app, db, mail
-from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
-from app.models import User, Post, Message, Notification
+from app.models import User, Post, Message, Notification, reply
 from datetime import datetime, timezone
 import pytz
 from app.email import send_password_reset_email
@@ -19,7 +19,7 @@ from flask import send_from_directory
 def index():
 	form = PostForm()
 	if form.validate_on_submit():
-		post = Post(body=form.post.data, author=current_user)
+		post = Post(title=form.title.data, content=form.content.data, author=current_user)
 		current_user.timestamp = datetime.now()
 		db.session.add(post)
 		db.session.commit()
@@ -340,3 +340,20 @@ def notifications():
         'data': n.get_data(),
         'timestamp': n.timestamp
     } for n in notifications]
+
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def post_detail(post_id):
+    post = Post.query.get_or_404(post_id)
+    replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
+    replies = replies_query.all()  # Execute the query to fetch replies
+    reply_form = ReplyForm()
+
+    if reply_form.validate_on_submit():
+        reply = Reply(content=reply_form.content.data, user=current_user, post=post)
+        db.session.add(reply)
+        db.session.commit()
+        flash('Your reply has been posted.')
+        return redirect(url_for('post_detail', post_id=post.id))
+
+    return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_form=reply_form)

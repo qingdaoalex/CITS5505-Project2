@@ -4,23 +4,27 @@
 {% endblock %}
 
 {% block content %}
-</div>
-	<div class="main-content">
-		<h1>Hi, {{ current_user.username }}!</h1>
-		{% if form %}
-		<form action="" method="POST">
-			{{ form.hidden_tag() }}			
-			<p>
-				{{ form.post.label }}<br><br>
-				{{ form.post(cols=50, rows=4) }}<br>
-				{% for error in form.post.errors %}
-				<span style="color: red;">[{{ error }}]</span>
-				{% endfor %}
-		</p>
-		<p>{{ form.submit() }}</p>
-</form>
-{% endif %}
-<h3>Comment</h3>
+<div class="main-content">
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=50) }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(cols=50, rows=4) }}<br>
+            {% for error in form.content.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <h3>Recent Posts</h3>
 {% for post in posts %}
 {% include '_post.html' %}
 		{% endfor %}
@@ -66,4 +70,3 @@
 		</nav>		
 {% endblock %}
 
-	

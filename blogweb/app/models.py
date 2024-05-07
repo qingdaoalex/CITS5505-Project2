@@ -34,7 +34,9 @@ class User(UserMixin, db.Model):
 
   posts: so.WriteOnlyMapped['Post'] = so.relationship(
     back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete-orphan')
-  
+   ###replies
+  replies: so.Mapped[list['Reply']] = so.relationship("Reply", back_populates="user")
+    ##
   about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
   last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(
     default=lambda: datetime.now())
@@ -132,16 +134,36 @@ class User(UserMixin, db.Model):
 
 
 class Post(db.Model):
-  id: so.Mapped[int] = so.mapped_column(primary_key=True)
-  body: so.Mapped[str] = so.mapped_column(sa.String(140))
-  timestamp: so.Mapped[datetime] = so.mapped_column(
-    index=True, default=lambda: datetime.now())
-  user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    title: so.Mapped[str] = so.mapped_column(sa.String(140))
+    content: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
+    timestamp: so.Mapped[datetime] = so.mapped_column(
+        index=True, default=lambda: datetime.now())
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
+    author: so.Mapped[User] = so.relationship(back_populates='posts')
+    replies: so.WriteOnlyMapped['Reply'] = so.relationship('Reply', back_populates='post', cascade='all, delete-orphan')
+    def __repr__(self):
+        return '<Post {}>'.format(self.tktle)
+    ###function to count number of replies
+    def replies_count(self):
+        return db.session.query(sa.func.count(Reply.id)).filter(Reply.post_id == self.id).scalar()
+    
+################### changes for reply function
+class Reply(db.Model):
+    __tablename__ = 'reply'
 
-  author: so.Mapped[User] = so.relationship(back_populates='posts')
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    content: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
+    timestamp: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=datetime.utcnow)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'))
+    post_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('post.id'))
 
-  def __repr__(self):
-    return '<Post {}>'.format(self.body)
+    user: so.Mapped['User'] = so.relationship('User', back_populates='replies')
+    post: so.Mapped['Post'] = so.relationship('Post', back_populates='replies')
+
+    def __repr__(self):
+        return f'<Reply {self.id}>'
+#########################
     
     
     

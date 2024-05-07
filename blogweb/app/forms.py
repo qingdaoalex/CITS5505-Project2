@@ -81,9 +81,11 @@ class ResetPasswordForm(FlaskForm):
       raise ValidationError('Passwords do not match.')
 
 class PostForm(FlaskForm):
-  post = TextAreaField('Say something', validators=[
-    DataRequired(), Length(min=1, max=140)])
-  submit = SubmitField('Post Comment')
+    title = TextAreaField('Say something', validators=[
+        DataRequired(), Length(min=1, max=140)])
+    content = TextAreaField('Content', validators=[
+        DataRequired(), Length(min=1, max=500)])
+    submit = SubmitField('Post Comment')
     
 class EditProfileForm(FlaskForm):
   username = StringField('Username(3 to 20 characters, number or letter)', validators=[DataRequired()])
@@ -115,6 +117,10 @@ class EditProfileForm(FlaskForm):
         user = db.session.scalar(sa.select(User).where(User.email == email.data))
         if user is not None:
             raise ValidationError('Please use a different email.')
+            
+class ReplyForm(FlaskForm):
+    content = TextAreaField('Reply', validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Submit')
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')

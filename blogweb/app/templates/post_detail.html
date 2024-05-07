@@ -1,0 +1,28 @@
+<!-- post_detail.html -->
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<p>Author: {{ post.author.username }}</p>
+
+<!-- display replies -->
+{% if replies %}
+    <p>{{post.replies_count()}} replies</p>
+    <h2>Replies:</h2>
+    <ul>
+        {% for reply in replies %}
+            <li>{{ reply.content }}</li>
+            <small>By: {{ reply.user.username }}, {{ reply.timestamp }}</small>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No replies yet.</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('post_detail', post_id=post.id) }}">
+  {{ reply_form.hidden_tag() }}
+  <div class="form-group">
+      {{ reply_form.content.label }}
+      {{ reply_form.content(class="form-control") }}
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
