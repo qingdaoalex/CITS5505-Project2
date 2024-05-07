@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app
+from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app, send_from_directory
 from urllib.parse import urlsplit
 from app import app, db, mail
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm
@@ -11,7 +11,7 @@ from app.email import send_password_reset_email
 import os
 import imghdr
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
+import uuid
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -222,19 +222,21 @@ def upload_avatar():
           flash('Invalid image file format.', 'error')
           return redirect(url_for('edit_profile'))
 
+        # Generate a unique filename
+        unique_filename = str(uuid.uuid4()) + '_' + secure_filename(file.filename)
+
         # Delete the old avatar file if it exists
         if user.avatar_path:
           old_avatar_path = os.path.join(app.config['UPLOAD_PATH'], user.avatar_path)
           if os.path.exists(old_avatar_path):
             os.remove(old_avatar_path)
 
-        filename = secure_filename(file.filename)
         avatar_directory = app.config['UPLOAD_PATH']
         if not os.path.exists(avatar_directory):
           os.makedirs(avatar_directory)  # Create the directory if it doesn't exist
         try:
-          file.save(os.path.join(avatar_directory, filename))
-          user.avatar_path = filename
+          file.save(os.path.join(avatar_directory, unique_filename))
+          user.avatar_path = unique_filename
           db.session.commit()
           flash('Avatar uploaded successfully.', 'success')
         except Exception as e:
