@@ -29,6 +29,7 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
+
     <ul class="nav nav-tabs" style="cursor:pointer">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')">All Post</a>
@@ -140,6 +141,10 @@
         event.currentTarget.className += " active";
     }
 
+</script>
+<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
 </script>
 {% endblock %}
 
