@@ -21,9 +21,9 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('index'))
-    
+    query = sa.select(Post).order_by(Post.timestamp.desc())
     page = request.args.get('page', 1, type=int)
-    posts = db.paginate(current_user.following_posts(), page=page,
+    posts = db.paginate(query, page=page,
                         per_page=app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('index', page=posts.next_num) \
         if posts.has_next else None

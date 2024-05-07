@@ -113,11 +113,13 @@ class Post(db.Model):
     timestamp: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now())
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
-
     author: so.Mapped[User] = so.relationship(back_populates='posts')
     replies: so.WriteOnlyMapped['Reply'] = so.relationship('Reply', back_populates='post', cascade='all, delete-orphan')
     def __repr__(self):
         return '<Post {}>'.format(self.tktle)
+    ###function to count number of replies
+    def replies_count(self):
+        return db.session.query(sa.func.count(Reply.id)).filter(Reply.post_id == self.id).scalar()
     
 ################### changes for reply function
 class Reply(db.Model):

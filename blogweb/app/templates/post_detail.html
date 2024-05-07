@@ -5,6 +5,7 @@
 
 <!-- display replies -->
 {% if replies %}
+    <p>{{post.replies_count()}} replies</p>
     <h2>Replies:</h2>
     <ul>
         {% for reply in replies %}
