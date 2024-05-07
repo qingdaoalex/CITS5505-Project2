@@ -9,7 +9,7 @@
 
 <!-- post_detail.html -->
 <h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
+<p>{{ post.content | safe }}</p>
 <p>Author: {{ post.author.username }}</p>
 
 <!-- display replies -->
@@ -18,7 +18,7 @@
     <h2>Replies:</h2>
     <ul>
         {% for reply in replies %}
-            <li>{{ reply.content }}</li>
+            <li>{{ reply.content | safe  }}</li>
             <small>By: {{ reply.user.username }}, {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
         {% endfor %}
     </ul>
@@ -37,5 +37,9 @@
  
 <a class="btn btn-primary" style = "margin-top: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a>
 
+<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>
 {% endblock %}
 

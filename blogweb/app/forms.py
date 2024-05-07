@@ -1,3 +1,4 @@
+from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateTimeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
@@ -83,7 +84,7 @@ class ResetPasswordForm(FlaskForm):
 class PostForm(FlaskForm):
     title = TextAreaField('Question Title', validators=[
         DataRequired(), Length(min=1, max=140)])
-    content = TextAreaField('Question Content', validators=[
+    content = CKEditorField('Question Content', validators=[
         DataRequired(), Length(min=1, max=500)])
     submit = SubmitField('Post Question')
     
@@ -119,7 +120,7 @@ class EditProfileForm(FlaskForm):
             raise ValidationError('Please use a different email.')
             
 class ReplyForm(FlaskForm):
-    content = TextAreaField('Reply', validators=[DataRequired(), Length(min=1, max=140)])
+    content = CKEditorField('Reply', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
 
 class EmptyForm(FlaskForm):
