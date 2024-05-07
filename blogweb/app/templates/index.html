@@ -47,28 +47,7 @@
     <div id="tab1"  class="tabcontent" style="display: block;">
 
         <h3>Recent Posts</h3>
-        <!-- {% for post in posts %}
-        <div class="comments-container">
-            <div id="comments-list" class="comments-list">
-                <div class="comment-avatar">
-                    <img src="{{ post.author.avatar(180) }}" alt="image">
-                </div>
-                <div class="comment-box">
-                    <div class="comment-head">
-                        <h6 class="comment-name by-author"><a class="user_popup"
-                                href="{{ url_for('user', username=post.author.username) }}">{{
-                                post.author.username }}</a></h6>
-                        <span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-                        <i class="fa fa-heart"></i>
-                    </div>
-                    <div class="comment-content">
-                        <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
-                        <p>{{ post.content }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %} -->
+
 
     {% for post in posts %}
         {% include '_post_question.html' %}
@@ -131,7 +110,8 @@
       
 
 
-{%script%}
+{% block script %}
+<script>
     function displayPostForm() {
         let displayPostBtn = document.getElementById("displayPostBtn");
         let postForm = document.getElementById("postForm")
@@ -160,6 +140,6 @@
         event.currentTarget.className += " active";
     }
 
-{% endblock %}
+</script>
 {% endblock %}
 
