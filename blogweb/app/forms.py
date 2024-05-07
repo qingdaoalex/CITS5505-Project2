@@ -81,11 +81,11 @@ class ResetPasswordForm(FlaskForm):
       raise ValidationError('Passwords do not match.')
 
 class PostForm(FlaskForm):
-    title = TextAreaField('Say something', validators=[
+    title = TextAreaField('Question Title', validators=[
         DataRequired(), Length(min=1, max=140)])
-    content = TextAreaField('Content', validators=[
+    content = TextAreaField('Question Content', validators=[
         DataRequired(), Length(min=1, max=500)])
-    submit = SubmitField('Post Comment')
+    submit = SubmitField('Post Question')
     
 class EditProfileForm(FlaskForm):
   username = StringField('Username(3 to 20 characters, number or letter)', validators=[DataRequired()])

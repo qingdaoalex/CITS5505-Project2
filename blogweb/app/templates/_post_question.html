@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='questionForm.css') }}">
+
+<table>
+  <tr valign="top">
+    <td style:"width=70px"><img src="{{ post.author.avatar(80) }}"></td>
+    <td class = "post-area">
+      <strong><a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
+          post.author.username }}</a></strong>
+        <div class="post-title">
+          <a class="post-title" href="{{ url_for('post_detail', post_id=post.id) }}">{{
+            post.title }}</a>
+        </div>
+        <div class="post-date">
+          Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+        </div>
+    </td>
+  </tr>
+</table>
+<hr>
