@@ -4,7 +4,7 @@ from app import app, db, mail
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
-from app.models import User, Post, Message, Notification, reply
+from app.models import User, Post, Message, Notification, Reply
 from datetime import datetime, timezone
 import pytz
 from app.email import send_password_reset_email
