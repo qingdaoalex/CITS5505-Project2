@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ 'Messages' }}</h1><br>
+    {% for post in messages %}
+        {% include '_message.html' %}
+    {% endfor %}
+ 
+    <!-- pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+      
+          {% if prev_url %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('messages', page=1) }}">First</a></li>
+            <li class="page-item"><a class="page-link" href="{{ prev_url }}">Prev</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">First</span></li>
+          {% endif %}
+      
+          {% if messages.page > 4 %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('messages', page=1) }}">1</a></li>
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+          {% endif %}
+      
+          {% for p in range(messages.page - 2, messages.page + 3) if p > 0 and p <= messages.pages %}
+            <li class="page-item {% if p == messages.page %}active{% endif %}">
+              {% if p == messages.page %}
+                <span class="page-link">{{ p }}</span>
+              {% else %}
+                <a class="page-link" href="{{ url_for('messages', page=p) }}">{{ p }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+      
+          {% if messages.page < messages.pages - 3 %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            <li class="page-item"><a class="page-link" href="{{ url_for('messages', page=messages.pages) }}">{{ messages.pages }}</a></li>
+          {% endif %}
+      
+          {% if next_url %}
+            <li class="page-item"><a class="page-link" href="{{ next_url }}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="{{ url_for('messages', page=messages.pages) }}">Last</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+            <li class="page-item disabled"><span class="page-link">Last</span></li>
+          {% endif %}
+      
+        </ul>
+      </nav>
+      
+      
+{% endblock %}

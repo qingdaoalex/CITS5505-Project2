@@ -16,6 +16,7 @@ body {
 	line-height: 50px;
 	background-color: #fff;
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	margin-bottom: 2px;
 }
 
 .search-container {
@@ -179,7 +180,7 @@ body {
 
 .heading h2 {
 	font-size: 50px;
-	color: #fff;
+	color: rgba(255, 255, 255, 0);
 	text-align: center;
 	overflow: hidden;
 	background: linear-gradient(90deg, #000, #fff, #000);
@@ -190,11 +191,7 @@ body {
 }
 
 @keyframes light {
-	0% {
-		background-position: -300%;
-	}
+	0% {background-position: -300%;}
 
-	100% {
-		background-position: 300%;
-	}
+	100% {background-position: 300%;}
 }
