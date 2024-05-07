@@ -4,15 +4,14 @@
 <div>
   <table>
     <tr valign="top">
-        <td><img src="{{ user.avatar(128) }}"></td>
-        <td><h2>User: {{ user.username }}</h2>
-          <p>Follower {{user.followers_count()}} Following {{user.following_count()}}</p>
-
-        <h2>Email: {{ user.email }}</h2>
-        {% if user.about_me %}<span>{{ user.about_me }}</span>{% endif %}
-        {% if user.last_seen %}<span>Last seen on: {{ user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</span>{% endif %}
+        <td><img src="{{ user.avatar(200) }}" ></td>
+        <td><h1>User: {{ user.username }}</h1>
+          
+        {% if user.about_me %}<p>About me: {{ user.about_me }}</p>{% endif %}
+        <span>Follower {{user.followers_count()}} Following {{user.following_count()}}</span><br><br>
+        {% if user.last_seen %}<span>Last seen on: {{ user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</span>{% endif %}<br><br>
         {% if user == current_user %}
-        <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+        <span><a href="{{ url_for('edit_profile') }}">Edit your profile</a></span>
         {% elif not current_user.is_following(user) %}
         <p>
             <form action="{{ url_for('follow', username=user.username) }}" method="post">
@@ -28,22 +27,63 @@
             </form>
         </p>
         {% endif %}
+        {% if user != current_user %}
+          <span>
+              <a href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send private message') }}</a>
+          </span>
+        {% endif %}
       </td>
     </tr>
 </table>
 <hr>
 {% for post in posts %}
-    {% include '_post.html' %}
-{% endfor %}
+{% include '_post.html' %}
+		{% endfor %}
 
 
-{% if prev_url %}
-    <a href="{{ prev_url }}">Newer posts</a>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% if posts.has_prev %}
+     
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=1) }}">First</a></li>
+      <li class="page-item"><a class="page-link" href="{{ prev_url }}">Prev</a></li>
+    {% else %}
+      
+      <li class="page-item disabled"><span class="page-link">First</span></li>
     {% endif %}
-    {% if next_url %}
-    <a href="{{ next_url }}">Older posts</a>
-{% endif %}
 
+    {% if posts.page > 4 %}
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=1) }}">1</a></li>
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+    {% endif %}
 
-  </div>
+    {% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
+      <li class="page-item {% if p == posts.page %}active{% endif %}">
+        {% if p == posts.page %}
+          <span class="page-link">{{ p }}</span>
+        {% else %}
+          <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+
+    {% if posts.page < posts.pages - 3 %}
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a></li>
+    {% endif %}
+
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.next_num) }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.pages) }}">Last</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+      <li class="page-item disabled"><span class="page-link">Last</span></li>
+    {% endif %}
+
+  </ul>
+</nav>
+
 {% endblock %}

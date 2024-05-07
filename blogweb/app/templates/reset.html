@@ -3,7 +3,7 @@
 	<div class="flip-container">
 		<div class="flipper" id="flipper">
 			<div class="reset" id="reset">
-				<form class="form-container" action="" method="POST" novalidate>
+				<form class="form-container" id="reset-form" action="" method="POST" novalidate>
 					{{ form.hidden_tag() }}
 					<h1 class="form-title">Reset Password</h1>
 					<div class="form-content">
@@ -12,6 +12,7 @@
 							<div class="input-box">
 								{{ form.password(size=32, class="input-area", id="reset-password", placeholder=" ") }}
 								{{ form.password.label(class="input-label") }}
+								<label></label>
 							</div>
 						</div>
 					</div>
@@ -21,6 +22,7 @@
 							<div class="input-box">
 								{{ form.password2(size=32, class="input-area", id="reset-confirm", placeholder=" ") }}
 								{{ form.password2.label(class="input-label") }}
+								<label></label>
 							</div>
 						</div>
 					</div>
@@ -34,7 +36,5 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		
-	</script>
+	<script src="{{ url_for('static', filename='validate-reset.js') }}"></script>
 	{% endblock %}
