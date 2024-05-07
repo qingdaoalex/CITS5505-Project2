@@ -162,7 +162,9 @@ body {
 	overflow: hidden;
 	opacity: 0.3;
 }
-
+.hero-image {
+	background-color: #000;
+}
 /* Text Effect */
 .heading {
 	position: absolute;
