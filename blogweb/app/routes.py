@@ -4,7 +4,7 @@ from app import app, db, mail
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
-from app.models import User, Post, Message
+from app.models import User, Post, Message, Notification
 from datetime import datetime, timezone
 import pytz
 from app.email import send_password_reset_email
@@ -307,6 +307,7 @@ def send_message(recipient):
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user,body=form.message.data)
         db.session.add(msg)
+        user.add_notification('unread_message_count',user.unread_message_count())
         db.session.commit()
         #flash('Your message has been sent.')
         return redirect(url_for('user', username=recipient))
@@ -315,7 +316,8 @@ def send_message(recipient):
 @app.route('/messages')
 @login_required
 def messages():
-    current_user.last_message_read_time = datetime.now(timezone.utc)
+    current_user.last_message_read_time = datetime.now()
+    current_user.add_notification('unread_message_count', 0)
     db.session.commit()
     page = request.args.get('page', 1, type=int)
     query = current_user.messages_received.select().order_by(Message.timestamp.desc())
@@ -325,3 +327,16 @@ def messages():
     prev_url = url_for('messages', page=messages.prev_num) \
         if messages.has_prev else None
     return render_template('messages.html',messages=messages,next_url=next_url, prev_url=prev_url)
+  
+@app.route('/notifications')
+@login_required
+def notifications():
+    since = request.args.get('since', 0.0, type=float)
+    query = current_user.notifications.select().where(
+        Notification.timestamp > since).order_by(Notification.timestamp.asc())
+    notifications = db.session.scalars(query)
+    return [{
+        'name': n.name,
+        'data': n.get_data(),
+        'timestamp': n.timestamp
+    } for n in notifications]

@@ -11,6 +11,8 @@ import pytz
 from time import time
 import jwt
 from flask import url_for
+import json
+from time import time
 
 
 followers = sa.Table(
@@ -27,6 +29,8 @@ class User(UserMixin, db.Model):
   email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
   password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
   avatar_path: so.Mapped[str] = so.mapped_column(sa.String(256), nullable = True)
+  notifications: so.WriteOnlyMapped['Notification'] = so.relationship(
+        back_populates='user')
 
   posts: so.WriteOnlyMapped['Post'] = so.relationship(
     back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete-orphan')
@@ -118,6 +122,12 @@ class User(UserMixin, db.Model):
       .group_by(Post)
       .order_by(Post.timestamp.desc())
     )
+    
+  def add_notification(self, name, data):
+        db.session.execute(self.notifications.delete().where(Notification.name == name))
+        n = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(n)
+        return n
   
 
 
@@ -150,3 +160,15 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message {}>'.format(self.body)
+      
+class Notification(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    name: so.Mapped[str] = so.mapped_column(sa.String(128), index=True)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
+    timestamp: so.Mapped[float] = so.mapped_column(index=True, default=time)
+    payload_json: so.Mapped[str] = so.mapped_column(sa.Text)
+
+    user: so.Mapped[User] = so.relationship(back_populates='notifications')
+
+    def get_data(self):
+        return json.loads(str(self.payload_json))
