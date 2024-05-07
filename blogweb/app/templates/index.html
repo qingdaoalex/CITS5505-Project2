@@ -55,7 +55,7 @@
                 </div>
                 <div class="comment-box">
                     <div class="comment-head">
-                        <h6 class="comment-name by-author"><a
+                        <h6 class="comment-name by-author"><a class="user_popup"
                                 href="{{ url_for('user', username=post.author.username) }}">{{
                                 post.author.username }}</a></h6>
                         <span>{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="comment-content">
                         <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
-                        <!-- <p>{{ post.content }}</p> -->
+                        <p>{{ post.content }}</p>
                     </div>
                 </div>
             </div>
