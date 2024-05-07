@@ -56,6 +56,7 @@ $("#image-default").click(function() {
       } else {
         // For example, you might display a success message
         alert('Default avatar set successfully!');
+        location.reload();
       }
     },
     error: function(_, _, error) {

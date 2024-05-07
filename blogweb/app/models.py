@@ -76,7 +76,7 @@ class User(UserMixin, db.Model):
   
   def avatar(self, size):
     if self.avatar_path:
-        return url_for('static', filename=self.avatar_path)
+        return url_for('uploaded_avatars', filename=self.avatar_path)
     else:
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
