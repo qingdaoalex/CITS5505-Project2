@@ -14,6 +14,9 @@ from werkzeug.utils import secure_filename
 import uuid
 
 @app.route('/', methods=['GET', 'POST'])
+def welcome():
+	return render_template('welcome.html')
+
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
