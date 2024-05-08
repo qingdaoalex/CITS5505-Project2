@@ -148,12 +148,13 @@ body {
 	left: -160px;
 }
 
+
+/* -- Hero image -- */
 .hero-image {
 	position: relative;
 	margin-bottom: 2%;
 }
 
-/* -- Hero image -- */
 .hero-image img {
 	width: 100%;
 	height: 25vh;
