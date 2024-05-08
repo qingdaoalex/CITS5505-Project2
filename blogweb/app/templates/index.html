@@ -39,51 +39,35 @@
         <li class="nav-item" onclick="showTab(event, 'tab3')">
           <a class="nav-link" >Follower Rank</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li> -->
       </ul>
  
     <div id="tab1"  class="tabcontent" style="display: block;">
 
-        <h3>Recent Posts</h3>
+        <h3>Recent Post</h3>
 
 
-    {% for post in posts %}
-        {% include '_post_question.html' %}
-    {% endfor %}
-    </div>
-    <div id="tab2" class="tabcontent">
-        <h3>Tab 2 content</h3>
-        <p>This is the content for tab 2.</p>
-      </div>
-       
-      <div id="tab3" class="tabcontent">
-        <h3>Tab 3 content</h3>
-        <p>This is the content for tab 3.</p>
-      </div>
-
-
-    
+        {% for post in all_posts %}
+            {% include '_post_question.html' %}
+        {% endfor %}
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 		
-				{% if posts.has_prev %}
+				{% if all_posts.has_prev %}
 					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.prev_num) }}">Prev</a></li>
 				{% else %}
 					<li class="page-item disabled"><span class="page-link">First</span></li>
 				{% endif %}
 		
-				{% if posts.page > 4 %}
+				{% if all_posts.page > 4 %}
 					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
 					<li class="page-item disabled"><span class="page-link">...</span></li>
 				{% endif %}
 		
-				{% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %}
-					<li class="page-item {% if p == posts.page %}active{% endif %}">
-						{% if p == posts.page %}
+				{% for p in range(all_posts.page - 2, all_posts.page + 3) if p > 0 and p <= all_posts.pages %}
+					<li class="page-item {% if p == all_posts.page %}active{% endif %}">
+						{% if p == all_posts.page %}
 							<span class="page-link">{{ p }}</span>
 						{% else %}
 							<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
@@ -91,20 +75,33 @@
 					</li>
 				{% endfor %}
 		
-				{% if posts.page < posts.pages - 3 %}
+				{% if all_posts.page < all_posts.pages - 3 %}
 					<li class="page-item disabled"><span class="page-link">...</span></li>
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.pages) }}">{{ posts.pages }}</a></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">{{ all_posts.pages }}</a></li>
 				{% endif %}
 		
-				{% if posts.has_next %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=posts.pages) }}">Last</a></li>
+				{% if all_posts.has_next %}
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.next_num) }}">Next</a></li>
+					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">Last</a></li>
 				{% else %}
 					<li class="page-item disabled"><span class="page-link">Next</span></li>
 					<li class="page-item disabled"><span class="page-link">Last</span></li>
 				{% endif %}		
 			</ul>
-		</nav>		
+		</nav>	
+    </div>
+    <!-- follower post -->
+    <div id="tab2" class="tabcontent">
+        {% for post in follow_posts %}
+            {% include '_post_question.html' %}
+        {% endfor %}
+    </div>
+       
+    <div id="tab3" class="tabcontent">
+        <h3>Tab 3 content</h3>
+        <p>This is the content for tab 3.</p>
+    </div>
+	
 {% endblock %}
 
       
@@ -140,10 +137,6 @@
         event.currentTarget.className += " active";
     }
 
-</script>
-<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('content');
 </script>
 {% endblock %}
 

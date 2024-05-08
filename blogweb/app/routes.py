@@ -26,15 +26,21 @@ def index():
 		return redirect(url_for('index'))
 	
 	page = request.args.get('page', 1, type=int)
-	query = sa.select(Post).order_by(Post.timestamp.desc())
-	posts = db.paginate(query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-	next_url = url_for('index', page=posts.next_num) \
-		if posts.has_next else None
-	prev_url = url_for('index', page=posts.prev_num) \
-		if posts.has_prev else None
+	all_post_query = sa.select(Post).order_by(Post.timestamp.desc())
+	all_posts = db.paginate(all_post_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+	follow_posts = db.paginate(current_user.following_posts_only(),
+													 per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+	next_url_all = url_for('index', page=all_posts.next_num) \
+		if all_posts.has_next else None
+	prev_url_all = url_for('index', page=all_posts.prev_num) \
+		if all_posts.has_prev else None
+	next_url_follow = url_for('index', page=follow_posts.next_num) \
+		if all_posts.has_next else None
+	prev_url_follow = url_for('index', page=follow_posts.prev_num) \
+		if all_posts.has_prev else None
 	return render_template('index.html', title='Home', form=form,
-													posts=posts, next_url=next_url,
-													prev_url=prev_url)
+            all_posts=all_posts, follow_posts=follow_posts,next_url_all=next_url_all,
+            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
