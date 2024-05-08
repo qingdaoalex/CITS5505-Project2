@@ -18,7 +18,7 @@
     <h2>Replies:</h2>
     <ul>
         {% for reply in replies %}
-            <li>{{ reply.content | safe  }}</li>
+            <li>{{ reply.content | safe}}</li>
             <small>By: {{ reply.user.username }}, {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
         {% endfor %}
     </ul>

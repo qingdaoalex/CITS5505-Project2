@@ -124,10 +124,3 @@
   margin-left: 10px;
   border-radius: 3px;
 }
-.tabcontent {
-  display: none;
-}
-
-.tabcontent:first-child {
-  display: block;
-}
