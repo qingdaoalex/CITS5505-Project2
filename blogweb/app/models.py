@@ -110,6 +110,22 @@ class User(UserMixin, db.Model):
       self.following.select().subquery())
     return db.session.scalar(query)
   
+# Only followed user posts without current user's posts
+  def following_posts_only(self):
+    Author = so.aliased(User)
+    Follower = so.aliased(User)
+    return (
+      sa.select(Post)
+      .join(Post.author.of_type(Author))
+      .join(Author.followers.of_type(Follower), isouter=True)
+      .where(sa.or_(
+        Follower.id == self.id,
+      ))
+      .group_by(Post)
+      .order_by(Post.timestamp.desc())
+    )
+  
+# User's own posts with followed user posts.
   def following_posts(self):
     Author = so.aliased(User)
     Follower = so.aliased(User)
