@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app, send_from_directory
 from urllib.parse import urlsplit
 from app import app, db, mail
-from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm, SearchForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app.models import User, Post, Message, Notification, Reply
@@ -27,7 +27,7 @@ def index():
 		db.session.add(post)
 		db.session.commit()
 		return redirect(url_for('index'))
-	
+	search_form = SearchForm()
 	page = request.args.get('page', 1, type=int)
 	all_post_query = sa.select(Post).order_by(Post.timestamp.desc())
 	all_posts = db.paginate(all_post_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
@@ -43,7 +43,7 @@ def index():
 		if all_posts.has_prev else None
 	return render_template('index.html', title='Home', form=form,
             all_posts=all_posts, follow_posts=follow_posts,next_url_all=next_url_all,
-            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow)
+            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow, search_form=search_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -375,3 +375,26 @@ def post_detail(post_id):
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_form=reply_form)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(url_for('search_results', query=form.query.data, type=form.type.data))
+    return render_template('index.html', form=form)
+
+@app.route('/search_results')
+def search_results():
+    query = request.args.get('query', '', type=str)
+    search_type = request.args.get('type', 'post', type=str)
+
+    if search_type == 'user':
+        results = db.session.scalars(sa.select(User).where(User.username.contains(query))).all()
+    elif search_type == 'post':
+        results = db.session.scalars(sa.select(Post).where(Post.title.contains(query))).all()
+    elif search_type == 'reply':
+        results = db.session.scalars(sa.select(Reply).where(Reply.content.contains(query))).all()
+    else:
+        results = []
+
+    return render_template('search_results.html', results=results, search_type=search_type)
