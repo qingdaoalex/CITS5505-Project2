@@ -105,14 +105,26 @@
 		{% block content %}
 		{% endblock %}
 		<script>
-			document.addEventListener('click', function(event) {
-				var checkbox = document.getElementById('checkbox');
-				var sidebar = document.querySelector('.sidebar');
+			document.addEventListener("DOMContentLoaded", function () {
+				const checkbox = document.getElementById("checkbox");
+				const searchContainer = document.querySelector(".search-container");
+				const sidebar = document.querySelector('.sidebar');
 
-				// Check if the click occurred outside of the sidebar and checkbox, and checkbox is not checked
-				if (!sidebar.contains(event.target) && event.target !== checkbox && !checkbox.checked) {
-						checkbox.checked = true; // Check the checkbox
-				}
+				checkbox.addEventListener("change", function () {
+						if (checkbox.checked) {
+								searchContainer.style.visibility = "visible";
+						} else {
+								searchContainer.style.visibility = "hidden";
+						}
+				});
+
+				document.addEventListener('click', function(event) {
+						// Check if the click occurred outside of the sidebar and checkbox, and sidebar is not visible
+						if (!sidebar.contains(event.target) && event.target !== checkbox && !checkbox.checked) {
+								checkbox.checked = true; // Check the checkbox
+								searchContainer.style.visibility = "visible"; // Make the search area visible
+						}
+				});
 			});
 		</script>
 	
@@ -123,21 +135,6 @@
 				if (confirm("Are you sure you want to delete your account? This operation cannot be undone.")) {
 						this.submit(); // If user confirms, submit the form
 				}
-			});
-		</script>
-		<script>
-			// This script is to set when sidebar appear the search area will disappear. It is good for responsive display.
-			document.addEventListener("DOMContentLoaded", function () {
-				const checkbox = document.getElementById("checkbox");
-				const searchContainer = document.querySelector(".search-container");
-
-				checkbox.addEventListener("change", function () {
-					if (checkbox.checked) {
-							searchContainer.style.visibility = "visible";
-					} else {
-							searchContainer.style.visibility = "hidden";
-					}
-				});
 			});
 		</script>
 		<script>
