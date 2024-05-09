@@ -12,6 +12,7 @@ import os
 import imghdr
 from werkzeug.utils import secure_filename
 import uuid
+from sqlalchemy import or_
 
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
@@ -391,7 +392,9 @@ def search_results():
     if search_type == 'user':
         results = db.session.scalars(sa.select(User).where(User.username.contains(query))).all()
     elif search_type == 'post':
-        results = db.session.scalars(sa.select(Post).where(Post.title.contains(query))).all()
+        results = db.session.scalars(sa.select(Post).where(
+            or_(Post.title.contains(query), Post.content.contains(query))
+        )).all()
     elif search_type == 'reply':
         results = db.session.scalars(sa.select(Reply).where(Reply.content.contains(query))).all()
     else:
