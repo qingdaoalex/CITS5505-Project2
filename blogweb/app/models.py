@@ -33,9 +33,9 @@ class User(UserMixin, db.Model):
         back_populates='user')
 
   posts: so.WriteOnlyMapped['Post'] = so.relationship(
-    back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete-orphan')
+    back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete')
    ###replies
-  replies: so.Mapped[list['Reply']] = so.relationship("Reply", back_populates="user")
+  replies: so.Mapped[list['Reply']] = so.relationship("Reply", back_populates="user", cascade='all, delete-orphan', passive_deletes=True)
     ##
   about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
   last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(
@@ -45,11 +45,11 @@ class User(UserMixin, db.Model):
   following: so.WriteOnlyMapped['User'] = so.relationship(
     secondary=followers, primaryjoin=(followers.c.follower_id == id),
     secondaryjoin=(followers.c.followed_id == id),
-    back_populates='followers', passive_deletes=True)
+    back_populates='followers', passive_deletes=True, cascade='all')
   followers: so.WriteOnlyMapped['User'] = so.relationship(
     secondary=followers, primaryjoin=(followers.c.followed_id == id),
     secondaryjoin=(followers.c.follower_id == id),
-    back_populates='following', passive_deletes=True)
+    back_populates='following', passive_deletes=True, cascade='all')
   messages_sent: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.sender_id', back_populates='author')
   messages_received: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.recipient_id', back_populates='recipient')
 
@@ -171,8 +171,8 @@ class Reply(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     content: so.Mapped[str] = so.mapped_column(sa.Text, nullable=False)
     timestamp: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=lambda: datetime.now())
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id'))
-    post_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('post.id'))
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id', ondelete='CASCADE'))
+    post_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('post.id', ondelete='CASCADE'))
 
     user: so.Mapped['User'] = so.relationship('User', back_populates='replies')
     post: so.Mapped['Post'] = so.relationship('Post', back_populates='replies')

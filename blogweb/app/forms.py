@@ -136,3 +136,4 @@ class SearchForm(FlaskForm):
     query = StringField('Search', validators=[DataRequired()])
     type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
     submit = SubmitField('Search')
+
