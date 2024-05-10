@@ -88,13 +88,15 @@
 					</li>
 				</ul>
 			</div>
-			<form class="search-container">
-				<input class="form-control me-2" id="search-input" type="text" placeholder="Search">
-				<button class="btn btn-secondary" id="search-btn" type="button" title="Search Box">
-					<i class="fa fa-search"></i>
+			<form class="search-container" action="{{ url_for('search_results') }}" method="GET">
+				{{ search_form.query(class="form-control me-2", placeholder="Search") }}
+				{{ search_form.type(class="form-control me-2") }}
+				<button class="btn btn-secondary" id="search-btn" type="submit" title="Search Box">
+						<i class="fa fa-search"></i>
 				</button>
-				<div class="search-result-box" id="search-result"></div>
-			</form>
+		</form>
+		<div class="search-result-box" id="search-result"></div>
+		
 		</nav>
 		<div class="hero-image">
 			<img src="{{ url_for('static', filename='background.jpg') }}">

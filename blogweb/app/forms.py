@@ -1,6 +1,6 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateTimeField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateTimeField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 import sqlalchemy as sa
 from app import db
@@ -131,3 +131,7 @@ class MessageForm(FlaskForm):
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
 
+class SearchForm(FlaskForm):
+    query = StringField('Search', validators=[DataRequired()])
+    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
+    submit = SubmitField('Search')
