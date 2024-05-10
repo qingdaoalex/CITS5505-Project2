@@ -134,6 +134,6 @@ class MessageForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     query = StringField('Search', validators=[DataRequired()])
-    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
+    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post')])
     submit = SubmitField('Search')
 

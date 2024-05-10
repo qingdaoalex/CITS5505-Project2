@@ -223,6 +223,26 @@
 			}
 		}
 
+		function validatePostContent() {
+			// Retrieve CKEditor instance
+			let editor = CKEDITOR.instances['post-contnet'];
+			if (!editor) {
+					return false; // CKEditor instance not found
+			}
+	
+			// Get the content
+			let postContentData = editor.getData().trim();
+	
+			if (postContentData === '') {
+					content = "Question content is empty. Please enter question content!";
+					return false; // Field is empty, so it's invalid
+			} else if (postContentData.length > CONTENT_MAX_LENGTH) {
+					content = "Question content cannot exceed 2000 characters.";
+					return false; // Exceeds maximum length
+			}
+	
+			return true; // Content is valid
+	}
 	</script>
 
 	{% endblock %}
