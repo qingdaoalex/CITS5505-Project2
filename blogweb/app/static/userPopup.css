@@ -1,0 +1,24 @@
+.user-popup {
+  display: flex;
+  flex-direction: column;
+
+
+  .popup-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .popup-top-right {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+  }
+
+  .popup-bottom {
+    .about-me{
+      
+    }
+  }
+}
