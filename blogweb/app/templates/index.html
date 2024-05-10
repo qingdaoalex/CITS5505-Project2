@@ -196,7 +196,7 @@
 	<script>
 		// Constants
 		const CONTENT_MIN_LENGTH = 1;
-		const CONTENT_MAX_LENGTH = 200;
+		const CONTENT_MAX_LENGTH = 2000;
 		let content = "";
 		let title = "Warning!"
 
@@ -223,18 +223,6 @@
 			}
 		}
 
-		// Function to validate the aboutMe field (allows it to be empty, but cannot exceed 140 characters if not empty)
-		function validatePostContent() {
-			let postContentData = postContent.value.trim();
-			if (postContentData == '') {
-				content = "Question content is empty. Please enter question content!";
-				return false; // Field is empty, so it's valid
-			} else if (postContentData.length > CONTENT_MAX_LENGTH) {
-				content = "Question content cannot exceed 200 characters.";
-				return false;
-			}
-			return true;
-		}
 	</script>
 
 	{% endblock %}
