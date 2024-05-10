@@ -1,63 +1,76 @@
 .post-area {
   margin-left: 10px;
+
   .post-date {
     color: red;
     position: absolute;
     top: 10;
     right: 0;
   }
+
   .post-title {
-    margin-top:8px;
+    margin-top: 8px;
     font-size: 20px;
     color: black;
   }
 }
-.post{
+
+.post {
   display: flex;
   align-items: center;
-  .post-left{
 
-    width:80px;
-    .post-title{
-      width:100%
+  .post-left {
+
+    width: 80px;
+
+    .post-title {
+      width: 100%
     }
   }
-  .post-middle{
-    .user_popup{
-      width:20px;
-    }
-    margin-left:16px;
+
+  .post-middle {
     display: flex;
     flex-direction: column;
-    width:62%;
+    width: 60%;
 
+    .user_popup {
+      width: 20px;
+    }
 
-    .post-title{
-      font-size:20px;
-      margin-top:10px;
+    .post-middle-content {
+      margin-left: 16px;
+    }
+
+    .post-title {
+      font-size: 20px;
+      margin-top: 10px;
       white-space: nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      color:#808080
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #808080
     }
   }
-  .post-count{
-    height:100%;
-    width:80px;
-    font-size:20px;
-    margin-top:10px;
-    white-space: nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    color:#808080
 
+  .post-count {
+    height: 100%;
+    width: 100px;
+    font-size: 20px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #808080;
+    display: flex;
+    justify-content: center;
   }
-  .post-right{
-    .post-date{
+
+
+  .post-right {
+    .post-date {
       display: flex;
       flex-direction: column;
-
-      top:10px;
+      width: 200px;      
+      top: 10px;
 
     }
   }

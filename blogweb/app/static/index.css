@@ -125,10 +125,16 @@
   border-radius: 3px;
 }
 
-
+.tabs-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 .tabcontent {
   margin-top:14px;
   display: none;
+  width:90%;
 
   .tabcontent-post {
     min-height: 710px !important;
@@ -138,9 +144,11 @@
 
 .tabcontent:first-child {
   display: block;
+  width:80%;
 
   .tabcontent-post {
     min-height: 710px !important;
+
   }
 }
 .tabcontent-post-title{
@@ -159,8 +167,8 @@
   }
   .title-middle{
     left:0;
-    width:62%;
-    margin-left: 16px;
+    width:60%;
+    margin-left: 4px;
   }
   .title-right{
     display:flex;
@@ -170,10 +178,13 @@
     .title-count{
       display:flex;
       align-items: center;
-      width:80px;
+      width:100px;
+      justify-content: center;
 
     }
     .title-date{
+      width:200px;
+
 
     }
   }
