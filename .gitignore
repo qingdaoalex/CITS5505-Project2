@@ -5,3 +5,4 @@ app.db
 logs/
 venv/
 avatar/
+.venv

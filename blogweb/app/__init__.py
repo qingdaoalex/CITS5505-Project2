@@ -18,6 +18,11 @@ login = LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
 
+from app.forms import SearchForm
+@app.context_processor
+def inject_search_form():
+    return dict(search_form=SearchForm())
+
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
