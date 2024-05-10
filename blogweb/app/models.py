@@ -30,7 +30,7 @@ class User(UserMixin, db.Model):
   password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
   avatar_path: so.Mapped[str] = so.mapped_column(sa.String(256), nullable = True)
   notifications: so.WriteOnlyMapped['Notification'] = so.relationship(
-        back_populates='user')
+        back_populates='user', passive_deletes=True)
 
   posts: so.WriteOnlyMapped['Post'] = so.relationship(
     back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete')
@@ -50,8 +50,8 @@ class User(UserMixin, db.Model):
     secondary=followers, primaryjoin=(followers.c.followed_id == id),
     secondaryjoin=(followers.c.follower_id == id),
     back_populates='following', passive_deletes=True, cascade='all')
-  messages_sent: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.sender_id', back_populates='author')
-  messages_received: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.recipient_id', back_populates='recipient')
+  messages_sent: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.sender_id', back_populates='author', passive_deletes=True)
+  messages_received: so.WriteOnlyMapped['Message'] = so.relationship( foreign_keys='Message.recipient_id', back_populates='recipient', passive_deletes=True)
 
   def __repr__(self):
     return '<User {}>'.format(self.username)
