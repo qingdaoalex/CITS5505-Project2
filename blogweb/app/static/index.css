@@ -124,10 +124,58 @@
   margin-left: 10px;
   border-radius: 3px;
 }
+
+
 .tabcontent {
+  margin-top:14px;
   display: none;
+
+  .tabcontent-post {
+    min-height: 710px !important;
+  }
+
 }
 
 .tabcontent:first-child {
   display: block;
+
+  .tabcontent-post {
+    min-height: 710px !important;
+  }
+}
+.tabcontent-post-title{
+  padding:8px;
+  height:40px;
+  width:100%;
+  background-color: #03658c;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color:#fff;
+  font-size:16px;
+  .title-left{
+    width: 80px !important;
+
+  }
+  .title-middle{
+    left:0;
+    width:62%;
+    margin-left: 16px;
+  }
+  .title-right{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title-count{
+      display:flex;
+      align-items: center;
+      width:80px;
+
+    }
+    .title-date{
+
+    }
+  }
+
 }

@@ -82,9 +82,10 @@ class ResetPasswordForm(FlaskForm):
       raise ValidationError('Passwords do not match.')
 
 class PostForm(FlaskForm):
-    title = TextAreaField('Question Title', validators=[
-        DataRequired(), Length(min=1, max=140)])
-    content = CKEditorField('Question Content', validators=[
+    title = TextAreaField('Question Title(maximum length: 140)', validators=[
+        DataRequired(), Length(min=1, max=140)], render_kw={"class": "form-control", 
+          "placeholder": "Please enter your question title"})
+    content = CKEditorField('Question Content (maximum length: 500)', validators=[
         DataRequired(), Length(min=1, max=500)])
     submit = SubmitField('Post Question')
     
