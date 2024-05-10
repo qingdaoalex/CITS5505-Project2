@@ -406,24 +406,11 @@ def search_results():
 
     return render_template('search_results.html', results=results, search_type=search_type)
 
-@app.route('/delete_post/<int:post_id>', methods=['POST'])
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user.id:
-        abort(403)  # or handle as appropriate
-    db.session.delete(post)
-    db.session.commit()
-    flash('Post deleted.')
-    return redirect(request.referrer)  # 或者 redirect(request.referrer) 来返回到删除操作之前的页面
 
 @app.route('/delete_reply/<int:reply_id>', methods=['POST'])
 @login_required
 def delete_reply(reply_id):
     reply = Reply.query.get_or_404(reply_id)
-    if reply.user_id != current_user.id:
-        flash('You cannot delete this reply.', 'error')
-        return redirect(url_for('post_detail', post_id=reply.post_id))
     db.session.delete(reply)
     db.session.commit()
-    flash('Reply has been deleted.')
     return redirect(url_for('post_detail', post_id=reply.post_id))
