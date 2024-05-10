@@ -83,7 +83,7 @@ class ResetPasswordForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = TextAreaField('Question Title(maximum length: 140)', validators=[
-        DataRequired(), Length(min=1, max=140)], render_kw={"class": "form-control", 
+        DataRequired(), Length(min=1, max=140)], render_kw={"class": "form-control", "style": "width: 300px;",
           "placeholder": "Please enter your question title"})
     content = CKEditorField('Question Content (maximum length: 500)', validators=[
         DataRequired(), Length(min=1, max=500)])
