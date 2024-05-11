@@ -10,22 +10,27 @@ script.onload = function() {
   L2Dwidget.init({
     "model": {
       "jsonPath": "https://unpkg.com/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json",
-      "scale": 1
+      "scale": 0.8,
     },
     "display": {
-      "position":"right",
-      "width": 300,
-      "height": 400,
+      "position":"left",
+      "width": 220,
+      "height": 280,
       "hOffset": 0,
       "vOffset": -20
     },
     "mobile": {
       "show": true,
-      "scale": 0.5
+      "scale": 0.4,
+      "motion": true
     },
     "react": {
       "opacityDefault": 0.8,
       "opacityOnHover": 0.1
+    },
+    "name": {
+      "canvas": "live2dcanvas",
+      "div": "live2d-widget",
     }
   });
 };
