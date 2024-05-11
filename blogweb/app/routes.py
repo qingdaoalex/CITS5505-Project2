@@ -42,9 +42,12 @@ def index():
 		if all_posts.has_next else None
 	prev_url_follow = url_for('index', page=follow_posts.prev_num) \
 		if all_posts.has_prev else None
+	
 	return render_template('index.html', title='Home', form=form,
-            all_posts=all_posts, follow_posts=follow_posts,next_url_all=next_url_all,
-            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow, search_form=search_form)
+    all_posts=all_posts, follow_posts=follow_posts,
+		next_url_all=next_url_all, prev_url_all=prev_url_all,
+		prev_url_follow=prev_url_follow, next_url_follow=next_url_follow, 
+		search_form=search_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
