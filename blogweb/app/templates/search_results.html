@@ -13,7 +13,7 @@
     Title: <a href="{{ url_for('post_detail', post_id=result.id) }}">{{ result.title }}</a>
     {% elif search_type == 'reply' %}
     <!-- link to post -->
-    Reply: <a href="{{ url_for('post_detail', post_id=result.post_id) }}">{{ result.content }}</a>
+    Reply in Post: <a href="{{ url_for('post_detail', post_id=result[2]) }}">{{ result[1] }}</a> - {{ result[0] }}
     {% endif %}
   </li>
   {% endfor %}

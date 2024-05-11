@@ -86,7 +86,7 @@ class PostForm(FlaskForm):
         DataRequired(), Length(min=1, max=140)], render_kw={"class": "form-control", "style": "width: 300px;",
           "placeholder": "Please enter your question title"})
     content = CKEditorField('Question Content (maximum length: 500)', validators=[
-        DataRequired(), Length(min=1, max=500)])
+        DataRequired(), Length(min=1, max=5000)])
     submit = SubmitField('Post Question')
     
 class EditProfileForm(FlaskForm):
@@ -134,5 +134,6 @@ class MessageForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     query = StringField('Search', validators=[DataRequired()])
-    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
+    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post')])
     submit = SubmitField('Search')
+

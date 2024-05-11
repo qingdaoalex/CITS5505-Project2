@@ -370,7 +370,7 @@ def post_detail(post_id):
     replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
     replies = replies_query.all()  # Execute the query to fetch replies
     reply_form = ReplyForm()
-
+		
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
         db.session.add(reply)
@@ -399,8 +399,21 @@ def search_results():
             or_(Post.title.contains(query), Post.content.contains(query))
         )).all()
     elif search_type == 'reply':
-        results = db.session.scalars(sa.select(Reply).where(Reply.content.contains(query))).all()
+        results = db.session.execute(
+            sa.select(Reply, Post.title, Post.id)
+            .join(Post, Post.id == Reply.post_id)
+            .where(Reply.content.contains(query))
+        ).all()
     else:
         results = []
 
     return render_template('search_results.html', results=results, search_type=search_type)
+
+
+@app.route('/delete_reply/<int:reply_id>', methods=['POST'])
+@login_required
+def delete_reply(reply_id):
+    reply = Reply.query.get_or_404(reply_id)
+    db.session.delete(reply)
+    db.session.commit()
+    return redirect(url_for('post_detail', post_id=reply.post_id))
