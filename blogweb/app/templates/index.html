@@ -8,176 +8,206 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-3 sm-2 md-3 mb-2">
-	<h1>Hi, {{ current_user.username }}!</h1>
-	<button id="displayPostBtn" style="margin:20px" type="button" onclick="displayPostForm()" class="btn btn-primary">Show
-		Question
-		form</button>
+<div class="container mt-3 sm-2 md-3 mb-2 index-container">
+	<div class="index-page">
+		<h1>Hi, {{ current_user.username }}!</h1>
+		<button id="displayPostBtn" style="margin:20px" type="button" onclick="displayPostForm()"
+			class="btn btn-primary">Show
+			Question
+			form</button>
 
-	<form id="postForm" action="" method="POST" style="margin:20px; display: none">
-		{{ form.hidden_tag() }}
-		<p>
-			{{ form.title.label }}<br>
-			{{ form.title(size=50) }}<br>
-			{% for error in form.title.errors %}
-			<span style="color: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>
-			{{ form.content.label }}<br>
-			{{ form.content(cols=50, rows=4, id="post-contnet") }}<br>
-			{% for error in form.content.errors %}
-			<span style="color: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>{{ form.submit(class="btn btn-primary") }}</p>
-	</form>
-	<ul class="nav nav-tabs" style="cursor:pointer">
-		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')">All Post</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" onclick="showTab(event, 'tab2')">Follwer Post</a>
-		</li>
-		<li class="nav-item" onclick="showTab(event, 'tab3')">
-			<a class="nav-link">Follower Rank</a>
-		</li>
-	</ul>
-	<div class="tabs-container">
+		<form id="postForm" action="" method="POST" style="margin:20px; display: none">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.title.label }}<br>
+				{{ form.title(size=50) }}<br>
+				{% for error in form.title.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.content.label }}<br>
+				{{ form.content(cols=50, rows=4, id="post-contnet") }}<br>
+				{% for error in form.content.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>{{ form.submit(class="btn btn-primary") }}</p>
+		</form>
+		<ul class="nav nav-tabs" style="cursor:pointer">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')">All Post</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" onclick="showTab(event, 'tab2')">Follwer Post</a>
+			</li>
+		</ul>
+		<div class="tabs-container">
 
-		<div id="tab1" class="tabcontent" style="display: block;">
-			<div class="tabcontent-post">
-				<h3>Recent Post</h3>
-				<div class=tabcontent-post-title>
-					<div class=title-left>
-						Forums
-					</div>
-					<div class=title-middle>
-						<div class="post-title">
-							Question Title
+			<div id="tab1" class="tabcontent" style="display: block;">
+				<div class="tabcontent-post">
+					<div class=tabcontent-post-title>
+						<div class=title-left>
+							Forums
+						</div>
+						<div class=title-middle>
+							<div class="post-title">
+								Question Title
+							</div>
+
+						</div>
+						<div class=title-right>
+							<div class="title-count">
+								Reply Count
+							</div>
+							<div class="title-date">
+								Date
+							</div>
+
 						</div>
 
 					</div>
-					<div class=title-right>
-						<div class="title-count">
-							Reply Count
-						</div>
-						<div class="title-date">
-							Date
-						</div>
+					{% if all_posts.items %}
 
+					{% for post in all_posts %}
+					{% include '_post_list.html' %}
+					{% endfor %}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+
+							{% if all_posts.has_prev %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.prev_num) }}">Prev</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled"><span class="page-link">First</span></li>
+							{% endif %}
+
+							{% if all_posts.page > 4 %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
+							<li class="page-item disabled"><span class="page-link">...</span></li>
+							{% endif %}
+
+							{% for p in range(all_posts.page - 2, all_posts.page + 3) if p > 0 and p <= all_posts.pages %} <li
+								class="page-item {% if p == all_posts.page %}active{% endif %}">
+								{% if p == all_posts.page %}
+								<span class="page-link">{{ p }}</span>
+								{% else %}
+								<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+								{% endif %}
+								</li>
+								{% endfor %}
+
+								{% if all_posts.page < all_posts.pages - 3 %} <li class="page-item disabled"><span
+										class="page-link">...</span></li>
+									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">{{
+											all_posts.pages }}</a></li>
+									{% endif %}
+
+									{% if all_posts.has_next %}
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('index', page=all_posts.next_num) }}">Next</a>
+									</li>
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('index', page=all_posts.pages) }}">Last</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+									<li class="page-item disabled"><span class="page-link">Last</span></li>
+									{% endif %}
+						</ul>
+					</nav>
+					{% else %}
+					<!-- Empty page content -->
+					{% include 'empty.html' %}
+					{% endif %}
+				</div>
+
+			</div>
+
+			<!-- Reply post -->
+			<div id="tab2" class="tabcontent">
+				<div class="tabcontent-post">
+					<div class=tabcontent-post-title>
+						<div class=title-left>
+							Forums
+						</div>
+						<div class=title-middle>
+							<div class="post-title">
+								Question Title
+							</div>
+						</div>
+						<div class=title-right>
+							<div class="title-count">
+								Reply Count
+							</div>
+							<div class="title-date">
+								Date
+							</div>
+						</div>
 					</div>
+					{% if follow_posts.items %}
+					{% for post in follow_posts %}
+					{% include '_post_list.html' %}
+					{% endfor %}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
 
+							{% if follow_posts.has_prev %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link"
+									href="{{ url_for('index', page=follow_posts.prev_num) }}">Prev</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled"><span class="page-link">First</span></li>
+							{% endif %}
+
+							{% if follow_posts.page > 4 %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
+							<li class="page-item disabled"><span class="page-link">...</span></li>
+							{% endif %}
+
+							{% for p in range(follow_posts.page - 2, follow_posts.page + 3) if p > 0 and p <= follow_posts.pages %}
+								<li class="page-item {% if p == follow_posts.page %}active{% endif %}">
+								{% if p == follow_posts.page %}
+								<span class="page-link">{{ p }}</span>
+								{% else %}
+								<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+								{% endif %}
+								</li>
+								{% endfor %}
+
+								{% if follow_posts.page < follow_posts.pages - 3 %} <li class="page-item disabled"><span
+										class="page-link">...</span></li>
+									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=follow_posts.pages) }}">{{
+											follow_posts.pages }}</a></li>
+									{% endif %}
+
+									{% if follow_posts.has_next %}
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('index', page=follow_posts.next_num) }}">Next</a>
+									</li>
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('index', page=follow_posts.pages) }}">Last</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+									<li class="page-item disabled"><span class="page-link">Last</span></li>
+									{% endif %}
+						</ul>
+					</nav>
+					{% else %}
+					<!-- Empty page content -->
+					{% include 'empty.html' %}
+
+					{% endif %}
 				</div>
 
 
-				{% for post in all_posts %}
-				{% include '_post_question.html' %}
-				{% endfor %}
 			</div>
 
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-
-					{% if all_posts.has_prev %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.prev_num) }}">Prev</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled"><span class="page-link">First</span></li>
-					{% endif %}
-
-					{% if all_posts.page > 4 %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
-					<li class="page-item disabled"><span class="page-link">...</span></li>
-					{% endif %}
-
-					{% for p in range(all_posts.page - 2, all_posts.page + 3) if p > 0 and p <= all_posts.pages %} <li
-						class="page-item {% if p == all_posts.page %}active{% endif %}">
-						{% if p == all_posts.page %}
-						<span class="page-link">{{ p }}</span>
-						{% else %}
-						<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
-						{% endif %}
-						</li>
-						{% endfor %}
-
-						{% if all_posts.page < all_posts.pages - 3 %} <li class="page-item disabled"><span
-								class="page-link">...</span></li>
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">{{
-									all_posts.pages }}</a></li>
-							{% endif %}
-
-							{% if all_posts.has_next %}
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.next_num) }}">Next</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">Last</a>
-							</li>
-							{% else %}
-							<li class="page-item disabled"><span class="page-link">Next</span></li>
-							<li class="page-item disabled"><span class="page-link">Last</span></li>
-							{% endif %}
-				</ul>
-			</nav>
 		</div>
 
-		<!-- follower post -->
-		<div id="tab2" class="tabcontent container mt-3 sm-2 md-3 mb-2">
-			{% for post in follow_posts %}
-			{% include '_post_question.html' %}
-			{% endfor %}
-
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-
-					{% if follow_posts.has_prev %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=follow_posts.prev_num) }}">Prev</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled"><span class="page-link">First</span></li>
-					{% endif %}
-
-					{% if follow_posts.page > 4 %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
-					<li class="page-item disabled"><span class="page-link">...</span></li>
-					{% endif %}
-
-					{% for p in range(follow_posts.page - 2, follow_posts.page + 3) if p > 0 and p <= follow_posts.pages %} <li
-						class="page-item {% if p == follow_posts.page %}active{% endif %}">
-						{% if p == follow_posts.page %}
-						<span class="page-link">{{ p }}</span>
-						{% else %}
-						<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
-						{% endif %}
-						</li>
-						{% endfor %}
-
-						{% if follow_posts.page < follow_posts.pages - 3 %} <li class="page-item disabled"><span
-								class="page-link">...</span></li>
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=follow_posts.pages) }}">{{
-									follow_posts.pages }}</a></li>
-							{% endif %}
-
-							{% if follow_posts.has_next %}
-							<li class="page-item"><a class="page-link"
-									href="{{ url_for('index', page=follow_posts.next_num) }}">Next</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=follow_posts.pages) }}">Last</a>
-							</li>
-							{% else %}
-							<li class="page-item disabled"><span class="page-link">Next</span></li>
-							<li class="page-item disabled"><span class="page-link">Last</span></li>
-							{% endif %}
-				</ul>
-			</nav>
-
-		</div>
-
-		<div id="tab3" class="tabcontent">
-			<h3>Tab 3 content</h3>
-			<p>This is the content for tab 3.</p>
-		</div>
 	</div>
 
 
@@ -221,7 +251,7 @@
 		}
 
 		function showTab(event, tabName) {
-			var i, tabcontent, navlink;
+			let i, tabcontent, navlink;
 			tabcontent = document.getElementsByClassName("tabcontent");
 			for (i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
@@ -273,22 +303,22 @@
 			// Retrieve CKEditor instance
 			let editor = CKEDITOR.instances['post-contnet'];
 			if (!editor) {
-					return false; // CKEditor instance not found
+				return false; // CKEditor instance not found
 			}
-	
+
 			// Get the content
 			let postContentData = editor.getData().trim();
-	
+
 			if (postContentData === '') {
-					content = "Question content is empty. Please enter question content!";
-					return false; // Field is empty, so it's invalid
+				content = "Question content is empty. Please enter question content!";
+				return false; // Field is empty, so it's invalid
 			} else if (postContentData.length > CONTENT_MAX_LENGTH) {
-					content = "Question content cannot exceed 2000 characters.";
-					return false; // Exceeds maximum length
+				content = "Question content cannot exceed 2000 characters.";
+				return false; // Exceeds maximum length
 			}
-	
+
 			return true; // Content is valid
-	}
+		}
 	</script>
 
 	{% endblock %}
