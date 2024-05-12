@@ -13,13 +13,15 @@
             color: #007bff; /* Bootstrap's default primary color */
             text-decoration: none; /* No underline */" href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
         </strong>  said:</p><p style=
-        " background-color: #fff; /* White background for the bubble */
-          padding: 15px 20px; /* Padding around the text */
-          margin-bottom: 10px; /* Margin between messages */
-          border: none; /* No border */
-          border-radius: 15px; /* Rounded corners for the bubble effect */
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
-          position: relative; /* Needed for pseudo-elements */">{{ post.body }}</p>
+        " background-color: #fff;
+          padding: 15px 20px;
+          margin-bottom: 10px;
+          border-radius: 15px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          max-width: 90%; /* Limit the maximum width */
+          word-wrap: break-word; /* Breaks the words to prevent overflow */
+          overflow-wrap: break-word; /* Ensures long words do not cause overflow */
+          box-sizing: border-box; /* Includes padding and border in the element's total width */">{{ post.body }}</p>
 
         Posted on:  {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
   </tr>
