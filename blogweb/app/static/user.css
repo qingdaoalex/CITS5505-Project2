@@ -11,7 +11,7 @@
   min-height: 300px;
 
   .user-card {
-    max-width: 80%;
+    max-width: 100%;
 
     .user-card-left {
       padding: 10px;
