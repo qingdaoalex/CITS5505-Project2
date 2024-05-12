@@ -1,10 +1,25 @@
 <table>
   <tr valign="top">
-      <td ><img src="{{ post.author.avatar(100) }}"></td>
+      <td ><img style="
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        overflow: hidden;" src="{{ post.author.avatar(80) }}"></td>
       <td>
         <strong>
-          <p><a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
-        </strong> said:</p><p>{{ post.body }}</p>
+          <p><a style="    
+            font-weight: bold; /* Make the username bold */
+            color: #007bff; /* Bootstrap's default primary color */
+            text-decoration: none; /* No underline */" href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
+        </strong>  said:</p><p style=
+        " background-color: #fff; /* White background for the bubble */
+          padding: 15px 20px; /* Padding around the text */
+          margin-bottom: 10px; /* Margin between messages */
+          border: none; /* No border */
+          border-radius: 15px; /* Rounded corners for the bubble effect */
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
+          position: relative; /* Needed for pseudo-elements */">{{ post.body }}</p>
 
         Posted on:  {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
   </tr>

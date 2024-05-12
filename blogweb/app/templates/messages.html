@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-3">
-    <h1>{{ 'Messages' }}</h1><br>
+<div class="container mt-3" style="
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <h1 style="
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 20px;">
+      {{ 'Messages' }}
+    </h1><br>
     {% for post in messages %}
         {% include '_message.html' %}
     {% endfor %}
