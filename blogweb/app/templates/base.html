@@ -98,12 +98,7 @@
 		<div class="search-result-box" id="search-result"></div>
 		
 		</nav>
-		<div class="hero-image">
-			<img src="{{ url_for('static', filename='background.jpg') }}" style="width:100%">
-			<div class="heading">
-				<h2>Post your comments now!</h2>
-			</div>
-		</div>
+
 		{% block content %}
 		{% endblock %}
 		<script>
@@ -197,6 +192,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous">
     </script>
+		
 		{% block script %}	
 		{% endblock %}
 	</body>
