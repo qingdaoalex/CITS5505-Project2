@@ -32,7 +32,7 @@ body {
 	flex-wrap: nowrap;
 	z-index: 0;
 }
-
+/* -- Sidebar labels -- */
 .sidebar input {
 	display: none;
 }

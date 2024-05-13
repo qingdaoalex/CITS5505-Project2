@@ -17,6 +17,10 @@ import uuid
 def welcome():
 	return render_template('welcome.html')
 
+@app.route('/references', methods=['GET'])
+def references():
+	return render_template('references.html')
+
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
