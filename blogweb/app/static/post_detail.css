@@ -52,7 +52,8 @@
 
   .separator {
     height: 20px;
-    background-color: #d3d3d3;
+    border-top: 1px solid ;
+    background-color: #fff;
   }
 
   .post-detail-bottom {
@@ -61,7 +62,7 @@
 
     .post-detail-bottom-left {
       width: 20%;
-      background-color: #d3d3d3;
+      background-color: #fff;
     }
 
     .post-detail-bottom-middle {
@@ -117,7 +118,7 @@
 
     .post-detail-bottom-right {
       width: 20%;
-      background-color: #d3d3d3;
+      background-color: #fff;
 
     }
 
