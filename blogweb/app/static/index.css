@@ -129,8 +129,8 @@
   display: flex;
   justify-content: center;
   backdrop-filter: blur(8px);
-  border: #6C757D 1px solid;
-  border-radius: 10px;
+  padding-top: 2%;
+  top: 10%;
 }
 
 .index-container .index-page {
@@ -207,6 +207,10 @@
 
 }
 
-.nav-item active {
-  color: #A49885;
+.questionform {
+  border: #6c757d 1px solid;
+  margin-bottom: 5%;
+  padding: 3%;
+  border-radius: 10px;
+
 }

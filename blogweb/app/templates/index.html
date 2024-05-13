@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-3 sm-2 md-3 mb-2 index-container">
+<div class="container mt-5 sm-2 md-3 mb-2 index-container">
 	<div class="index-page">
+		<div class="questionform">
 		<h1>Hi, {{ current_user.username }}!</h1>
-		<button id="displayPostBtn" style="margin-top:20px; margin-bottom:20px" type="button" onclick="displayPostForm()"
+		<button id="displayPostBtn" style="margin-top:2%; margin-bottom:2%" type="button" onclick="displayPostForm()"
 			class="btn btn-secondary" >Show Question form</button>
 
 		<form id="postForm" action="" method="POST" style="margin:20px 0px; display: none">
@@ -32,6 +33,7 @@
 			</p>
 			<p>{{ form.submit(class="btn btn-secondary") }}</p>
 		</form>
+	</div>
 		<ul class="nav nav-tabs" style="cursor:pointer">
 			<li class="nav-item" style="color:#2e59a7">
 				<a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')" >All Post</a>
