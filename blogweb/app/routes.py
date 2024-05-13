@@ -331,7 +331,6 @@ def send_message(recipient):
         db.session.add(msg)
         user.add_notification('unread_message_count',user.unread_message_count())
         db.session.commit()
-        #flash('Your message has been sent.')
         return redirect(url_for('user', username=recipient))
     return render_template('send_message.html', title=('Send Message'),form=form, recipient=recipient)
   
@@ -384,7 +383,6 @@ def post_detail(post_id):
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
         db.session.add(reply)
         db.session.commit()
-        flash('Your reply has been posted.')
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
