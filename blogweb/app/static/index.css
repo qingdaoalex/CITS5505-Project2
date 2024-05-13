@@ -124,30 +124,35 @@
   margin-left: 10px;
   border-radius: 3px;
 }
+.index-container{
+  display:flex;
+  justify-content: center;
+  .index-page{
+    width:80%; 
+  }
+}
 
 .tabs-container{
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 }
 .tabcontent {
   margin-top:14px;
   display: none;
-  width:90%;
 
   .tabcontent-post {
-    min-height: 710px !important;
+    min-height: 800px !important;
   }
 
 }
 
 .tabcontent:first-child {
   display: block;
-  width:80%;
 
   .tabcontent-post {
-    min-height: 710px !important;
+    min-height: 800px !important;
 
   }
 }
@@ -184,8 +189,6 @@
     }
     .title-date{
       width:200px;
-
-
     }
   }
 

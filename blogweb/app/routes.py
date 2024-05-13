@@ -42,9 +42,12 @@ def index():
 		if all_posts.has_next else None
 	prev_url_follow = url_for('index', page=follow_posts.prev_num) \
 		if all_posts.has_prev else None
+	
 	return render_template('index.html', title='Home', form=form,
-            all_posts=all_posts, follow_posts=follow_posts,next_url_all=next_url_all,
-            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow, search_form=search_form)
+    all_posts=all_posts, follow_posts=follow_posts,
+		next_url_all=next_url_all, prev_url_all=prev_url_all,
+		prev_url_follow=prev_url_follow, next_url_follow=next_url_follow, 
+		search_form=search_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -328,7 +331,6 @@ def send_message(recipient):
         db.session.add(msg)
         user.add_notification('unread_message_count',user.unread_message_count())
         db.session.commit()
-        #flash('Your message has been sent.')
         return redirect(url_for('user', username=recipient))
     return render_template('send_message.html', title=('Send Message'),form=form, recipient=recipient)
   
@@ -367,15 +369,24 @@ def post_detail(post_id):
     replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
     replies = replies_query.all()  # Execute the query to fetch replies
     reply_form = ReplyForm()
-		
+    print("******replies*******", replies)
+    print("******replies_query*******", replies_query)
+
+    page = request.args.get('page', 1, type=int)
+    reply_post = db.paginate(replies_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_reply = url_for('/post/<int:post_id>', page=reply_post.next_num) \
+      if reply_post.has_next else None
+    prev_url_reply = url_for('/post/<int:post_id>', page=reply_post.prev_num) \
+		if reply_post.has_prev else None
+
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
         db.session.add(reply)
         db.session.commit()
-        flash('Your reply has been posted.')
         return redirect(url_for('post_detail', post_id=post.id))
 
-    return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_form=reply_form)
+    return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
+				reply_form=reply_form,	next_url_reply=next_url_reply, prev_url_reply=prev_url_reply,)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
