@@ -1,6 +1,6 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateTimeField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateTimeField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 import sqlalchemy as sa
 from app import db
@@ -82,17 +82,18 @@ class ResetPasswordForm(FlaskForm):
       raise ValidationError('Passwords do not match.')
 
 class PostForm(FlaskForm):
-    title = TextAreaField('Question Title', validators=[
-        DataRequired(), Length(min=1, max=140)])
-    content = CKEditorField('Question Content', validators=[
-        DataRequired(), Length(min=1, max=500)])
+    title = TextAreaField('Question Title(maximum length: 140)', validators=[
+        DataRequired(), Length(min=1, max=140)], render_kw={"class": "form-control", "style": "width: 300px;",
+          "placeholder": "Please enter your question title"})
+    content = CKEditorField('Question Content (maximum length: 500)', validators=[
+        DataRequired(), Length(min=1, max=5000)])
     submit = SubmitField('Post Question')
     
 class EditProfileForm(FlaskForm):
   username = StringField('Username(3 to 20 characters, number or letter)', validators=[DataRequired()])
   about_me = TextAreaField('About me(140 maximum length)', validators=[Length(min=0, max=140)])
   email = StringField('Email', validators=[DataRequired(), Email()])
-  submit = SubmitField('Submit')
+  submit = SubmitField('Save')
 
   def __init__(self, original_username, original_email, *args, **kwargs):
     super().__init__(*args, **kwargs)
@@ -130,4 +131,9 @@ class MessageForm(FlaskForm):
     message = CKEditorField(('Message'), validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+
+class SearchForm(FlaskForm):
+    query = StringField('Search', validators=[DataRequired()])
+    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
+    submit = SubmitField('Search')
 

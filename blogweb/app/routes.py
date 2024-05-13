@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app, send_from_directory
 from urllib.parse import urlsplit
 from app import app, db, mail
-from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm, SearchForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app.models import User, Post, Message, Notification, Reply
@@ -12,6 +12,7 @@ import os
 import imghdr
 from werkzeug.utils import secure_filename
 import uuid
+from sqlalchemy import or_
 
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
@@ -31,7 +32,7 @@ def index():
 		db.session.add(post)
 		db.session.commit()
 		return redirect(url_for('index'))
-	
+	search_form = SearchForm()
 	page = request.args.get('page', 1, type=int)
 	all_post_query = sa.select(Post).order_by(Post.timestamp.desc())
 	all_posts = db.paginate(all_post_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
@@ -45,9 +46,12 @@ def index():
 		if all_posts.has_next else None
 	prev_url_follow = url_for('index', page=follow_posts.prev_num) \
 		if all_posts.has_prev else None
+	
 	return render_template('index.html', title='Home', form=form,
-            all_posts=all_posts, follow_posts=follow_posts,next_url_all=next_url_all,
-            prev_url_all=prev_url_all,prev_url_follow=prev_url_follow ,next_url_follow=next_url_follow)
+    all_posts=all_posts, follow_posts=follow_posts,
+		next_url_all=next_url_all, prev_url_all=prev_url_all,
+		prev_url_follow=prev_url_follow, next_url_follow=next_url_follow, 
+		search_form=search_form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -331,7 +335,6 @@ def send_message(recipient):
         db.session.add(msg)
         user.add_notification('unread_message_count',user.unread_message_count())
         db.session.commit()
-        #flash('Your message has been sent.')
         return redirect(url_for('user', username=recipient))
     return render_template('send_message.html', title=('Send Message'),form=form, recipient=recipient)
   
@@ -370,12 +373,59 @@ def post_detail(post_id):
     replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
     replies = replies_query.all()  # Execute the query to fetch replies
     reply_form = ReplyForm()
+    print("******replies*******", replies)
+    print("******replies_query*******", replies_query)
+
+    page = request.args.get('page', 1, type=int)
+    reply_post = db.paginate(replies_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_reply = url_for('/post/<int:post_id>', page=reply_post.next_num) \
+      if reply_post.has_next else None
+    prev_url_reply = url_for('/post/<int:post_id>', page=reply_post.prev_num) \
+		if reply_post.has_prev else None
 
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
         db.session.add(reply)
         db.session.commit()
-        flash('Your reply has been posted.')
         return redirect(url_for('post_detail', post_id=post.id))
 
-    return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_form=reply_form)
+    return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
+				reply_form=reply_form,	next_url_reply=next_url_reply, prev_url_reply=prev_url_reply,)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(url_for('search_results', query=form.query.data, type=form.type.data))
+    return render_template('index.html', form=form)
+
+@app.route('/search_results')
+def search_results():
+    query = request.args.get('query', '', type=str)
+    search_type = request.args.get('type', 'post', type=str)
+
+    if search_type == 'user':
+        results = db.session.scalars(sa.select(User).where(User.username.contains(query))).all()
+    elif search_type == 'post':
+        results = db.session.scalars(sa.select(Post).where(
+            or_(Post.title.contains(query), Post.content.contains(query))
+        )).all()
+    elif search_type == 'reply':
+        results = db.session.execute(
+            sa.select(Reply, Post.title, Post.id)
+            .join(Post, Post.id == Reply.post_id)
+            .where(Reply.content.contains(query))
+        ).all()
+    else:
+        results = []
+
+    return render_template('search_results.html', results=results, search_type=search_type)
+
+
+@app.route('/delete_reply/<int:reply_id>', methods=['POST'])
+@login_required
+def delete_reply(reply_id):
+    reply = Reply.query.get_or_404(reply_id)
+    db.session.delete(reply)
+    db.session.commit()
+    return redirect(url_for('post_detail', post_id=reply.post_id))
