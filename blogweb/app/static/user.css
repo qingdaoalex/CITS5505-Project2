@@ -1,0 +1,151 @@
+.user-container {
+  display: flex;
+  justify-content: center;
+
+  .user-page {
+    width: 80%;
+  }
+}
+
+.user-top {
+  min-height: 300px;
+
+  .user-card {
+    max-width: 100%;
+
+    .user-card-left {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .avatar {
+        padding-top: 20px;
+      }
+
+      .user-name {
+        padding: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+
+        .user-name-text {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .follow-info {
+      display: flex;
+      max-width: 90%;
+
+      .follow-info-each {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        overflow: hidden;
+
+        .follow-count {
+          color: #1c9eff;
+          font-weight: bold;
+          font-size: 40px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 80%
+        }
+
+
+        .follow-text {
+          color: #afafaf;
+          font-size: 14px;
+          font-weight: normal;
+        }
+
+      }
+    }
+
+    .about-me-title {
+      font-size: 22px;
+    }
+
+    .about-me-text {
+      font-size: 18px;
+    }
+
+    .send-message {
+      text-decoration: none;
+    }
+  }
+}
+
+.user-bottom {
+  .tabcontent {
+    margin-top: 14px;
+    display: none;
+
+    .tabcontent-post {
+      min-height: 800px !important;
+    }
+
+  }
+
+  .tabcontent:first-child {
+    display: block;
+
+    .tabcontent-post {
+      min-height: 800px !important;
+
+    }
+  }
+
+  .user-bottom-middle {
+    .post-table-title {
+      padding: 8px;
+      height: 40px;
+      width: 100%;
+      background-color: #252b2e;
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      color: #fff;
+      font-size: 16px;
+
+      .title-left {
+        width: 80px !important;
+
+      }
+
+      .title-middle {
+        left: 0;
+        width: 60%;
+        margin-left: 4px;
+      }
+
+      .title-right {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title-count {
+          display: flex;
+          align-items: center;
+          width: 100px;
+          justify-content: center;
+
+        }
+
+        .title-date {
+          width: 200px;
+
+
+        }
+      }
+
+    }
+  }
+}

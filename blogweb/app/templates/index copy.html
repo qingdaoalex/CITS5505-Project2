@@ -261,21 +261,16 @@
 			for (i = 0; i < tabcontent.length; i++) {
 				console.log(i, tabcontent, navlink, "for i, tabcontent, navlink********")
 
+
 				tabcontent[i].style.display = "none";
 			}
 			navlink = document.getElementsByClassName("nav-link");
 			console.log(navlink, "navlink********")
 
 			for (i = 0; i < navlink.length; i++) {
-				navlink[i].className = navlink[i].className.replace("active", "");
+				navlink[i].className = navlink[i].className.replace(" active", "");
 			}
 			document.getElementById(tabName).style.display = "block";
-			
-			console.log(document.getElementById(tabName),
-			document.getElementById(tabName).style, 
-			"document.getElementById(tabName)********")
-			console.log(event.currentTarget, "event.currentTarget")
-
 			event.currentTarget.className += " active";
 		}
 

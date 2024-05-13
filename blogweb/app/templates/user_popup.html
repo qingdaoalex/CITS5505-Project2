@@ -11,7 +11,7 @@
 
   <div class="popup-bottom">
     <div class="about-me">
-      About me: {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+      <h5>About me: </h5>{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
     </div>
     {% if user.last_seen %}<span>Last seen on: {{ user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</span>{% endif %}
     {% if user != current_user %}
