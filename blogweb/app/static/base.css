@@ -13,6 +13,8 @@ body {
 }
 
 
+/* -- Sidebar -- */
+
 .sidebar {
 	position: relative;
 	width: 100%;
@@ -32,7 +34,7 @@ body {
 	flex-wrap: nowrap;
 	z-index: 0;
 }
-
+/* -- Sidebar labels -- */
 .sidebar input {
 	display: none;
 }
