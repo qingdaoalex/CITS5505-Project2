@@ -10,22 +10,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="  post-detail">
+<div class="post-detail">
+	<a style="margin: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a>
+
 	<div class="post-detail-top">
 		<div class="post-detail-top-left">
-			<a style="margin-top: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a>
 
 		</div>
 		<div class="post-detail-top-middle">
 			<div class="post-detail-top-middle-left">
 				<h1>{{ post.title }}</h1>
-
 				<p>Author: {{ post.author.username }}</p>
-
 
 				<span class="post-top-content">{{ post.content | safe }}</span>
 				<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
 					class="btn btn-primary">Click here to reply</button>
+
 				<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
 					style=" display: none">
 					{{ reply_form.hidden_tag() }}

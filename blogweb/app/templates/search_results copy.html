@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Results</h1>
+{% if results %}
+<ul>
+  {% for result in results %}
+  <li>
+    {% if search_type == 'user' %}
+    <!-- link to user profile -->
+    Username: <a href="{{ url_for('user', username=result.username) }}">{{ result.username }}</a>
+    {% elif search_type == 'post' %}
+    <!-- link to post -->
+    Title: <a href="{{ url_for('post_detail', post_id=result.id) }}">{{ result.title }}</a>
+    {% elif search_type == 'reply' %}
+    <!-- link to post -->
+    Reply in Post: <a href="{{ url_for('post_detail', post_id=result[2]) }}">{{ result[1] }}</a> - {{ result[0] }}
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+{% endblock %}
