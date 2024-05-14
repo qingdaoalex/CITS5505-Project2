@@ -373,15 +373,13 @@ def post_detail(post_id):
     replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
     replies = replies_query.all()  # Execute the query to fetch replies
     reply_form = ReplyForm()
-    print("******replies*******", replies)
-    print("******replies_query*******", replies_query)
 
     page = request.args.get('page', 1, type=int)
-    reply_post = db.paginate(replies_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-    next_url_reply = url_for('/post/<int:post_id>', page=reply_post.next_num) \
+    reply_post = replies_query.paginate(page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.next_num) \
       if reply_post.has_next else None
-    prev_url_reply = url_for('/post/<int:post_id>', page=reply_post.prev_num) \
-		if reply_post.has_prev else None
+    prev_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.prev_num) \
+        if reply_post.has_prev else None
 
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
@@ -390,7 +388,7 @@ def post_detail(post_id):
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
-				reply_form=reply_form,	next_url_reply=next_url_reply, prev_url_reply=prev_url_reply,)
+                           reply_form=reply_form, next_url_reply=next_url_reply, prev_url_reply=prev_url_reply, post_id=post.id)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
