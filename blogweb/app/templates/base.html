@@ -38,7 +38,7 @@
 				</label>
 				<ul>
 					<li>
-						<img class="profile-photo" src="{{ current_user.avatar(180) }}" alt="user profile photo">
+						<img class="profile-photo" crossorigin="anonymous" src="{{ current_user.avatar(180) }}" alt="user profile photo">
 						<span>{{ current_user.username }}</span>
 					</li>
 					<li>
@@ -168,10 +168,16 @@
 			document.addEventListener('DOMContentLoaded', initialize_popovers);
 				
 			function set_message_count(n) {
-				const count = document.getElementById('message_count');
-				count.innerText = n;
-				count.style.visibility = n ? 'visible' : 'hidden';
-			}
+				try {
+						const count = document.getElementById('message_count');
+						if (count) {
+								count.innerText = n;
+								count.style.visibility = n ? 'visible' : 'hidden';
+						}
+				} catch (error) {
+						// Catch and suppress any errors silently
+				}
+		}
 
 			{% if current_user.is_authenticated %}
 			function initialize_notifications() {

@@ -164,18 +164,13 @@
 </div>
 </div>
 
-
+{% endblock %}
 <!-- <a class="btn btn-primary" style="margin-top: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a> -->
 {% block script %}
-<script src="https://cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
-<script>
-	CKEDITOR.replace('content');
-</script>
-{% endblock %}
-<script>
-	console.log("printprintprintprint")
 
-	console.log("print", replies)
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+
 	function displayreplyForm() {
 		let displayPostBtn = document.getElementById("displayPostBtn");
 		let replyForm = document.getElementById("replyForm")

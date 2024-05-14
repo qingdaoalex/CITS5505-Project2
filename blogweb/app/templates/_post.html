@@ -1,7 +1,7 @@
 
 <table>
   <tr valign="top">
-      <td><img src="{{ post.author.avatar(100) }} " style="width: 100px; height: 100px;"></td>
+      <td><img src="{{ post.author.avatar(100) }} " crossorigin="anonymous" style="width: 100px; height: 100px;"></td>
       <td>
         <strong>
           <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>

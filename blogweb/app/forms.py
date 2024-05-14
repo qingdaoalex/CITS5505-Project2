@@ -128,7 +128,7 @@ class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
     
 class MessageForm(FlaskForm):
-    message = CKEditorField(('Message'), validators=[
+    message = TextAreaField(('Message'), validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
 

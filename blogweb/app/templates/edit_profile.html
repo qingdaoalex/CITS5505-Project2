@@ -12,7 +12,7 @@
     <div class="profile-container">
       <div class="info-view">
         <div class="avatar-upload">
-          <img id="user-avatar" src="{{ user.avatar(128) }}">
+          <img id="user-avatar" src="{{ user.avatar(128) }}" crossorigin="anonymous">
           <div class="avatar-edit">
             <form class="avatar-form" id="avatar-form" method="post" enctype="multipart/form-data" action="/upload_avatar">
               <input type="file" name="avatar-upload" id="image-upload" accept="image/*">
