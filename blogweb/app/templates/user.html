@@ -8,6 +8,12 @@
 {% block content %}
 <div class="container mt-3 sm-2 md-3 mb-2 user-container">
   <div class="user-page">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      </ol>
+    </nav>
     <div class="user-top">
       <div class="card user-card mb-3">
         <div class="row g-0">

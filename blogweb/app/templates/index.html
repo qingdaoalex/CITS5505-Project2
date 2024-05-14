@@ -12,7 +12,9 @@
 		<button id="displayPostBtn" style="margin-top:2%; margin-bottom:2%" type="button" onclick="displayPostForm()"
 			class="btn btn-secondary" >Show Question form</button>
 
+
 		<form id="postForm" action="" method="POST" style="margin:20px 0px; display: none">
+
 			{{ form.hidden_tag() }}
 			<p>
 				{{ form.title.label }}<br>
@@ -45,7 +47,7 @@
 				<div class="tabcontent-post">
 					<div class=tabcontent-post-title>
 						<div class=title-left>
-							Forums
+							Post
 						</div>
 						<div class=title-middle>
 							<div class="post-title">
@@ -110,8 +112,7 @@
 								<li class="page-item"><a class="page-link"
 										href="{{ url_for('index', page=all_posts.next_num) }}">Next</a>
 								</li>
-								<li class="page-item"><a class="page-link"
-										href="{{ url_for('index', page=all_posts.pages) }}">Last</a>
+								<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">Last</a>
 								</li>
 								{% else %}
 								<li class="page-item disabled"><span class="page-link">Next</span></li>
@@ -127,7 +128,7 @@
 				<div class="tabcontent-post">
 					<div class=tabcontent-post-title>
 						<div class=title-left>
-							Forums
+							Post
 						</div>
 						<div class=title-middle>
 							<div class="post-title">
@@ -260,33 +261,51 @@
 		}
 
 		function showTab(event, tabName) {
-			console.log(event, tabName, "testing********")
-			let i, tabcontent, navlink;
-			console.log(i, tabcontent, navlink, "i, tabcontent, navlink********")
-
-			tabcontent = document.getElementsByClassName("tabcontent");
-			console.log(tabcontent, "tabcontent********")
-
-			for (i = 0; i < tabcontent.length; i++) {
-				console.log(i, tabcontent, navlink, "for i, tabcontent, navlink********")
-
-				tabcontent[i].style.display = "none";
-			}
-			navlink = document.getElementsByClassName("nav-link");
-			console.log(navlink, "navlink********")
-
-			for (i = 0; i < navlink.length; i++) {
-				navlink[i].className = navlink[i].className.replace("active", "");
-			}
-			document.getElementById(tabName).style.display = "block";
+			let newUrl = window.location.pathname + '?page=1';
+			window.location.href = newUrl;
 			
-			console.log(document.getElementById(tabName),
-			document.getElementById(tabName).style, 
-			"document.getElementById(tabName)********")
-			console.log(event.currentTarget, "event.currentTarget")
+			navlink = document.getElementsByClassName("nav-link");
+			sessionStorage.setItem('activeTab', tabName);
+			if (tabName == "tab1") {
+				navlink[0].className = "nav-link active";
+				navlink[1].className = "nav-link";
 
-			event.currentTarget.className += " active";
+				document.getElementById("tab1").style.display = "block";
+				document.getElementById("tab2").style.display = "none";
+			} else if (tabName == "tab2") {
+				navlink[0].className = "nav-link"
+				navlink[1].className = "nav-link active";
+
+
+				document.getElementById("tab2").style.display = "block";
+				document.getElementById("tab1").style.display = "none";
+			}
+
 		}
+
+
+		// Retrieve and set the active tab when the page Domcontent loads then set the CSS style for the page
+		window.addEventListener('DOMContentLoaded', function () {
+		
+			let navlink = document.getElementsByClassName("nav-link");
+			navlink[0].className = "nav-link";
+			navlink[1].className = "nav-link";
+			var activeTab = sessionStorage.getItem('activeTab');
+
+			if (activeTab == "tab1") {
+				navlink[0].className = "nav-link active";
+				navlink[1].className = "nav-link";
+				document.getElementById("tab1").style.display = "block";
+				document.getElementById("tab2").style.display = "none";
+
+			} else if (activeTab == "tab2") {
+				navlink[0].className = "nav-link"
+				navlink[1].className = "nav-link active";
+				document.getElementById("tab2").style.display = "block";
+				document.getElementById("tab1").style.display = "none";
+
+			}
+		});
 
 	</script>
 	<script src="https://cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>

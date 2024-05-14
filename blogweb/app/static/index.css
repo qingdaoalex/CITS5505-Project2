@@ -189,6 +189,7 @@
 .index-container {
   display: flex;
   justify-content: center;
+
   padding-top: 2%;
   top: 10%;
   background-color: rgba(255, 255, 255, 0.557);
@@ -197,7 +198,7 @@
 
 .index-container .index-page {
   width: 85%;
-}
+
 
 
 .tabs-container {
@@ -226,6 +227,7 @@
   }
 }
 
+
 .tabcontent-post-title {
   padding: 8px;
   height: 40px;
@@ -240,6 +242,7 @@
 
   .title-left {
     width: 80px !important;
+
 
   }
 
