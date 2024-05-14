@@ -10,14 +10,15 @@
 {% endblock %}
 
 {% block content %}
+<div class="container mt-5 maincontainer">
 <div class="post-detail">
-	<nav aria-label="breadcrumb" style="margin-left: 20%;">
+	<nav aria-label="breadcrumb" style="margin-left: 14.5%;">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Post Detail</li>
 		</ol>
 	</nav>
-	
+
 	<div class="post-detail-top">
 		<div class="post-detail-top-left">
 
@@ -29,7 +30,7 @@
 
 				<span class="post-top-content">{{ post.content | safe }}</span>
 				<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
-					class="btn btn-primary">Click here to reply</button>
+					class="btn btn-secondary">Click here to reply</button>
 
 				<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
 					style=" display: none">
@@ -38,7 +39,7 @@
 						<!-- {{ reply_form.content.label }} -->
 						{{ reply_form.content(class="form-control") }}
 					</div>
-					<button type="submit" class="btn btn-primary" style="margin-top: 20px;">Reply</button>
+					<button type="submit" class="btn btn-secondary" style="margin-top: 20px;">Reply</button>
 				</form>
 			</div>
 			<div class="post-detail-top-middle-right">
@@ -61,6 +62,7 @@
 
 		</div>
 	</div>
+
 	<div class="post-detail-bottom">
 		<div class="post-detail-bottom-left"></div>
 
@@ -159,6 +161,7 @@
 
 	</div>
 
+</div>
 </div>
 
 
