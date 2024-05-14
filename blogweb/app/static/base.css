@@ -5,9 +5,7 @@
 }
 
 body {
-	min-height: 100vh;
-	background-color: #f2f2f2;
-	background: no-repeat center center transparent;
+	background: url(../static/background3.jpg) no-repeat center center transparent;
 	background-size: cover;
 	background-attachment: fixed;
 }
@@ -34,6 +32,7 @@ body {
 	flex-wrap: nowrap;
 	z-index: 0;
 }
+
 /* -- Sidebar labels -- */
 .sidebar input {
 	display: none;
