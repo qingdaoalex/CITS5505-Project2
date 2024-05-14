@@ -33,7 +33,7 @@
       text-overflow: ellipsis;
 
       .post-title-text {
-        color: #808080;
+        color: black;
         text-decoration: none;
 
         &:hover {
@@ -54,7 +54,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #6C757D;
+    color: black;
     display: flex;
     justify-content: center;
   }
@@ -66,7 +66,7 @@
       flex-direction: column;
       width: 200px;
       top: 10px;
-      color: #6C757D;
+      color: black;
 
     }
   }
