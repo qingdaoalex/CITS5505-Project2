@@ -1,8 +1,9 @@
 
 <table>
-  <tr valign="top">
-      <td><img src="{{ post.author.avatar(100) }} " crossorigin="anonymous" style="width: 100px; height: 100px;"></td>
+  <tr style="vertical-align: top;">
+      <td><img src="{{ post.author.avatar(100) }} " crossorigin="anonymous" style="width: 100px; height: 100px;" alt="useravatar"></td>
       <td>
+        <p>
         <strong>
           <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
         </strong> said:</p><p><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></p>
