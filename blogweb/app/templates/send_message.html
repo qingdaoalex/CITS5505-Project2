@@ -6,6 +6,12 @@
 		background-color: #f9f9f9; /* Light grey background for the container */
 		border-radius: 8px;
 		box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+		<nav aria-label="breadcrumb" >
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Send Message</li>
+			</ol>
+		</nav>
     <h1 style="
 		    color: #333;
     		font-family: 'Arial', sans-serif;

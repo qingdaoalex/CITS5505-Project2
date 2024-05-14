@@ -11,37 +11,21 @@
 
 {% block content %}
 <div class="post-detail">
-	<a style="margin: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a>
-
+	<nav aria-label="breadcrumb" style="margin-left: 20%;">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Post Detail</li>
+		</ol>
+	</nav>
+	
 	<div class="post-detail-top">
 		<div class="post-detail-top-left">
 
-<<<<<<< Updated upstream
 		</div>
 		<div class="post-detail-top-middle">
 			<div class="post-detail-top-middle-left">
-				<h1>{{ post.title }}</h1>
-				<p>Author: {{ post.author.username }}</p>
-=======
-<!-- display replies -->
-{% if replies %}
-    <p>{{post.replies_count()}} replies</p>
-    <h2>Replies:</h2>
-    <ul>
-        {% for reply in replies %}
-            <li>{{ reply.content | safe}}</li>
-            <small>By: {{ reply.user.username }}, {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}, {{reply.id}}</small>
-            {% if reply.user_id == current_user.id %}
-            <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
-                <button type="submit" class="btn btn-danger">Delete Reply</button>
-            </form>
-            {% endif %}
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No replies yet.</p>
-{% endif %}
->>>>>>> Stashed changes
+				<h1 class="post-detail-title">{{ post.title }}</h1>
+				<p class="post-detail-author">Author: {{ post.author.username }}</p>
 
 				<span class="post-top-content">{{ post.content | safe }}</span>
 				<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
@@ -77,9 +61,9 @@
 
 		</div>
 	</div>
-	<div class="separator"></div>
 	<div class="post-detail-bottom">
 		<div class="post-detail-bottom-left"></div>
+
 		<div class="post-detail-bottom-middle">
 
 			<div class=tabcontent-post-title>
@@ -87,13 +71,16 @@
 					Forums
 				</div>
 				<div class=title-middle>
-					<div class="post-title">
+					<div class="reply-title">
 						Reply
+					</div>
+					<div class="reply-id">
+						ID
 					</div>
 
 				</div>
 				<div class=title-right>
-					<div class="title-count">
+					<div class="title-action">
 						Action
 					</div>
 					<div class="title-date">
@@ -169,6 +156,7 @@
 
 		</div>
 		<div class="post-detail-bottom-right"></div>
+
 	</div>
 
 </div>

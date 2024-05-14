@@ -8,6 +8,12 @@
 {% block content %}
 <div class="container mt-3 sm-2 md-3 mb-2 user-container">
   <div class="user-page">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      </ol>
+    </nav>
     <div class="user-top">
       <div class="card user-card mb-3">
         <div class="row g-0">
@@ -45,7 +51,7 @@
               <p class="about-me-text"> {{ user.about_me }}</p>{% endif %}
               </p>
               {% if user == current_user %}
-              <span><a href="{{ url_for('edit_profile') }}">Edit your profile</a></span>
+              <span><a href="{{ url_for('edit_profile') }}" id="editprofiel">Edit your profile</a></span>
               {% elif not current_user.is_following(user) %}
               <p>
               <form action="{{ url_for('follow', username=user.username) }}" method="post">
@@ -88,8 +94,8 @@
       <div class="user-bottom-middle">
 
         <div class="tabs-container">
-          <div id="tab1" class="tabcontent" style="display: block;">
-            <div class="tabcontent-post">
+          <div id="tab1" class="tabcontent" style="display: block; ">
+            <div class="tabcontent-post" >
               <div class=post-table-title>
                 <div class=title-left>
                   Forums

@@ -1,44 +1,45 @@
 
-.post {
+.reply {
   display: flex;
   align-items: center;
 
-  .post-left {
-
+  .reply-left {
     width: 80px;
-
-    .post-title {
-      width: 100%
-    }
   }
 
-  .post-middle {
+  .reply-middle {
     display: flex;
-    flex-direction: column;
-    width: 60%;
+    flex-direction: row;
+    min-width: 60%;
 
     .user_popup {
       width: 20px;
       text-decoration: none;
     }
 
-    .post-middle-content {
+    .reply-middle-content {
       margin-left: 16px;
+      display: flex;
+      flex-direction: column;
+      min-width:90%;
+    }
+    .reply-middle-id{
+      min-width:10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .post-title {
+    .reply-title {
       font-size: 24px;
       margin-top: 10px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
    
-      .post-title-text{
+      .reply-title-text{
         color: #808080;
         text-decoration: none;
-        &:hover{
-          color:#0d6efd;
-        }
       }
    
 
@@ -46,9 +47,9 @@
     
   }
 
-  .post-delete {
+  .reply-delete {
     height: 100%;
-    width: 120px;
+    min-width: 120px;
     font-size: 20px;
     margin-top: 10px;
     white-space: nowrap;
@@ -60,13 +61,11 @@
   }
 
 
-  .post-right {
-    .post-date {
+  .reply-right {
+    .reply-date {
       display: flex;
       flex-direction: column;
-      width: 200px;      
       top: 10px;
-
     }
   }
 }
