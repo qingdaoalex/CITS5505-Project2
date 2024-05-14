@@ -1,15 +1,15 @@
-
 /* -- Font -- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 /* -- Hero image Part -- */
-.hero-image{
+.hero-image {
   color: #323232;
   text-align: center;
   width: 100%;
@@ -22,11 +22,14 @@
   background-position: center;
   background-attachment: fixed;
 }
+
 .hero-text {
   width: 65%;
 }
+
 /* -- Hero text and navigation links -- */
-.hero-text h1{
+.hero-text h1 {
+  color: #6C757D;
   width: 100%;
   font-weight: 700;
   font-size: 7.5vw;
@@ -37,14 +40,16 @@
   perspective: 1000px;
   backdrop-filter: blur(8px);
 }
-.hero-text p{
+
+.hero-text p {
   font-size: 1.5rem;
   color: white;
   margin-top: 10%;
   margin-bottom: 10%;
 }
-.nav-btn a{
-  background-color: #323232;
+
+.nav-btn a {
+  background-color: #6C757D;
   color: #fff;
   padding: 0.5rem;
   text-decoration: none;
@@ -55,14 +60,21 @@
   transition: all 0.3s ease;
 }
 
-.hero-image a:hover{
+.hero-image a:hover {
   background-color: #222;
 }
+
 /* -- Pure color area -- */
-.blank, .blank-2{
+.blank {
   width: 100%;
-  min-height: 40vh;
-  background-color: #323232;
+  min-height: 25vh;
+  background-color: #6C757D;
+}
+
+.blank-2 {
+  width: 100%;
+  min-height: 35vh;
+  background-color: #6C757D;
 }
 
 .second {
@@ -79,7 +91,7 @@
   gap: 2.5rem;
 }
 
-.card{
+.card {
   width: 280px;
   height: 350px;
   align-items: center;
@@ -90,17 +102,17 @@
   backdrop-filter: blur(8px);
 }
 
-.card:hover{
+.card:hover {
   transform: scale(1.1);
 }
 
-.card .info{
+.card .info {
   align-items: center;
   color: white;
   margin: 10px;
 }
 
-.card .info img{
+.card .info img {
   width: 80%;
   height: 180px;
   background-size: cover;
@@ -109,17 +121,15 @@
   border-radius: 0.8rem;
 }
 
-.card .info h3{
+.card .info h3 {
   font-weight: 700;
   font-size: 1.6rem;
   margin-top: 0.8rem;
 }
 
-.blank-2{
-  min-height: 30vh;
-}
 
-.footer{
+
+.footer {
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -127,27 +137,27 @@
   justify-content: space-around;
 }
 
-.footer .column h3{
+.footer .column h3 {
   margin-top: 0.8rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
-.footer .column ul{
+.footer .column ul {
   list-style: none;
 }
 
-.footer .column ul li{
+.footer .column ul li {
   margin-top: 10px;
 }
 
-.footer .column ul li a{
+.footer .column ul li a {
   color: #fff;
   text-decoration: none;
   display: block;
   transition: all 0.3s ease;
 }
 
-.footer .column ul li a:hover{
+.footer .column ul li a:hover {
   color: #ccc;
 }
