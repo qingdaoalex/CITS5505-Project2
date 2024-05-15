@@ -1,71 +1,62 @@
 
-.reply {
+.reply-left {
+  width: 80px;
+}
+.user_popup {
+  width: 20px;
+  text-decoration: none;
+}
+.reply-list-middle-content {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  min-width:90%;
+}
+.reply-list-middle-id{
+  min-width:10%;
   display: flex;
   align-items: center;
-
-  .reply-left {
-    width: 80px;
-  }
-
-  .reply-middle {
-    display: flex;
-    flex-direction: row;
-    min-width: 60%;
-
-    .user_popup {
-      width: 20px;
-      text-decoration: none;
-    }
-
-    .reply-middle-content {
-      margin-left: 16px;
-      display: flex;
-      flex-direction: column;
-      min-width:90%;
-    }
-    .reply-middle-id{
-      min-width:10%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .reply-title {
-      font-size: 24px;
-      margin-top: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   
-      .reply-title-text{
-        color: black;
-        text-decoration: none;
-      }
-   
-
-    }
-    
-  }
-
-  .reply-delete {
-    height: 100%;
-    min-width: 120px;
-    font-size: 20px;
-    margin-top: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #808080;
-    display: flex;
-    justify-content: center;
-  }
+  justify-content: center;
+}
+.reply-list-title-text{
+  color: black;
+  text-decoration: none;
+}
 
 
-  .reply-right {
-    .reply-date {
-      display: flex;
-      flex-direction: column;
-      top: 10px;
-    }
-  }
+.reply-list {
+  display: flex;
+  align-items: center;
+}
+.reply-list-middle {
+  display: flex;
+  flex-direction: row;
+  min-width: 60%;
+}
+.reply-list-title {
+  font-size: 24px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reply-list-date {
+  display: flex;
+  flex-direction: column;
+  top: 10px;
+}
+.reply-list-right {
+
+}
+.reply-list-delete {
+  height: 100%;
+  min-width: 120px;
+  font-size: 20px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #808080;
+  display: flex;
+  justify-content: center;
 }
