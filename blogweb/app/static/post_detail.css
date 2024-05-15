@@ -24,6 +24,7 @@
   margin-bottom: 5%;
   padding: 3%;
   border-radius: 10px;
+  background-color: black;
 
 }
 
@@ -36,17 +37,28 @@
 
 }
 
+  .post-detail-top {
+    display: flex;
+    padding-bottom: 30px;
+    margin-bottom: 28px;
+    border: #6C757D 1px solid;
+    border-radius: 10px;
+    padding: 3%;
+}
+
 .post-detail-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+
 .post-detail-top-content {
   font-size: 22px;
   overflow-wrap: break-word;
   word-break: break-all;
 }
+
 
 .post-detail-top-middle-left {
   width: 80%;
@@ -60,10 +72,12 @@
   color: #8491a5;
 }
 
+
 .post-detail-count-num {
   font-size: 26px;
   font-weight: bold;
 }
+
 
 .post-detail-top-count {
   display: flex;
@@ -95,11 +109,11 @@
   min-height: 800px !important;
 }
 
+
 .post-detail-reply-title {
   width: 90%;
   display: flex;
   align-items: center;
-
 }
 
 .post-detail-reply-id {
