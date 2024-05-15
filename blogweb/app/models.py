@@ -32,10 +32,10 @@ class User(UserMixin, db.Model):
   notifications: so.WriteOnlyMapped['Notification'] = so.relationship(
         back_populates='user', passive_deletes=True)
 
-  posts: so.WriteOnlyMapped['Post'] = so.relationship(
-    back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete')
+  posts: so.WriteOnlyMapped['Post'] = so.relationship("Post",
+    back_populates='author', lazy='dynamic', passive_deletes=True,cascade='all, delete-orphan')
    ###replies
-  replies: so.Mapped[list['Reply']] = so.relationship("Reply", back_populates="user", cascade='all, delete-orphan', passive_deletes=True)
+  replies: so.Mapped[list['Reply']] = so.relationship("Reply", back_populates="user",lazy='dynamic', cascade='all, delete-orphan', passive_deletes=True)
     ##
   about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
   last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(

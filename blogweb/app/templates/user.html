@@ -129,7 +129,7 @@
                   <li class="page-item"><a class="page-link"
                       href="{{ url_for('user', username=user.username, page=1) }}">First</a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="{{ prev_url }}">Prev</a></li>
+                  <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=posts.prev_num) }}">Prev</a></li>
                   {% else %}
         
                   <li class="page-item disabled"><span class="page-link">First</span></li>
@@ -197,9 +197,42 @@
                 </div>
 
               </div>
-              {% for post in posts %}
-              {% include '_post_list.html' %}
-              {% endfor %}
+              {% if replies.items %}
+                {% for reply in replies.items %}
+                  {% include '_reply_list.html' %}
+                {% endfor %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    {% if replies.has_prev %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('user',username=user.username, page=1) }}">First</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                    {% endif %}
+                  
+                    {% for p in range(replies.page - 2, replies.page + 3) if p > 0 and p <= replies.pages %}
+                    <li class="page-item {% if p == replies.page %}active{% endif %}">
+                      {% if p == replies.page %}
+                        <span class="page-link">{{ p }}</span>
+                      {% else %}
+                        <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+                      {% endif %}
+                    </li>
+                    {% endfor %}
+                  
+                    {% if replies.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=replies.next_num) }}">Next</a></li>
+                    <li class="page-item"><a class="page-link"
+											href="{{ url_for('user',username=user.username, page=replies.pages) }}">Last</a>
+									</li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+                {% else %}
+                  {% include 'empty.html' %}
+                {% endif %}
             </div>
           </div>
         </div>
@@ -217,19 +250,36 @@
     <script>
 
       function showTab(event, tabName) {
-        let i, tabcontent, navlink;
-       
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-        navlink = document.getElementsByClassName("nav-link");
-        for (i = 0; i < navlink.length; i++) {
-          navlink[i].className = navlink[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        event.currentTarget.className += " active";
+          let i, tabcontent, navlink;
+
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+          }
+          navlink = document.getElementsByClassName("nav-link");
+          for (i = 0; i < navlink.length; i++) {
+              navlink[i].className = navlink[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          if (event) {
+              event.currentTarget.className += " active";
+          } else {
+              let targetLink = document.querySelector(`a[onclick="showTab(event, '${tabName}')"]`);
+              if (targetLink) {
+                  targetLink.className += " active";
+              }
+          }
+
+          // Save the current tab to sessionStorage
+          sessionStorage.setItem('activeTab', tabName);
       }
+      window.addEventListener('DOMContentLoaded', function () {
+    let navlink = document.getElementsByClassName("nav-link");
+    var activeTab = sessionStorage.getItem('activeTab') || 'tab1'; // Default to 'tab1' if nothing is saved
+
+    showTab(null, activeTab);
+});
+
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
       const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 

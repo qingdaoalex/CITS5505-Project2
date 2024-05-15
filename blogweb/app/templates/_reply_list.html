@@ -8,13 +8,13 @@
   <tr valign="top">
     <div class="reply">
       <div class="reply-left">
-        <img src="{{ post.author.avatar(80) }}">
+        <img src="{{ reply.user.avatar(80) }}">
 
       </div>
       <div class="reply-middle">
         <div class="reply-middle-content">
           <div>
-            <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
+            <a class="user_popup" href="{{ url_for('user', username=reply.user.username) }}">{{
               reply.user.username }}</a>
           </div>
 
