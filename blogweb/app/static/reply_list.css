@@ -42,12 +42,10 @@
 }
 .reply-list-date {
   display: flex;
-  flex-direction: column;
-  top: 10px;
+  justify-content: center;
+  width: 100%;
 }
-.reply-list-right {
 
-}
 .reply-list-delete {
   height: 100%;
   min-width: 120px;
