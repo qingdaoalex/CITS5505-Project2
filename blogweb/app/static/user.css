@@ -1,6 +1,9 @@
 .user-container {
   display: flex;
   justify-content: center;
+  padding-top: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.871);
 
   .user-page {
     width: 80%;
@@ -9,9 +12,12 @@
 
 .user-top {
   min-height: 300px;
+  margin-bottom: 10px;
 
   .user-card {
     max-width: 100%;
+    border: #6C757D 1px solid;
+    border-radius: 10px;
 
     .user-card-left {
       padding: 10px;
@@ -26,10 +32,10 @@
 
       .user-name {
         padding: 10px;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
+        word-wrap: break-word;
 
         .user-name-text {
           text-decoration: none;
@@ -108,7 +114,7 @@
       padding: 8px;
       height: 40px;
       width: 100%;
-      background-color: #252b2e;
+      background-color: #6C757D;
       display: flex;
       align-items: center;
       margin-bottom: 12px;
@@ -148,4 +154,13 @@
 
     }
   }
+}
+
+#editprofiel {
+  text-decoration: none;
+  border: #6C757D 1px solid;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+
 }

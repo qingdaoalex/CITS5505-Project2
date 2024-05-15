@@ -1,10 +1,19 @@
+.maincontainer {
+  padding-top: 2%;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.871);
+}
+
 .post-detail {
   .post-detail-top {
     display: flex;
     padding-bottom: 30px;
     margin-bottom: 28px;
+    border: #6C757D 1px solid;
+    border-radius: 10px;
+
     .post-detail-top-left {
-      width: 20%;
+      width: 14.5%;
     }
 
     .post-detail-top-middle {
@@ -22,6 +31,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
         .post-detail-author {
           white-space: nowrap;
           overflow: hidden;
@@ -67,15 +77,13 @@
   }
 
   .post-detail-bottom {
-    border-top: 1px solid;
-    padding-top:20px;
+    padding-top: 20px;
 
     display: flex;
     overflow-x: scroll;
 
     .post-detail-bottom-left {
       width: 20%;
-      background-color: #fff;
     }
 
     .post-detail-bottom-middle {
@@ -93,12 +101,13 @@
         padding: 8px;
         height: 40px;
         width: 100%;
-        background-color: #252b2e;
+        background-color: #6C757D;
         display: flex;
         align-items: center;
         margin-bottom: 12px;
         color: #fff;
         font-size: 16px;
+        border-radius: 10px;
 
         .title-left {
           min-width: 80px !important;

@@ -34,21 +34,21 @@
       <div class="card-container">
         <div class="card">
           <div class="info">
-            <img src="{{ url_for('static', filename='travel.jpg') }}">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
             <h3>Question</h3>
             <p>You can post your travel experiences.</p>
           </div>
         </div>
         <div class="card">
           <div class="info">
-            <img src="{{ url_for('static', filename='travel.jpg') }}">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
             <h3>Comment</h3>
             <p>You can reply others' posts.</p>
           </div>
         </div>
         <div class="card">
           <div class="info">
-            <img src="{{ url_for('static', filename='travel.jpg') }}">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
             <h3>Message</h3>
             <p>You can send a private message.</p>
           </div>
@@ -58,18 +58,15 @@
     <div class="blank-2">
       <div class="footer">
         <div class="column">
-          <h3>About</h3>
+          <h3>Source Code</h3>
           <ul>
-            <li><a href="#">A</a></li>
-            <li><a href="#">B</a></li>
-            <li><a href="#">C</a></li>
-            <li><a href="#">d</a></li>
+            <li><a href="https://github.com/qingdaoalex/CITS5505-Project2">Github Project</a></li>
           </ul>
         </div>
         <div class="column">
           <h3>Other</h3>
           <ul>
-            <li><a href="#">References</a></li>
+            <li><a href="{{ url_for('references')}}">References</a></li>
           </ul>
         </div>
       </div>
