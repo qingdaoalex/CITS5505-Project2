@@ -71,7 +71,6 @@
     padding-top:20px;
 
     display: flex;
-    min-width: 1200px;
     overflow-x: scroll;
 
     .post-detail-bottom-left {
@@ -81,7 +80,10 @@
 
     .post-detail-bottom-middle {
       width:100%;
+      min-width: 800px;
 
+      overflow-x: hidden; 
+      overflow-y: scroll;
       .table-content {
         min-height: 800px !important;
 
