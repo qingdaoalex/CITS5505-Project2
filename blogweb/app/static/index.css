@@ -202,16 +202,12 @@
 }
 
 
-/* .tabs-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-} */
+
 
 .tabcontent {
   margin-top: 14px;
   display: none;
+
 
   .tabcontent-post {
     min-height: 800px !important;

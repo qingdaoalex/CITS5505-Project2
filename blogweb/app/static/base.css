@@ -193,7 +193,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: 80%;
 	animation: light 5s linear infinite;
-	background-clip: text;
 }
 
 @keyframes light {
