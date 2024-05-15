@@ -1,73 +1,68 @@
-.post {
+.post-list-left {
+  width: 80px;
+}
+
+.post-list-title {
+  width: 100%
+}
+
+.post-list-middle {
+  display: flex;
+  flex-direction: column;
+  min-width: 60%;
+}
+
+.user_popup{
+  width: 20px;
+  text-decoration: none;
+}
+
+.post-list-middle-content {
+  margin-left: 16px;
+}
+
+.post-list-title-text {
+  color: black;
+  text-decoration: none;
+}
+.post-list-title-text:hover {
+  color: #0d6efd;
+}
+
+.post-list-title {
+  font-size: 24px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-list-count {
+  height: 100%;
+  min-width: 100px;
+  font-size: 20px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.post-list-date {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  color: black;
+  justify-content: center;
+  width: 100%;
+
+}
+.post-list {
   display: flex;
   align-items: center;
 
-  .post-left {
-
-    width: 80px;
-
-    .post-title {
-      width: 100%
-    }
-  }
-
-  .post-middle {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-
-    .user_popup {
-      width: 20px;
-      text-decoration: none;
-    }
-
-    .post-middle-content {
-      margin-left: 16px;
-    }
-
-    .post-title {
-      font-size: 24px;
-      margin-top: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      .post-title-text {
-        color: black;
-        text-decoration: none;
-
-        &:hover {
-          color: #0d6efd;
-        }
-      }
-
-
-    }
-
-  }
-
-  .post-count {
-    height: 100%;
-    width: 100px;
-    font-size: 20px;
-    margin-top: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: black;
-    display: flex;
-    justify-content: center;
-  }
-
-
-  .post-right {
-    .post-date {
-      display: flex;
-      flex-direction: column;
-      width: 200px;
-      top: 10px;
-      color: black;
-
-    }
-  }
 }

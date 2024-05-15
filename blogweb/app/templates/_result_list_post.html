@@ -5,10 +5,9 @@
 {% block content %}
 
 <table>
-    <div class="post">
-
+    <div class="result-list">
        <span>
-      <a class="post-text" href="{{ url_for('post_detail', post_id=result.id) }}">{{ result.title }}</a>
+      <a class="result-list-text" href="{{ url_for('post_detail', post_id=result.id) }}">{{ result.title }}</a>
        </span>
 
     </div>

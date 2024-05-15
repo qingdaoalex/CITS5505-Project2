@@ -1,10 +1,15 @@
+
+.empty-page{
+  height:100%;
+}
+
 /* Define styles for elements with the class .empty-page */
-.empty-page {
+.empty-center{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 600px;
+  min-height:600px;
 }
 
 /* Define styles for elements with the class .empty-desc within .empty-page */

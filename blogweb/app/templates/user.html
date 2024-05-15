@@ -19,14 +19,14 @@
         <div class="row g-0">
           <div class="col-md-4">
             <div class=user-card-left>
-              <img src="{{ user.avatar(200) }}" class="img-fluid rounded-start avatar" crossorigin="anonymous" alt="Profile Pic">
+              <img src="{{ user.avatar(200) }}" class="img-fluid rounded-start user-avatar" crossorigin="anonymous" alt="Profile Pic">
               <h3 class="user-name">
                 <!-- User: {{ user.username }} -->
                 <span>Name:</span>
                 <span class="user-name-text" data-bs-toggle="tooltip" data-bs-title="{{ user.username }}"> {{
                   user.username }}</span>
               </h3>
-              <p class="card-text"><small class="text-body-secondary"> {% if user.last_seen %}<span>Last seen on: {{
+              <p class="user-card-text"><small class="text-body-secondary"> {% if user.last_seen %}<span>Last seen on: {{
                     user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</span>{% endif %}<br><br>
                 </small></p>
             </div>
@@ -35,20 +35,20 @@
           <div class="col-md-8">
             <div class="card-body">
 
-              <div class="follow-info">
-                <div class="follow-info-each">
-                  <span class="follow-count">{{user.followers_count()}} </span>
-                  <span class="follow-text">Followers</span>
+              <div class="user-follow-info">
+                <div class="user-follow-info-each">
+                  <span class="user-follow-count">{{user.followers_count()}} </span>
+                  <span class="user-follow-text">Followers</span>
                 </div>
-                <div class="follow-info-each">
-                  <span class="follow-count">{{user.following_count()}}</span>
-                  <span class="follow-text">Following</span>
+                <div class="user-follow-info-each">
+                  <span class="user-follow-count">{{user.following_count()}}</span>
+                  <span class="user-follow-text">Following</span>
                 </div>
               </div>
 
-              <p class="card-text">{% if user.about_me %}
-              <p class="about-me-title">About me:</p>
-              <p class="about-me-text"> {{ user.about_me }}</p>{% endif %}
+              <p class="user-card-text">{% if user.about_me %}
+              <p class="user-about-me-title">About me:</p>
+              <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
               </p>
               {% if user == current_user %}
               <span><a href="{{ url_for('edit_profile') }}" id="editprofiel">Edit your profile</a></span>
@@ -69,7 +69,7 @@
               {% endif %}
               {% if user != current_user %}
               <span>
-                <a class="send-message" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send private
+                <a class="user-send-message" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send private
                   message') }}</a>
               </span>
               {% endif %}
@@ -91,26 +91,26 @@
           <a class="nav-link" onclick="showTab(event, 'tab2')">Reply Post</a>
         </li>
       </ul>
-      <div class="user-bottom-middle">
+      <div class="user-bottom">
 
-        <div class="tabs-container">
-          <div id="tab1" class="tabcontent" style="display: block; ">
-            <div class="tabcontent-post" >
-              <div class=post-table-title>
-                <div class=title-left>
+        <div class="user-tabs-container">
+          <div id="tab1" class="user-tabcontent" style="display: block; ">
+            <div class="user-tabcontent-post" >
+              <div class="user-table-title">
+                <div class="user-post-table-title-left">
                   Forums
                 </div>
-                <div class=title-middle>
-                  <div class="post-title">
+                <div class="user-post-table-title-middle">
+                  <div class="user-post-table-title">
                     Question Title
                   </div>
 
                 </div>
-                <div class=title-right>
-                  <div class="title-count">
+                <div class="user-post-table-title-right">
+                  <div class="user-post-table-title-count">
                     Reply Count
                   </div>
-                  <div class="title-date">
+                  <div class="user-post-table-title-date">
                     Date
                   </div>
 
@@ -174,23 +174,23 @@
               {% endif %}
             </div>
           </div>
-          <div id="tab2" class="tabcontent container">
-            <div class="tabcontent-post">
-              <div class=post-table-title>
-                <div class=title-left>
-                  Forums
+          <div id="tab2" class="user-tabcontent container">
+            <div class="user-tabcontent-post">
+              <div class="user-table-title">
+                <div class="user-title-left">
+                  Reply
                 </div>
-                <div class=title-middle>
-                  <div class="post-title">
-                    Question Title
+                <div class="user-title-middle">
+                  <div class="user-post-table-title">
+                    Reply Title
                   </div>
 
                 </div>
-                <div class=title-right>
-                  <div class="title-count">
+                <div class="user-post-table-right">
+                  <div class="user-post-table-title-count">
                     Reply Count
                   </div>
-                  <div class="title-date">
+                  <div class="user-post-table-title-date">
                     Date
                   </div>
 
