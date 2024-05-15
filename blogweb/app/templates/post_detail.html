@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5 maincontainer">
-<div class="post-detail">
-	<nav aria-label="breadcrumb" style="margin-left: 14.5%;">
+<div class="container mt-5 sm-2 md-3 mb-2 post-container">
+	<div class="post-detail">
+	<nav aria-label="breadcrumb" >
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Post Detail</li>
@@ -20,51 +20,45 @@
 	</nav>
 
 	<div class="post-detail-top">
-		<div class="post-detail-top-left">
 
-		</div>
-		<div class="post-detail-top-middle">
-			<div class="post-detail-top-middle-left">
-				<h1 class="post-detail-title">{{ post.title }}</h1>
-				<p class="post-detail-author">Author: {{ post.author.username }}</p>
-
-				<span class="post-top-content">{{ post.content | safe }}</span>
-				<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
-					class="btn btn-secondary">Click here to reply</button>
-
-				<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
-					style=" display: none">
-					{{ reply_form.hidden_tag() }}
-					<div class="form-group" style="margin-top:20px">
-						<!-- {{ reply_form.content.label }} -->
-						{{ reply_form.content(class="form-control") }}
-					</div>
-					<button type="submit" class="btn btn-secondary" style="margin-top: 20px;">Reply</button>
-				</form>
-			</div>
-			<div class="post-detail-top-middle-right">
-				<div class="post-top-count">
-					<div class="count-desc">
-						Replies
-					</div>
-
-					<div class="count-num">
-						{{post.replies_count()}}
-					</div>
-
+			<div class="post-detail-top-middle">
+				<div class="post-detail-top-middle-left">
+					<h1 class="post-detail-title">{{ post.title }}</h1>
+					<p class="post-detail-author">Author: {{ post.author.username }}</p>
+	
+					<span class="post-top-content">{{ post.content | safe }}</span>
+					<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
+						class="btn btn-secondary">Click here to reply</button>
+	
+					<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
+						style=" display: none">
+						{{ reply_form.hidden_tag() }}
+						<div class="form-group" style="margin-top:20px">
+							<!-- {{ reply_form.content.label }} -->
+							{{ reply_form.content(class="form-control") }}
+						</div>
+						<button type="submit" class="btn btn-secondary" style="margin-top: 20px;">Reply</button>
+					</form>
 				</div>
+				<div class="post-detail-top-middle-right">
+					<div class="post-top-count">
+						<div class="count-desc">
+							Replies
+						</div>
+	
+						<div class="count-num">
+							{{post.replies_count()}}
+						</div>
+	
+					</div>
+				</div>
+	
+	
 			</div>
 
-
-		</div>
-
-		<div class="post-detail-top-right">
-
-		</div>
 	</div>
 
 	<div class="post-detail-bottom">
-		<div class="post-detail-bottom-left"></div>
 
 		<div class="post-detail-bottom-middle">
 
@@ -148,7 +142,6 @@
 			{% endif %}
 
 		</div>
-		<div class="post-detail-bottom-right"></div>
 
 	</div>
 
@@ -156,7 +149,6 @@
 </div>
 
 {% endblock %}
-<!-- <a class="btn btn-primary" style="margin-top: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a> -->
 {% block script %}
 
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
