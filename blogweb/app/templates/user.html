@@ -19,14 +19,16 @@
         <div class="row g-0">
           <div class="col-md-4">
             <div class=user-card-left>
-              <img src="{{ user.avatar(200) }}" class="img-fluid rounded-start user-avatar" crossorigin="anonymous" alt="Profile Pic">
+              <img src="{{ user.avatar(200) }}" class="img-fluid rounded-start avatar" crossorigin="anonymous"
+                alt="Profile Pic">
               <h3 class="user-name">
                 <!-- User: {{ user.username }} -->
                 <span>Name:</span>
                 <span class="user-name-text" data-bs-toggle="tooltip" data-bs-title="{{ user.username }}"> {{
                   user.username }}</span>
               </h3>
-              <p class="user-card-text"><small class="text-body-secondary"> {% if user.last_seen %}<span>Last seen on: {{
+              <p class="user-card-text"><small class="text-body-secondary"> {% if user.last_seen %}<span>Last seen on:
+                    {{
                     user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</span>{% endif %}<br><br>
                 </small></p>
             </div>
@@ -46,7 +48,7 @@
                 </div>
               </div>
 
-              <p class="user-card-text">{% if user.about_me %}
+              <p class="card-text">{% if user.about_me %}
               <p class="user-about-me-title">About me:</p>
               <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
               </p>
@@ -69,7 +71,8 @@
               {% endif %}
               {% if user != current_user %}
               <span>
-                <a class="user-send-message" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send private
+                <a class="user-send-message" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
+                  private
                   message') }}</a>
               </span>
               {% endif %}
@@ -91,14 +94,14 @@
           <a class="nav-link" onclick="showTab(event, 'tab2')">Reply Post</a>
         </li>
       </ul>
-      <div class="user-bottom">
+      <div class="user-bottom-middle">
 
-        <div class="user-tabs-container">
+        <div class="tabs-container">
           <div id="tab1" class="user-tabcontent" style="display: block; ">
-            <div class="user-tabcontent-post" >
+            <div class="user-tabcontent-post">
               <div class="user-table-title">
                 <div class="user-post-table-title-left">
-                  Forums
+                  Post
                 </div>
                 <div class="user-post-table-title-middle">
                   <div class="user-post-table-title">
@@ -123,24 +126,26 @@
               {% endfor %}
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-        
+
                   {% if posts.has_prev %}
-        
+
                   <li class="page-item"><a class="page-link"
                       href="{{ url_for('user', username=user.username, page=1) }}">First</a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="{{ prev_url }}">Prev</a></li>
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user', username=user.username, page=posts.prev_num) }}">Prev</a></li>
                   {% else %}
-        
+
                   <li class="page-item disabled"><span class="page-link">First</span></li>
                   {% endif %}
-        
+
                   {% if posts.page > 4 %}
-                  <li class="page-item"><a class="page-link" href="{{ url_for('user', username=user.username, page=1) }}">1</a>
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user', username=user.username, page=1) }}">1</a>
                   </li>
                   <li class="page-item disabled"><span class="page-link">...</span></li>
                   {% endif %}
-        
+
                   {% for p in range(posts.page - 2, posts.page + 3) if p > 0 and p <= posts.pages %} <li
                     class="page-item {% if p == posts.page %}active{% endif %}">
                     {% if p == posts.page %}
@@ -150,12 +155,14 @@
                     {% endif %}
                     </li>
                     {% endfor %}
-        
-                    {% if posts.page < posts.pages - 3 %} <li class="page-item disabled"><span class="page-link">...</span></li>
+
+                    {% if posts.page < posts.pages - 3 %} <li class="page-item disabled"><span
+                        class="page-link">...</span></li>
                       <li class="page-item"><a class="page-link"
-                          href="{{ url_for('user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a></li>
+                          href="{{ url_for('user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a>
+                      </li>
                       {% endif %}
-        
+
                       {% if posts.has_next %}
                       <li class="page-item"><a class="page-link"
                           href="{{ url_for('user', username=user.username, page=posts.next_num) }}">Next</a></li>
@@ -165,7 +172,7 @@
                       <li class="page-item disabled"><span class="page-link">Next</span></li>
                       <li class="page-item disabled"><span class="page-link">Last</span></li>
                       {% endif %}
-        
+
                 </ul>
               </nav>
               {% else %}
@@ -176,31 +183,74 @@
           </div>
           <div id="tab2" class="user-tabcontent container">
             <div class="user-tabcontent-post">
+
               <div class="user-table-title">
-                <div class="user-title-left">
-                  Reply
+                <div class="user-table-title-left">
+                  Forums
                 </div>
-                <div class="user-title-middle">
-                  <div class="user-post-table-title">
-                    Reply Title
+                <div class="user-table-title-middle">
+                  <div class="user-table-reply-title">
+                    Reply
+                  </div>
+                  <div class="user-table-reply-id">
+                    ID
                   </div>
 
                 </div>
-                <div class="user-post-table-right">
-                  <div class="user-post-table-title-count">
-                    Reply Count
+                <div class="user-table-title-right">
+                  <div class="user-table-title-action">
+                    Action
                   </div>
-                  <div class="user-post-table-title-date">
+                  <div class="user-table-title-date">
                     Date
                   </div>
 
                 </div>
 
               </div>
-              {% for post in posts %}
-              {% include '_post_list.html' %}
+
+              {% if replies.items %}
+              {% for reply in replies.items %}
+              {% include '_reply_list.html' %}
               {% endfor %}
             </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                {% if replies.has_prev %}
+                <li class="page-item"><a class="page-link"
+                    href="{{ url_for('user',username=user.username, page=1) }}">First</a></li>
+                <li class="page-item"><a class="page-link"
+                    href="{{ url_for('user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                {% endif %}
+
+                {% for p in range(replies.page - 2, replies.page + 3) if p > 0 and p <= replies.pages %} <li
+                  class="page-item {% if p == replies.page %}active{% endif %}">
+                  {% if p == replies.page %}
+                  <span class="page-link">{{ p }}</span>
+                  {% else %}
+                  <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+                  {% endif %}
+                  </li>
+                  {% endfor %}
+
+                  {% if replies.has_next %}
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user', username=user.username, page=replies.next_num) }}">Next</a></li>
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user',username=user.username, page=replies.pages) }}">Last</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled"><span class="page-link">Next</span></li>
+                  {% endif %}
+              </ul>
+            </nav>
+
+            {% else %}
+            {% include 'empty.html' %}
+            {% endif %}
+
           </div>
         </div>
 
@@ -218,8 +268,8 @@
 
       function showTab(event, tabName) {
         let i, tabcontent, navlink;
-       
-        tabcontent = document.getElementsByClassName("tabcontent");
+
+        tabcontent = document.getElementsByClassName("user-tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
           tabcontent[i].style.display = "none";
         }
@@ -228,8 +278,24 @@
           navlink[i].className = navlink[i].className.replace(" active", "");
         }
         document.getElementById(tabName).style.display = "block";
-        event.currentTarget.className += " active";
+        if (event) {
+          event.currentTarget.className += " active";
+        } else {
+          let targetLink = document.querySelector(`a[onclick="showTab(event, '${tabName}')"]`);
+          if (targetLink) {
+            targetLink.className += " active";
+          }
+        }
+
+        // Save the current tab to sessionStorage
+        sessionStorage.setItem('activeTab', tabName);
       }
+      window.addEventListener('DOMContentLoaded', function () {
+        let navlink = document.getElementsByClassName("nav-link");
+        var activeTab = sessionStorage.getItem('activeTab') || 'tab1'; // Default to 'tab1' if nothing is saved
+
+        showTab(null, activeTab);
+      });
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
       const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 

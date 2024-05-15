@@ -4,17 +4,19 @@
 {% endblock %}
 {% block content %}
 
+
 <div class="reply-list">
   <div class="reply-list-left">
-    <img src="{{ post.author.avatar(80) }}" crossorigin="anonymous" alt="useravatar">
+    <img src="{{ reply.user.avatar(80) }}" crossorigin="anonymous" alt="useravatar">
 
   </div>
   <div class="reply-list-middle">
     <div class="reply-list-middle-content">
       <div>
-        <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
+        <a class="user_popup" href="{{ url_for('user', username=reply.user.username) }}">{{
           reply.user.username }}</a>
       </div>
+
 
       <div class="reply-list-title">
         <span class="reply-list-title-text">
