@@ -1,6 +1,7 @@
 .result-list {
   display: flex;
   align-items: center;
+  margin-left:8px;
 }
 .result-list-text {
   text-decoration: none;
