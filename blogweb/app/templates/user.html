@@ -183,7 +183,6 @@
           </div>
           <div id="tab2" class="user-tabcontent container">
             <div class="user-tabcontent-post">
-
               <div class="user-table-title">
                 <div class="user-table-title-left">
                   Post
@@ -213,40 +212,39 @@
               {% for reply in replies.items %}
               {% include '_reply_list.html' %}
               {% endfor %}
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  {% if replies.has_prev %}
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user',username=user.username, page=1) }}">First</a></li>
+                  <li class="page-item"><a class="page-link"
+                      href="{{ url_for('user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
+                  {% else %}
+                  <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                  {% endif %}
+
+                  {% for p in range(replies.page - 2, replies.page + 3) if p > 0 and p <= replies.pages %} <li
+                    class="page-item {% if p == replies.page %}active{% endif %}">
+                    {% if p == replies.page %}
+                    <span class="page-link">{{ p }}</span>
+                    {% else %}
+                    <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+                    {% endif %}
+                    </li>
+                    {% endfor %}
+
+                    {% if replies.has_next %}
+                    <li class="page-item"><a class="page-link"
+                        href="{{ url_for('user', username=user.username, page=replies.next_num) }}">Next</a></li>
+                    <li class="page-item"><a class="page-link"
+                        href="{{ url_for('user',username=user.username, page=replies.pages) }}">Last</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                    {% endif %}
+                </ul>
+              </nav>
             </div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                {% if replies.has_prev %}
-                <li class="page-item"><a class="page-link"
-                    href="{{ url_for('user',username=user.username, page=1) }}">First</a></li>
-                <li class="page-item"><a class="page-link"
-                    href="{{ url_for('user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
-                {% else %}
-                <li class="page-item disabled"><span class="page-link">Prev</span></li>
-                {% endif %}
-
-                {% for p in range(replies.page - 2, replies.page + 3) if p > 0 and p <= replies.pages %} <li
-                  class="page-item {% if p == replies.page %}active{% endif %}">
-                  {% if p == replies.page %}
-                  <span class="page-link">{{ p }}</span>
-                  {% else %}
-                  <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
-                  {% endif %}
-                  </li>
-                  {% endfor %}
-
-                  {% if replies.has_next %}
-                  <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user', username=user.username, page=replies.next_num) }}">Next</a></li>
-                  <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user',username=user.username, page=replies.pages) }}">Last</a>
-                  </li>
-                  {% else %}
-                  <li class="page-item disabled"><span class="page-link">Next</span></li>
-                  {% endif %}
-              </ul>
-            </nav>
-
             {% else %}
             {% include 'empty.html' %}
             {% endif %}
