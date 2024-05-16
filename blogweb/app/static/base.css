@@ -82,6 +82,7 @@ body {
 
 .sidebar ul li:first-child img {
 	width: 70px;
+	height: 70px;
 	border-radius: 50%;
 }
 
@@ -153,25 +154,6 @@ body {
 .sidebar input:checked~ul {
 	left: -160px;
 }
-
-
-/* -- Hero image -- */
-/* .hero-image {
-	position: relative;
-	margin-bottom: 2%;
-}
-
-.hero-image img {
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
-	overflow: hidden;
-	opacity: 0.3;
-}
-
-.hero-image {
-	background-color: #000;
-} */
 
 /* Text Effect */
 .heading {
