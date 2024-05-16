@@ -385,7 +385,7 @@ def post_detail(post_id):
     next_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.next_num) \
       if reply_post.has_next else None
     prev_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.prev_num) \
-        if reply_post.has_prev else None
+		if reply_post.has_prev else None
 
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
@@ -394,7 +394,7 @@ def post_detail(post_id):
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
-                           reply_form=reply_form, next_url_reply=next_url_reply, prev_url_reply=prev_url_reply, post_id=post.id)
+				reply_form=reply_form, next_url_reply=next_url_reply, prev_url_reply=prev_url_reply, post_id=post.id)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():

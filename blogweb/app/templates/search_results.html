@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content %}
 
-<div class="container mt-3 sm-2 md-3 mb-2 search">
-  <div class="search-page">
+<div class="container mt-5 sm-2 md-3 mb-2 search-result">
+  <div class="search-result-page">
     {% if results %}
     <!-- all user search result -->
       {% if search_type == 'user' %}
-        <div class=post-table-title>
+        <div class=search-result-table-title>
           User 
         </div>
         {% for result in results %}
@@ -19,7 +19,7 @@
       {% endif %}
     <!-- all post search result -->
       {% if search_type == 'post' %}
-        <div class=post-table-title>
+        <div class=search-result-table-title>
           Post Title
         </div>
         {% for result in results %}
@@ -28,7 +28,7 @@
       {% endif %}
     <!-- all reply search result -->
       {% if search_type == 'reply' %}
-        <div class=post-table-title>
+        <div class=search-result-table-title>
           Reply Post Title
         </div>
         {% for result in results %}

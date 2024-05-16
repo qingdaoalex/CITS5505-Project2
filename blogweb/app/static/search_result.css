@@ -1,19 +1,23 @@
-.search{
-  display:flex;
-  justify-content:center;
+.search-result {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  .search-page{
-    width:80%;
-  }
-  .post-table-title {
-    padding: 8px;
-    height: 40px;
-    width: 100%;
-    background-color: #252b2e;
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    color: #fff;
-    font-size: 16px;
-  }
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.871);
+  padding-top: 20px;
+}
+.search-result-page {
+  width: 80%;
+}
+.search-result-table-title {
+  padding: 8px;
+  height: 40px;
+  width: 100%;
+  background-color: #6C757D;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
 }
