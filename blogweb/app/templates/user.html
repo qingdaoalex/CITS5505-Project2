@@ -53,7 +53,7 @@
               <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
 
               {% if user == current_user %}
-              <span><a href="{{ url_for('edit_profile') }}" id="editprofiel">Edit your profile</a></span>
+              <span><a href="{{ url_for('edit_profile') }}" class="btn btn-secondary" id="editprofiel">Edit your profile</a></span>
               {% elif not current_user.is_following(user) %}
               <p>
               <form action="{{ url_for('follow', username=user.username) }}" method="post">
@@ -68,10 +68,10 @@
                 {{ form.submit( value='Unfollow',class="btn btn-outline-primary") }}
               </form>
 
-              {% endif %}
+              {% endif %}<br>
               {% if user != current_user %}
               <div class="user-send-message">
-                <a class="user-send-message-text" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
+                <a class="user-send-message-text btn btn-secondary" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
                   private
                   message') }}</a>
               </div>
