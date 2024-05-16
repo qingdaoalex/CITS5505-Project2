@@ -70,11 +70,11 @@
               
               {% endif %}
               {% if user != current_user %}
-              <span>
-                <a class="user-send-message" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
+              <div class="user-send-message">
+                <a class="user-send-message-text" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
                   private
                   message') }}</a>
-              </span>
+                </div>
               {% endif %}
 
             </div>
