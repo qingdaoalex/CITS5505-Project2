@@ -4,15 +4,15 @@
 {% endblock %}
 {% block content %}
 
-<table>
-  <tr style="vertical-align: top;">
+<div>
+  <div style="vertical-align: top;">
     <div class="post">
       <img style="margin-left:10px; margin-right:12px" crossorigin="anonymous" src="{{ result.avatar(80) }}" alt="useravatar">
       <a class="user_popup post-text" href="{{ url_for('user', username=result.username ) }}">{{
         result.username }}</a>
     </div>
-  </tr>
-</table>
+  </div>
+</div>
 <hr>
 {% endblock %}
 {% block script %}

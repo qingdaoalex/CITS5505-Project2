@@ -21,14 +21,14 @@
       {{ form.hidden_tag() }}
       {{ form.submit(value=('Follow'), class_='btn btn-outline-primary btn-sm') }}
     </form>
-    </p>
+    
     {% else %}
     <p>
     <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
       {{ form.hidden_tag() }}
       {{ form.submit(value=('Unfollow'), class_='btn btn-outline-primary btn-sm') }}
     </form>
-    </p>
+    
     {% endif %}
     {% endif %}
   </div>

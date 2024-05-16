@@ -51,7 +51,7 @@
               <p class="card-text">{% if user.about_me %}
               <p class="user-about-me-title">About me:</p>
               <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
-              </p>
+              
               {% if user == current_user %}
               <span><a href="{{ url_for('edit_profile') }}" id="editprofiel">Edit your profile</a></span>
               {% elif not current_user.is_following(user) %}
@@ -60,14 +60,14 @@
                 {{ form.hidden_tag() }}
                 {{ form.submit(value='Follow', class="btn btn-primary") }}
               </form>
-              </p>
+              
               {% else %}
               <p>
               <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
                 {{ form.hidden_tag() }}
                 {{ form.submit( value='Unfollow',class="btn btn-outline-primary") }}
               </form>
-              </p>
+              
               {% endif %}
               {% if user != current_user %}
               <span>

@@ -17,7 +17,7 @@
     		font-family: 'Arial', sans-serif;
     		margin-bottom: 20px;">Send Message to {{recipient}}  </h1>
     {% if form %}
-		<form action="" method="POST" >
+		<form action="send_message" method="POST" >
 			{{ form.hidden_tag() }}			
 			<p><br>
 				{{ form.message(cols=50, rows=4,style="

@@ -4,13 +4,13 @@
 {% endblock %}
 {% block content %}
 
-<table>
-  <tr style="vertical-align: top;">
+<div>
+  <div style="vertical-align: top;">
     <div class="post">
       <a class = "post-text" href="{{ url_for('post_detail', post_id=result[2]) }}">{{ result[1] }}</a> - {{ result[0] }}
     </div>
-  </tr>
-</table>
+  </div>
+</div>
 <hr>
 {% endblock %}
 {% block script %}
