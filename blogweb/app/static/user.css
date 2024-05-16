@@ -93,7 +93,7 @@
 
 .user-tabcontent-post {
   min-height: 800px !important;
-  min-width: 800px !important;
+  min-width: 900px !important;
 }
 
 .user-tabcontent {
@@ -164,7 +164,7 @@
 
 .user-table-title-middle {
   left: 0;
-  min-width: 60%;
+  min-width: 58%;
   display: flex;
   flex-direction: row;
   margin-left: 4px;
@@ -174,7 +174,6 @@
   display: flex;
   flex-direction: row;
   margin-left: 4px;
-  left: 0;
 }
 
 .user-reply-table-title{
@@ -194,19 +193,20 @@
 .user-reply-table-title-right {
   display: flex;
   align-items: center;
-  min-width: 40%;
+  min-width: 130px;
 }
 
 .user-reply-table-title-action {
   display: flex;
   align-items: center;
-  min-width: 90px;
+  min-width: 100px;
   justify-content: center;
 }
 
 .user-reply-table-title-date{
-  width: 180px;
   display: flex;
+  align-items: center;
+  min-width: 180px;
   justify-content: center;
 }
 
