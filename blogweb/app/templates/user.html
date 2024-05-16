@@ -51,7 +51,7 @@
               <p class="card-text">{% if user.about_me %}
               <p class="user-about-me-title">About me:</p>
               <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
-              
+
               {% if user == current_user %}
               <span><a href="{{ url_for('edit_profile') }}" id="editprofiel">Edit your profile</a></span>
               {% elif not current_user.is_following(user) %}
@@ -60,21 +60,21 @@
                 {{ form.hidden_tag() }}
                 {{ form.submit(value='Follow', class="btn btn-primary") }}
               </form>
-              
+
               {% else %}
               <p>
               <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
                 {{ form.hidden_tag() }}
                 {{ form.submit( value='Unfollow',class="btn btn-outline-primary") }}
               </form>
-              
+
               {% endif %}
               {% if user != current_user %}
               <div class="user-send-message">
                 <a class="user-send-message-text" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
                   private
                   message') }}</a>
-                </div>
+              </div>
               {% endif %}
 
             </div>
@@ -88,10 +88,10 @@
     <div class="user-bottom">
       <ul class="nav nav-tabs" style="cursor:pointer">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')">My Post</a>
+          <a class="nav-link active" aria-current="page" onclick="showTabUser(event, 'tab1')">My Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onclick="showTab(event, 'tab2')">Reply Post</a>
+          <a class="nav-link" onclick="showTabUser(event, 'tab2')">Reply Post</a>
         </li>
       </ul>
       <div class="user-bottom-middle">
@@ -266,8 +266,11 @@
 
     <script>
 
-      function showTab(event, tabName) {
+
+      function showTabUser(event, tabName) {
         let i, tabcontent, navlink;
+        let newUserUrl = window.location.pathname + '?page=1';
+        window.location.href = newUserUrl;
 
         tabcontent = document.getElementsByClassName("user-tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -281,21 +284,33 @@
         if (event) {
           event.currentTarget.className += " active";
         } else {
-          let targetLink = document.querySelector(`a[onclick="showTab(event, '${tabName}')"]`);
+          let targetLink = document.querySelector(`a[onclick="showTabUser(event, '${tabName}')"]`);
           if (targetLink) {
             targetLink.className += " active";
           }
         }
-
         // Save the current tab to sessionStorage
-        sessionStorage.setItem('activeTab', tabName);
+        sessionStorage.setItem('activeUserTab', tabName);
       }
+      // Retrieve and set the active tab when the page Domcontent loads then set the CSS style for the page
       window.addEventListener('DOMContentLoaded', function () {
         let navlink = document.getElementsByClassName("nav-link");
-        var activeTab = sessionStorage.getItem('activeTab') || 'tab1'; // Default to 'tab1' if nothing is saved
+        let activeUserTab = sessionStorage.getItem('activeUserTab');
+        if (activeUserTab == "tab1") {
+          navlink[0].className = "nav-link active";
+          navlink[1].className = "nav-link";
+          document.getElementById("tab1").style.display = "block";
+          document.getElementById("tab2").style.display = "none";
 
-        showTab(null, activeTab);
+        } else if (activeUserTab == "tab2") {
+          navlink[0].className = "nav-link"
+          navlink[1].className = "nav-link active";
+          document.getElementById("tab2").style.display = "block";
+          document.getElementById("tab1").style.display = "none";
+
+        }
       });
+
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
       const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
