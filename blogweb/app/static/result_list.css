@@ -1,12 +1,12 @@
-.post {
+.result-list {
   display: flex;
   align-items: center;
-
-  .post-text {
-    text-decoration: none;
-    font-size: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  margin-left:8px;
+}
+.result-list-text {
+  text-decoration: none;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

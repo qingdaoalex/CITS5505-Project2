@@ -4,56 +4,50 @@
 {% endblock %}
 {% block content %}
 
-<table>
-  <tr valign="top">
-    <div class="reply">
-      <div class="reply-left">
-        <img src="{{ post.author.avatar(80) }}">
 
+<div class="reply-list">
+  <div class="reply-list-left">
+    <img style="margin-left:10px ;width: 80px; height: 80px; " src="{{ reply.user.avatar(80) }}" crossorigin="anonymous" alt="useravatar">
+
+  </div>
+  <div class="reply-list-middle">
+    <div class="reply-list-middle-content">
+      <div>
+        <a class="user_popup" href="{{ url_for('user', username=reply.user.username) }}">{{
+          reply.user.username }}</a>
       </div>
-      <div class="reply-middle">
-        <div class="reply-middle-content">
-          <div>
-            <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
-              reply.user.username }}</a>
-          </div>
 
-          <div class="reply-title">
-              <span class="reply-title-text">
-                {{ reply.content | safe}}
-              </span>
-          </div>
-        </div>
-        <div class = "reply-middle-id">
-          {{reply.id}}
 
-        </div>
-
+      <div class="reply-list-title">
+        <span class="reply-list-title-text">
+          {{ reply.content | safe}}
+        </span>
       </div>
-      <div class="reply-delete">
-
-        <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
-          {% if reply.user_id == current_user.id %}
-
-          <button type="submit" class="btn btn-danger">Delete</button>
-          {% else %}
-
-          <button type="button" class="btn btn-secondary" disabled>Delete</button>
-          {% endif %}
-        </form>      
-      
-      </div>
-      <div class=reply-right>
-        <div class="reply-date">
-            {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-        </div>
-
-
-      </div>
+    </div>
+    <div class="reply-list-middle-id">
+      {{reply.id}}
 
     </div>
-  </tr>
-</table>
+
+  </div>
+  <div class="reply-list-delete">
+
+    <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
+      {% if reply.user_id == current_user.id %}
+
+      <button type="submit" class="btn btn-danger">Delete</button>
+      {% else %}
+
+      <button type="button" class="btn btn-secondary" disabled>Delete</button>
+      {% endif %}
+    </form>
+
+  </div>
+    <div class="reply-list-date">
+      {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+    </div>
+
+</div>
 <hr>
 {% endblock %}
 {% block script %}

@@ -1,153 +1,138 @@
 .user-container {
   display: flex;
   justify-content: center;
+  padding-top: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.871);
+}
 
-  .user-page {
-    width: 80%;
-  }
+.user-page {
+  width: 80%;
 }
 
 .user-top {
   min-height: 300px;
-
-  .user-card {
-    max-width: 100%;
-
-    .user-card-left {
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      .avatar {
-        padding-top: 20px;
-      }
-
-      .user-name {
-        padding: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-
-        .user-name-text {
-          text-decoration: none;
-        }
-      }
-    }
-
-    .follow-info {
-      display: flex;
-      max-width: 90%;
-
-      .follow-info-each {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        overflow: hidden;
-
-        .follow-count {
-          color: #1c9eff;
-          font-weight: bold;
-          font-size: 40px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 80%
-        }
-
-
-        .follow-text {
-          color: #afafaf;
-          font-size: 14px;
-          font-weight: normal;
-        }
-
-      }
-    }
-
-    .about-me-title {
-      font-size: 22px;
-    }
-
-    .about-me-text {
-      font-size: 18px;
-    }
-
-    .send-message {
-      text-decoration: none;
-    }
-  }
+  margin-bottom: 10px;
 }
 
-.user-bottom {
-  .tabcontent {
-    margin-top: 14px;
-    display: none;
+.user-card {
+  max-width: 100%;
+  border: #6C757D 1px solid;
+  border-radius: 10px;
+}
 
-    .tabcontent-post {
-      min-height: 800px !important;
-    }
+.user-card-left {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  }
+.user-avatar {
+  padding-top: 20px;
+}
 
-  .tabcontent:first-child {
-    display: block;
+.user-name {
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  word-wrap: break-word;
 
-    .tabcontent-post {
-      min-height: 800px !important;
+}
 
-    }
-  }
+.user-name-text {
+  text-decoration: none;
+}
 
-  .user-bottom-middle {
-    .post-table-title {
-      padding: 8px;
-      height: 40px;
-      width: 100%;
-      background-color: #6C757D;
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-      color: #fff;
-      font-size: 16px;
+.user-follow-info {
+  display: flex;
+  max-width: 90%;
+}
 
-      .title-left {
-        width: 80px !important;
+.user-follow-info-each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+}
 
-      }
+.user-follow-count {
+  color: #1c9eff;
+  font-weight: bold;
+  font-size: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%
+}
 
-      .title-middle {
-        left: 0;
-        width: 60%;
-        margin-left: 4px;
-      }
+.user-follow-text {
+  color: #afafaf;
+  font-size: 14px;
+  font-weight: normal;
+}
 
-      .title-right {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.user-about-me-title {
+  font-size: 22px;
+}
 
-        .title-count {
-          display: flex;
-          align-items: center;
-          width: 100px;
-          justify-content: center;
+.user-about-me-text {
+  font-size: 18px;
+}
 
-        }
+.user-send-message {
+  margin-top:10px;
+}
+.user-send-message-text {
+  text-decoration: none;
+}
 
-        .title-date {
-          width: 200px;
+.user-tabcontent-post {
+  min-height: 800px !important;
+  min-width: 900px !important;
+}
 
+.user-tabcontent {
+  margin-top: 14px;
+  display: none;
+  overflow-x: scroll;
+}
 
-        }
-      }
+.user-tabcontent:first-child {
+  display: block;
+}
 
-    }
-  }
+.user-post-table-title-left {
+  width: 80px !important;
+
+}
+
+.user-post-table-title-middle {
+  width: 50%;
+  margin-left: 4px;
+}
+
+.user-post-table-title-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-post-table-title-count {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  justify-content: center;
+}
+
+.user-post-table-title-date {
+  min-width: 180px;
+  display: flex;
+  justify-content: center;
+
 }
 
 #editprofiel {
@@ -157,4 +142,78 @@
   padding: 8px;
   text-align: center;
 
+}
+
+.user-table-title {
+  padding: 8px;
+  height: 40px;
+  width: 100%;
+  background-color: #6C757D;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+
+.user-table-title-left {
+  min-width: 80px !important;
+}
+
+.user-table-title-middle {
+  left: 0;
+  min-width: 58%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 4px;
+}
+.user-reply-table-title-middle{
+  min-width: 58%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 4px;
+}
+
+.user-reply-table-title{
+  min-width: 90%;
+  display: flex;
+  align-items: center;
+}
+
+.user-reply-table-id{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+
+}
+
+.user-reply-table-title-right {
+  display: flex;
+  align-items: center;
+  min-width: 130px;
+}
+
+.user-reply-table-title-action {
+  display: flex;
+  align-items: center;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.user-reply-table-title-date{
+  display: flex;
+  align-items: center;
+  min-width: 180px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .user-tabcontent {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding:12px;
+  }
 }

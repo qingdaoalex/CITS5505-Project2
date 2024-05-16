@@ -2,9 +2,10 @@
 
 <div class="user-popup">
   <div class="popup-top">
-    <img src="{{ user.avatar(64) }}" style="margin: 5px; float: left">
+    <img src="{{ user.avatar(64) }}" crossorigin="anonymous" style="margin: 5px; float: left; width: 80px;
+    height: 80px; " alt="useravatar">
     <div class="popup-top-right">
-      <p><a href="{{ url_for('user', username=user.username) }}">{{ user.username }}</a></p>
+      <p><a href="{{ url_for('user', username=user.username) }}" style="text-decoration:none;">{{ user.username }}</a></p>
       <span>Follower: {{user.followers_count()}} &nbsp;Following: {{user.following_count()}}</span>
     </div>
   </div>
@@ -21,14 +22,14 @@
       {{ form.hidden_tag() }}
       {{ form.submit(value=('Follow'), class_='btn btn-outline-primary btn-sm') }}
     </form>
-    </p>
+    
     {% else %}
     <p>
     <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
       {{ form.hidden_tag() }}
       {{ form.submit(value=('Unfollow'), class_='btn btn-outline-primary btn-sm') }}
     </form>
-    </p>
+    
     {% endif %}
     {% endif %}
   </div>

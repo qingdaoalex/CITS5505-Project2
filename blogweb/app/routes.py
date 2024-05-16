@@ -46,11 +46,12 @@ def index():
 		if all_posts.has_next else None
 	prev_url_all = url_for('main.index', page=all_posts.prev_num) \
 		if all_posts.has_prev else None
+
 	next_url_follow = url_for('main.index', page=follow_posts.next_num) \
-		if all_posts.has_next else None
+		if follow_posts.has_next else None
 	prev_url_follow = url_for('main.index', page=follow_posts.prev_num) \
-		if all_posts.has_prev else None
-	
+		if follow_posts.has_prev else None
+
 	return render_template('index.html', title='Home', form=form,
     all_posts=all_posts, follow_posts=follow_posts,
 		next_url_all=next_url_all, prev_url_all=prev_url_all,
@@ -187,14 +188,22 @@ def reset_password(token):
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     page = request.args.get('page', 1, type=int)
-    query = user.posts.select().order_by(Post.timestamp.desc())
-    posts = db.paginate(query, page=page, per_page=config['POSTS_PER_PAGE'], error_out=False)
-    next_url = url_for('user', username=user.username, page=posts.next_num) \
+
+    post_query = user.posts.select().order_by(Post.timestamp.desc())
+    posts = db.paginate(post_query, page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    reply_query = user.replies.order_by(Reply.timestamp.desc())
+    replies = db.paginate(reply_query, page = page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_post = url_for('user', username=user.username, page=posts.next_num) \
         if posts.has_next else None
-    prev_url = url_for('user', username=user.username, page=posts.prev_num) \
+    prev_url_post = url_for('user', username=user.username, page=posts.prev_num) \
+        if posts.has_prev else None
+    next_url_reply = url_for('user', username=user.username, page=replies.next_num) \
+
+        if posts.has_next else None
+    prev_url_reply = url_for('user', username=user.username, page=replies.prev_num) \
         if posts.has_prev else None
     form = EmptyForm()
-    return render_template('user.html', user=user, posts=posts, next_url=next_url, prev_url=prev_url, form=form)
+    return render_template('user.html', user=user, posts=posts,replies = replies, next_url_post=next_url_post, prev_url_post=prev_url_post, next_url_reply= next_url_reply,prev_url_reply =prev_url_reply,form=form)
 
 @main.route('/user/<username>/popup')
 @login_required
@@ -377,14 +386,15 @@ def post_detail(post_id):
     replies_query = Reply.query.filter_by(post_id=post.id).order_by(Reply.timestamp.desc())
     replies = replies_query.all()  # Execute the query to fetch replies
     reply_form = ReplyForm()
-    print("******replies*******", replies)
-    print("******replies_query*******", replies_query)
 
     page = request.args.get('page', 1, type=int)
-    reply_post = db.paginate(replies_query, per_page=config['POSTS_PER_PAGE'], error_out=False)
-    next_url_reply = url_for('/post/<int:post_id>', page=reply_post.next_num) \
+
+
+    reply_post = replies_query.paginate(page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.next_num) \
+
       if reply_post.has_next else None
-    prev_url_reply = url_for('/post/<int:post_id>', page=reply_post.prev_num) \
+    prev_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.prev_num) \
 		if reply_post.has_prev else None
 
     if reply_form.validate_on_submit():
@@ -394,7 +404,7 @@ def post_detail(post_id):
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
-				reply_form=reply_form,	next_url_reply=next_url_reply, prev_url_reply=prev_url_reply,)
+				reply_form=reply_form, next_url_reply=next_url_reply, prev_url_reply=prev_url_reply, post_id=post.id)
 
 @main.route('/search', methods=['GET', 'POST'])
 def search():

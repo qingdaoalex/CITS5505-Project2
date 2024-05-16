@@ -82,6 +82,7 @@ body {
 
 .sidebar ul li:first-child img {
 	width: 70px;
+	height: 70px;
 	border-radius: 50%;
 }
 
@@ -154,25 +155,6 @@ body {
 	left: -160px;
 }
 
-
-/* -- Hero image -- */
-/* .hero-image {
-	position: relative;
-	margin-bottom: 2%;
-}
-
-.hero-image img {
-	width: 100%;
-	object-fit: cover;
-	object-position: center;
-	overflow: hidden;
-	opacity: 0.3;
-}
-
-.hero-image {
-	background-color: #000;
-} */
-
 /* Text Effect */
 .heading {
 	position: absolute;
@@ -193,7 +175,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: 80%;
 	animation: light 5s linear infinite;
-	background-clip: text;
 }
 
 @keyframes light {

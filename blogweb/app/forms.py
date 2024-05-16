@@ -128,12 +128,12 @@ class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
     
 class MessageForm(FlaskForm):
-    message = CKEditorField(('Message'), validators=[
+    message = TextAreaField(('Message'), validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
 
 class SearchForm(FlaskForm):
     query = StringField('Search', validators=[DataRequired()])
-    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post'), ('reply', 'Reply')])
+    type = SelectField('Type', choices=[('user', 'User'), ('post', 'Post')])
     submit = SubmitField('Search')
 
