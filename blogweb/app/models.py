@@ -2,17 +2,15 @@ from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from app import app, db, login
+from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
 from hashlib import md5
 import pytz
 from time import time
 import jwt
 from flask import url_for
 import json
-from time import time
 
 
 followers = sa.Table(

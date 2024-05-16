@@ -30,13 +30,13 @@
 							{{ form.remember_me(class="check-box",id="login-check") }}
 							{{ form.remember_me.label(class="check-label") }}
 						</div>
-						<a class="flipbutton login-forgot" class="submit-button" href="{{ url_for('reset_password_request') }}">Forgot Password?</a>
+						<a class="flipbutton login-forgot" class="submit-button" href="{{ url_for('main.reset_password_request') }}">Forgot Password?</a>
 					</div>
 					{{ form.submit(class="submit-button",id="login-button") }}
 					<p class="reminder">
 						Don't have an account?
 						<br>
-						<a class="flipbutton" href="{{ url_for('register') }}">Register</a>
+						<a class="flipbutton" href="{{ url_for('main.register') }}">Register</a>
 					</p>
 				</form>
 			</div>
