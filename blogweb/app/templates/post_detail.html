@@ -10,160 +10,155 @@
 {% endblock %}
 
 {% block content %}
-<div class="post-detail">
-	<a style="margin: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a>
+<div class="container mt-5 sm-2 md-3 mb-2 post-container">
+	<div class="post-detail">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Post Detail</li>
+			</ol>
+		</nav>
 
-	<div class="post-detail-top">
-		<div class="post-detail-top-left">
+		<div class="post-detail-top">
+
+			<div class="post-detail-top-middle">
+				<div class="post-detail-top-middle-left">
+					<h1 class="post-title">{{ post.title }}</h1>
+					<p class="post-detail-author">Author: {{ post.author.username }}</p>
+
+					<span class="post-detail-top-content">{{ post.content | safe }}</span>
+					<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
+						class="btn btn-secondary">Click here to reply</button>
+
+					<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
+						style=" display: none">
+						{{ reply_form.hidden_tag() }}
+						<div class="form-group" style="margin-top:20px">
+							<!-- {{ reply_form.content.label }} -->
+							{{ reply_form.content(class="form-control") }}
+						</div>
+						<button type="submit" class="btn btn-secondary" style="margin-top: 20px;">Reply</button>
+					</form>
+				</div>
+				<div class="post-detail-top-middle-right">
+					<div class="post-detail-top-count">
+						<div class="post-detail-count-desc">
+							Replies
+						</div>
+
+						<div class="post-detail-count-num">
+							{{post.replies_count()}}
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
 
 		</div>
-		<div class="post-detail-top-middle">
-			<div class="post-detail-top-middle-left">
-				<h1>{{ post.title }}</h1>
-				<p>Author: {{ post.author.username }}</p>
 
-				<span class="post-top-content">{{ post.content | safe }}</span>
-				<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
-					class="btn btn-primary">Click here to reply</button>
+		<div class="post-detail-bottom">
 
-				<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
-					style=" display: none">
-					{{ reply_form.hidden_tag() }}
-					<div class="form-group" style="margin-top:20px">
-						<!-- {{ reply_form.content.label }} -->
-						{{ reply_form.content(class="form-control") }}
+			<div class="post-detail-bottom-middle">
+
+				<div class=tabcontent-post-detail-title>
+					<div class="post-detail-title-left">
+						Forums
 					</div>
-					<button type="submit" class="btn btn-primary" style="margin-top: 20px;">Reply</button>
-				</form>
-			</div>
-			<div class="post-detail-top-middle-right">
-				<div class="post-top-count">
-					<div class="count-desc">
-						Replies
+					<div class="post-detail-title-middle">
+						<div class="post-detail-reply-title">
+							Reply
+						</div>
+						<div class="post-detail-reply-id">
+							ID
+						</div>
+
 					</div>
+					<div class="post-detail-title-right">
+						<div class="post-detail-title-action">
+							Action
+						</div>
+						<div class="post-detail-title-date">
+							Date
+						</div>
 
-					<div class="count-num">
-						{{post.replies_count()}}
-					</div>
-
-				</div>
-			</div>
-
-
-		</div>
-
-		<div class="post-detail-top-right">
-
-		</div>
-	</div>
-	<div class="separator"></div>
-	<div class="post-detail-bottom">
-		<div class="post-detail-bottom-left"></div>
-		<div class="post-detail-bottom-middle">
-
-			<div class=tabcontent-post-title>
-				<div class=title-left>
-					Forums
-				</div>
-				<div class=title-middle>
-					<div class="post-title">
-						Reply
-					</div>
-
-				</div>
-				<div class=title-right>
-					<div class="title-count">
-						Action
-					</div>
-					<div class="title-date">
-						Date
 					</div>
 
 				</div>
 
-			</div>
-			<!-- <div class="table-content"> -->
+				{% if replies|length > 0 %}
+				<div class="post-detail-table-content">
+					{% for reply in reply_post %}
+					{% include '_reply_list.html' %}
+					{% endfor %}
+				</div>
 
-			{% if replies|length > 0 %}
-			<div class="table-content">
-				{% for reply in reply_post %}
-				{% include '_reply_list.html' %}
-				{% endfor %}
-			</div>
 
-			<!-- </div> -->
-
-			<!-- <nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-
-					{% if reply_post.has_prev %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('/post/<int:post_id>', page=1) }}">First</a></li>
-					<li class="page-item"><a class="page-link"
-							href="{{ url_for('/post/<int:post_id>', page=reply_post.prev_num) }}">Prev</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled"><span class="page-link">First</span></li>
-					{% endif %}
-
-					{% if reply_post.page > 4 %}
-					<li class="page-item"><a class="page-link" href="{{ url_for('/post/<int:post_id>', page=1) }}">1</a></li>
-					<li class="page-item disabled"><span class="page-link">...</span></li>
-					{% endif %}
-
-					{% for p in range(reply_post.page - 2, reply_post.page + 3) if p > 0 and p <= reply_post.pages %} <li
-						class="page-item {% if p == reply_post.page %}active{% endif %}">
-						{% if p == reply_post.page %}
-						<span class="page-link">{{ p }}</span>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						{% if reply_post.has_prev %}
+						<li class="page-item"><a class="page-link"
+								href="{{ url_for('post_detail', post_id=post_id, page=1) }}">First</a></li>
+						<li class="page-item"><a class="page-link"
+								href="{{ url_for('post_detail', post_id=post_id, page=reply_post.prev_num) }}">Prev</a></li>
 						{% else %}
-						<a class="page-link" href="{{ url_for('/post/<int:post_id>', page=p) }}">{{ p }}</a>
+						<li class="page-item disabled"><span class="page-link">First</span></li>
 						{% endif %}
-						</li>
-						{% endfor %}
 
-						{% if reply_post.page < reply_post.pages - 3 %} <li class="page-item disabled"><span
-								class="page-link">...</span></li>
-							<li class="page-item"><a class="page-link"
-									href="{{ url_for('/post/<int:post_id>', page=reply_post.pages) }}">{{
-									reply_post.pages }}</a></li>
-							{% endif %}
+						{% if reply_post.page > 4 %}
+						<li class="page-item"><a class="page-link"
+								href="{{ url_for('post_detail', post_id=post_id, page=1) }}">1</a></li>
+						<li class="page-item disabled"><span class="page-link">...</span></li>
+						{% endif %}
 
-							{% if reply_post.has_next %}
-							<li class="page-item"><a class="page-link"
-									href="{{ url_for('/post/<int:post_id>', page=reply_post.next_num) }}">Next</a>
-							</li>
-							<li class="page-item"><a class="page-link"
-									href="{{ url_for('/post/<int:post_id>', page=reply_post.pages) }}">Last</a>
-							</li>
+						{% for p in range(reply_post.page - 2, reply_post.page + 3) if p > 0 and p <= reply_post.pages %} <li
+							class="page-item {% if p == reply_post.page %}active{% endif %}">
+							{% if p == reply_post.page %}
+							<span class="page-link">{{ p }}</span>
 							{% else %}
-							<li class="page-item disabled"><span class="page-link">Next</span></li>
-							<li class="page-item disabled"><span class="page-link">Last</span></li>
+							<a class="page-link" href="{{ url_for('post_detail', post_id=post_id, page=p) }}">{{ p }}</a>
 							{% endif %}
-				</ul>
-			</nav> -->
+							</li>
+							{% endfor %}
 
-			{% else %}
-			<!-- Empty page content -->
-			{% include 'empty.html' %}
-			{% endif %}
+							{% if reply_post.page < reply_post.pages - 3 %} <li class="page-item disabled"><span
+									class="page-link">...</span></li>
+								<li class="page-item"><a class="page-link"
+										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.pages) }}">{{ reply_post.pages
+										}}</a></li>
+								{% endif %}
+
+								{% if reply_post.has_next %}
+								<li class="page-item"><a class="page-link"
+										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.next_num) }}">Next</a></li>
+								<li class="page-item"><a class="page-link"
+										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.pages) }}">Last</a></li>
+								{% else %}
+								<li class="page-item disabled"><span class="page-link">Next</span></li>
+								<li class="page-item disabled"><span class="page-link">Last</span></li>
+								{% endif %}
+					</ul>
+				</nav>
+
+				{% else %}
+				<!-- Empty page content -->
+				{% include 'empty.html' %}
+				{% endif %}
+
+			</div>
 
 		</div>
-		<div class="post-detail-bottom-right"></div>
-	</div>
 
+	</div>
 </div>
 
-
-<!-- <a class="btn btn-primary" style="margin-top: 20px;" href="{{url_for('index', page=1)}}"> Back to index page</a> -->
-{% block script %}
-<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
-<script>
-	CKEDITOR.replace('content');
-</script>
 {% endblock %}
-<script>
-	console.log("printprintprintprint")
+{% block script %}
 
-	console.log("print", replies)
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+
 	function displayreplyForm() {
 		let displayPostBtn = document.getElementById("displayPostBtn");
 		let replyForm = document.getElementById("replyForm")

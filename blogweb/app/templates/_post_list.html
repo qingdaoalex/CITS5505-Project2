@@ -4,45 +4,32 @@
 {% endblock %}
 {% block content %}
 
-<table>
-  <tr valign="top">
-    <div class="post">
-      <div class="post-left">
-        <img style="margin-left:10px" src="{{ post.author.avatar(80) }}">
-      </div>
-      <div class="post-middle">
-        <div class="post-middle-content">
-          <div>
-            <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
-              post.author.username }}</a>
-          </div>
-
-          <div class="post-title">
-            <a class="post-title-text" href="{{ url_for('post_detail', post_id=post.id) }}">{{
-              post.title }}</a>
-          </div>
-        </div>
-
-      </div>
-      <div class="post-count">
-        {{ post.replies_count() }}
-      </div>
-      <div class=post-right>
-        <div class="post-date">
-          <div>
-            Posted on:
-          </div>
-          <div>
-            {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-          </div>
-
-        </div>
-
+<div class="post-list">
+  <div class="post-list-left">
+    <img style="margin-left:10px" crossorigin="anonymous" src="{{ post.author.avatar(80) }}" alt="useravatar">
+  </div>
+  <div class="post-list-middle">
+    <div class="post-list-middle-content">
+      <div>
+        <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
+          post.author.username }}</a>
       </div>
 
+      <div class="post-list-title">
+        <a class="post-list-title-text" href="{{ url_for('post_detail', post_id=post.id) }}">{{
+          post.title }}</a>
+      </div>
     </div>
-  </tr>
-</table>
+
+  </div>
+  <div class="post-list-count">
+    {{ post.replies_count() }}
+  </div>
+  <div class="post-list-date">
+    {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+  </div>
+
+</div>
 <hr>
 {% endblock %}
 {% block script %}

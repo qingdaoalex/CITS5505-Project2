@@ -1,15 +1,19 @@
+
 .empty-page{
   height:100%;
-  .empty-center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height:600px;
-    .empty-desc{
-      font-size: 16px;
-      color: #8f8b8b;
-    }
+}
 
-  }
+/* Define styles for elements with the class .empty-page */
+.empty-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height:600px;
+}
+
+/* Define styles for elements with the class .empty-desc within .empty-page */
+.empty-page .empty-desc {
+  font-size: 16px;
+  color: #8f8b8b;
 }

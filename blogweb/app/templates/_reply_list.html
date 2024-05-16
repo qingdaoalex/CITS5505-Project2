@@ -4,47 +4,50 @@
 {% endblock %}
 {% block content %}
 
-<table>
-  <tr valign="top">
-    <div class="post">
-      <div class="post-left">
-        <img style="margin-left:10px" src="{{ post.author.avatar(80) }}">
 
+<div class="reply-list">
+  <div class="reply-list-left">
+    <img src="{{ reply.user.avatar(80) }}" crossorigin="anonymous" alt="useravatar">
+
+  </div>
+  <div class="reply-list-middle">
+    <div class="reply-list-middle-content">
+      <div>
+        <a class="user_popup" href="{{ url_for('user', username=reply.user.username) }}">{{
+          reply.user.username }}</a>
       </div>
-      <div class="post-middle">
-        <div class="post-middle-content">
-          <div>
-            <a class="user_popup" href="{{ url_for('user', username=post.author.username) }}">{{
-              reply.user.username }}</a>
-          </div>
 
-          <div class="post-title">
-            <a class="post-title-text" href="{{ url_for('post_detail', post_id=post.id) }}">
-              {{ reply.content | safe}}</a>
-          </div>
-        </div>
 
+      <div class="reply-list-title">
+        <span class="reply-list-title-text">
+          {{ reply.content | safe}}
+        </span>
       </div>
-      <div class="post-delete">
-        <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>      </div>
-      <div class=post-right>
-        <div class="post-date">
-          <div>
-            Posted on:
-          </div>
-          <div>
-            {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-          </div>
-
-        </div>
-
-      </div>
+    </div>
+    <div class="reply-list-middle-id">
+      {{reply.id}}
 
     </div>
-  </tr>
-</table>
+
+  </div>
+  <div class="reply-list-delete">
+
+    <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
+      {% if reply.user_id == current_user.id %}
+
+      <button type="submit" class="btn btn-danger">Delete</button>
+      {% else %}
+
+      <button type="button" class="btn btn-secondary" disabled>Delete</button>
+      {% endif %}
+    </form>
+
+  </div>
+    <div class="reply-list-date">
+      {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+    </div>
+
+</div>
 <hr>
 {% endblock %}
 {% block script %}

@@ -22,22 +22,23 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-			crossorigin="anonymous">
-		</script>
+		
 	</head>
 	<body>
+		
+		<!-- Sidebar -->
 		<nav>
 			<div class="sidebar">
+				<div class="dark-toggle">
+					<div class="toggle-circle" id="toggle-circle"></div>
+				</div>
 				<input type="checkbox" id="checkbox" checked>
 				<label for="checkbox">
 					<i class="fa fa-outdent"></i>
 				</label>
 				<ul>
 					<li>
-						<img class="profile-photo" src="{{ current_user.avatar(180) }}" alt="user profile photo">
+						<img class="profile-photo" crossorigin="anonymous" src="{{ current_user.avatar(180) }}" alt="user profile photo">
 						<span>{{ current_user.username }}</span>
 					</li>
 					<li>
@@ -98,14 +99,11 @@
 		<div class="search-result-box" id="search-result"></div>
 		
 		</nav>
-		<div class="hero-image">
-			<img src="{{ url_for('static', filename='background.jpg') }}" style="width:100%">
-			<div class="heading">
-				<h2>Post your comments now!</h2>
-			</div>
-		</div>
+
 		{% block content %}
 		{% endblock %}
+		
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
 				const checkbox = document.getElementById("checkbox");
@@ -129,7 +127,7 @@
 				});
 			});
 		</script>
-	
+
 		<script>
 			// This script is to alert users if they wanna delete their accounts.
 			document.getElementById("delete-form").addEventListener("submit", function(event) {
@@ -170,10 +168,16 @@
 			document.addEventListener('DOMContentLoaded', initialize_popovers);
 				
 			function set_message_count(n) {
-				const count = document.getElementById('message_count');
-				count.innerText = n;
-				count.style.visibility = n ? 'visible' : 'hidden';
-			}
+				try {
+						const count = document.getElementById('message_count');
+						if (count) {
+								count.innerText = n;
+								count.style.visibility = n ? 'visible' : 'hidden';
+						}
+				} catch (error) {
+						// Catch and suppress any errors silently
+				}
+		}
 
 			{% if current_user.is_authenticated %}
 			function initialize_notifications() {
@@ -191,12 +195,14 @@
 			document.addEventListener('DOMContentLoaded', initialize_notifications);
 			{% endif %}
 		</script>
+
 		<script src="{{ url_for('static', filename='live2D.js') }}"></script>
 		<script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous">
     </script>
+
 		{% block script %}	
 		{% endblock %}
 	</body>
