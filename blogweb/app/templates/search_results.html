@@ -7,39 +7,41 @@
 
 <div class="container mt-5 sm-2 md-3 mb-2 search-result">
   <div class="search-result-page">
-    {% if results %}
-    <!-- all user search result -->
+    <div class="search-result-table">
+      {% if results %}
+      <!-- all user search result -->
       {% if search_type == 'user' %}
-        <div class=search-result-table-title>
-          User 
-        </div>
-        {% for result in results %}
-          {% include '_result_list_user.html' %}
-        {% endfor %}
+      <div class=search-result-table-title>
+        User
+      </div>
+      {% for result in results %}
+      {% include '_result_list_user.html' %}
+      {% endfor %}
       {% endif %}
-    <!-- all post search result -->
+      <!-- all post search result -->
       {% if search_type == 'post' %}
-        <div class=search-result-table-title>
-          Post Title
-        </div>
-        {% for result in results %}
-          {% include '_result_list_post.html' %}
-        {% endfor %}
+      <div class=search-result-table-title>
+        Post Title
+      </div>
+      {% for result in results %}
+      {% include '_result_list_post.html' %}
+      {% endfor %}
       {% endif %}
-    <!-- all reply search result -->
+      <!-- all reply search result -->
       {% if search_type == 'reply' %}
-        <div class=search-result-table-title>
-          Reply Post Title
-        </div>
-        {% for result in results %}
-          {% include '_result_list_reply.html' %}
-        {% endfor %}
+      <div class=search-result-table-title>
+        Reply Post Title
+      </div>
+      {% for result in results %}
+      {% include '_result_list_reply.html' %}
+      {% endfor %}
       {% endif %}
 
       {% else %}
-        <!-- Empty page content -->
-        {% include 'empty.html' %}
-    {% endif %}
+      <!-- Empty page content -->
+      {% include 'empty.html' %}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}
