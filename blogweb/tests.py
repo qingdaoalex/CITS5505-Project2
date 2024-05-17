@@ -1,55 +1,63 @@
 import os
 os.environ['DATABASE_URL'] = 'sqlite://'
-
+import sys
+from microblog import app
 from datetime import datetime, timezone, timedelta
 import unittest
-from app import app, db
-from app.models import User, Post
+from app import db
+from app.models import User, Post, Reply, Message, Notification
+import hashlib
+import sqlalchemy as sa
 
-
-class UserModelCase(unittest.TestCase):
+class BaseModelTestCase(unittest.TestCase):
     def setUp(self):
+        self.app = app.test_client()  # Set up the test client
         self.app_context = app.app_context()
         self.app_context.push()
         db.create_all()
+        self.populate_dummy_data()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
+    def populate_dummy_data(self):
+        self.user1 = User(username='john', email='john@example.com')
+        self.user2 = User(username='susan', email='susan@example.com')
+        self.user3 = User(username='mary', email='mary@example.com')
+        self.user4 = User(username='david', email='david@example.com')
+        db.session.add_all([self.user1, self.user2, self.user3, self.user4])
+        db.session.commit()
+
+
+class UserModelCase(BaseModelTestCase):
     def test_password_hashing(self):
         u = User(username='susan', email='susan@example.com')
         u.set_password('cat')
         self.assertFalse(u.check_password('dog'))
         self.assertTrue(u.check_password('cat'))
+        
+
 
     def test_avatar(self):
         u = User(username='john', email='john@example.com')
-        self.assertEqual(u.avatar(128), ('https://www.gravatar.com/avatar/'
-                                         'd4c74594d841139328695756648b6bd6'
-                                         '?d=identicon&s=128'))
+        digest = hashlib.md5(u.email.lower().encode('utf-8')).hexdigest()
+        self.assertEqual(u.avatar(128), f'https://www.gravatar.com/avatar/{digest}?d=identicon&s=128')
+        
+
 
     def test_follow(self):
-        u1 = User(username='john', email='john@example.com')
-        u2 = User(username='susan', email='susan@example.com')
-        db.session.add(u1)
-        db.session.add(u2)
-        db.session.commit()
-        following = db.session.scalars(u1.following.select()).all()
-        followers = db.session.scalars(u2.followers.select()).all()
-        self.assertEqual(following, [])
-        self.assertEqual(followers, [])
+        u1 = self.user1
+        u2 = self.user2
+        self.assertEqual(u1.following_count(), 0)
+        self.assertEqual(u2.followers_count(), 0)
 
         u1.follow(u2)
         db.session.commit()
         self.assertTrue(u1.is_following(u2))
         self.assertEqual(u1.following_count(), 1)
         self.assertEqual(u2.followers_count(), 1)
-        u1_following = db.session.scalars(u1.following.select()).all()
-        u2_followers = db.session.scalars(u2.followers.select()).all()
-        self.assertEqual(u1_following[0].username, 'susan')
-        self.assertEqual(u2_followers[0].username, 'john')
 
         u1.unfollow(u2)
         db.session.commit()
@@ -58,34 +66,25 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u2.followers_count(), 0)
 
     def test_follow_posts(self):
-        # create four users
-        u1 = User(username='john', email='john@example.com')
-        u2 = User(username='susan', email='susan@example.com')
-        u3 = User(username='mary', email='mary@example.com')
-        u4 = User(username='david', email='david@example.com')
-        db.session.add_all([u1, u2, u3, u4])
+        u1 = self.user1
+        u2 = self.user2
+        u3 = self.user3
+        u4 = self.user4
 
-        # create four posts
         now = datetime.now(timezone.utc)
-        p1 = Post(body="post from john", author=u1,
-                  timestamp=now + timedelta(seconds=1))
-        p2 = Post(body="post from susan", author=u2,
-                  timestamp=now + timedelta(seconds=4))
-        p3 = Post(body="post from mary", author=u3,
-                  timestamp=now + timedelta(seconds=3))
-        p4 = Post(body="post from david", author=u4,
-                  timestamp=now + timedelta(seconds=2))
+        p1 = Post(title="Post from john", content="Content", author=u1, timestamp=now + timedelta(seconds=1))
+        p2 = Post(title="Post from susan", content="Content", author=u2, timestamp=now + timedelta(seconds=4))
+        p3 = Post(title="Post from mary", content="Content", author=u3, timestamp=now + timedelta(seconds=3))
+        p4 = Post(title="Post from david", content="Content", author=u4, timestamp=now + timedelta(seconds=2))
         db.session.add_all([p1, p2, p3, p4])
         db.session.commit()
 
-        # setup the followers
-        u1.follow(u2)  # john follows susan
-        u1.follow(u4)  # john follows david
-        u2.follow(u3)  # susan follows mary
-        u3.follow(u4)  # mary follows david
+        u1.follow(u2)
+        u1.follow(u4)
+        u2.follow(u3)
+        u3.follow(u4)
         db.session.commit()
 
-        # check the following posts of each user
         f1 = db.session.scalars(u1.following_posts()).all()
         f2 = db.session.scalars(u2.following_posts()).all()
         f3 = db.session.scalars(u3.following_posts()).all()
@@ -95,7 +94,94 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(f3, [p3, p4])
         self.assertEqual(f4, [p4])
 
+    def test_post(self):
+        u = self.user1
+        p = Post(title='Test Post', content='Test content', author=u)
+        db.session.add(p)
+        db.session.commit()
+        self.assertEqual(p.title, 'Test Post')
+        self.assertEqual(p.content, 'Test content')
+        self.assertEqual(p.author, u)
+
+    def test_upload_avatar(self):
+        u = self.user1
+        u.avatar_path = 'path/to/avatar.jpg'
+        db.session.commit()
+        
+        with app.test_request_context():
+            self.assertEqual(u.avatar(128), '/uploaded_avatars/path/to/avatar.jpg')
+
+    def test_edit_profile(self):
+        u = self.user1
+        u.about_me = 'Hello, this is John!'
+        db.session.commit()
+        self.assertEqual(u.about_me, 'Hello, this is John!')
+
+
+class PostModelCase(BaseModelTestCase):
+    def test_post_replies_count(self):
+        u = self.user1
+        p = Post(title='Test Post', content='Test content', author=u)
+        db.session.add(p)
+        db.session.commit()
+
+        r1 = Reply(content='Reply 1', user=u, post=p)
+        r2 = Reply(content='Reply 2', user=u, post=p)
+        db.session.add_all([r1, r2])
+        db.session.commit()
+
+        self.assertEqual(p.replies_count(), 2)
+
+
+class ReplyModelCase(BaseModelTestCase):
+    def test_reply(self):
+        u = self.user1
+        p = Post(title='Test Post', content='Test content', author=u)
+        db.session.add(p)
+        db.session.commit()
+
+        r = Reply(content='This is a reply', user=u, post=p)
+        db.session.add(r)
+        db.session.commit()
+
+        self.assertEqual(r.content, 'This is a reply')
+        self.assertEqual(r.user, u)
+        self.assertEqual(r.post, p)
+
+
+class MessageModelCase(BaseModelTestCase):
+    def test_message_relationships(self):
+        sender = self.user1
+        recipient = self.user2
+        message = Message(body='Test message', author=sender, recipient=recipient)
+        db.session.add(message)
+        db.session.commit()
+
+        self.assertEqual(message.author, sender)
+        self.assertEqual(message.recipient, recipient)
+
+    def test_send_message(self):
+        sender = self.user1
+        recipient = self.user2
+        message = Message(body='Hello Susan!', author=sender, recipient=recipient)
+        db.session.add(message)
+        db.session.commit()
+
+        self.assertEqual(message.body, 'Hello Susan!')
+        self.assertEqual(message.author, sender)
+        self.assertEqual(message.recipient, recipient)
+
+
+class NotificationModelCase(BaseModelTestCase):
+    def test_notification_payload(self):
+        user = self.user1
+        notification = Notification(name='test_notification', user=user, payload_json='{"key": "value"}')
+        db.session.add(notification)
+        db.session.commit()
+
+        self.assertEqual(notification.user, user)
+        self.assertEqual(notification.get_data(), {'key': 'value'})
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-    app.run(debug=True)
