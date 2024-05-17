@@ -13,7 +13,7 @@
   <div class="reply-list-middle">
     <div class="reply-list-middle-content">
       <div>
-        <a class="user_popup" href="{{ url_for('user', username=reply.user.username) }}">{{
+        <a class="user_popup" href="{{ url_for('main.user', username=reply.user.username) }}">{{
           reply.user.username }}</a>
       </div>
 
@@ -32,7 +32,7 @@
   </div>
   <div class="reply-list-delete">
 
-    <form action="{{ url_for('delete_reply', reply_id=reply.id) }}" method="post">
+    <form action="{{ url_for('main.delete_reply', reply_id=reply.id) }}" method="post">
       {% if reply.user_id == current_user.id %}
 
       <button type="submit" class="btn btn-danger">Delete</button>

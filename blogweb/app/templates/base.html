@@ -42,13 +42,13 @@
 						<span>{{ current_user.username }}</span>
 					</li>
 					<li>
-						<a href="{{ url_for('index') }}">
+						<a href="{{ url_for('main.index') }}">
 							<i class="fa fa-home"></i>
 							<span>Home</span>
 						</a>
 					</li>
 					<li>
-						<a href="{{ url_for('messages') }}">
+						<a href="{{ url_for('main.messages') }}">
 								<i class="fa fa-envelope"></i>
 								<span>Messages</span>
 								{% set unread_message_count = current_user.unread_message_count() %}
@@ -59,27 +59,27 @@
 						</a>
 				   </li>
 					<li>
-						<a href="{{ url_for('user', username=current_user.username) }}">
+						<a href="{{ url_for('main.user', username=current_user.username) }}">
 							<i class="fa fa-user"></i>
 							<span>Profile</span>
 						</a>
 					</li>
 					<li>
 						{% if current_user.is_anonymous %}
-						<a href="{{ url_for('login') }}">
+						<a href="{{ url_for('main.login') }}">
 							<i class="fa fa-arrow-pointer"></i>
 							<span>Log in</span>
 						</a>
 					</li>
 					<li>
 						{% else %}
-						<a href="{{ url_for('logout') }}">
+						<a href="{{ url_for('main.logout') }}">
 							<i class="fa fa-right-to-bracket"></i>
 							<span>Log out</span>
 						</a>
 					</li>
 					<li>
-						<form id="delete-form" action="{{ url_for('delete_account') }}" method="post">
+						<form id="delete-form" action="{{ url_for('main.delete_account') }}" method="post">
 							<button type="submit">
 									<i class="fa fa-delete-left"></i>
 									<span>Delete</span>
@@ -89,7 +89,7 @@
 					</li>
 				</ul>
 			</div>
-			<form class="search-container" action="{{ url_for('search_results') }}" method="GET">
+			<form class="search-container" action="{{ url_for('main.search_results') }}" method="GET">
 				{{ search_form.query(class="form-control me-2", placeholder="Search") }}
 				{{ search_form.type(class="form-control me-2") }}
 				<button class="btn btn-secondary" id="search-btn" type="submit" title="Search Box">
@@ -183,7 +183,7 @@
 			function initialize_notifications() {
 				let since = 0;
 				setInterval(async function() {
-					const response = await fetch('{{ url_for('notifications') }}?since=' + since);
+					const response = await fetch('{{ url_for('main.notifications') }}?since=' + since);
 					const notifications = await response.json();
 					for (let i = 0; i < notifications.length; i++) {
 						if (notifications[i].name == 'unread_message_count')

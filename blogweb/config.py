@@ -3,9 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     POSTS_PER_PAGE = 6
 
     # Mail configuration
@@ -19,3 +17,9 @@ class Config:
     UPLOAD_PATH = os.path.join(basedir, 'app', 'static', 'avatar')
     MAX_FILE_SIZE_BYTES = 1024 * 1024
 
+class DeploymentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'app.db')
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///memory'
+    TESTING = True

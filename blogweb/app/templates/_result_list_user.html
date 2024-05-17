@@ -9,7 +9,7 @@
     <div class="post">
       <img style="margin-left:10px; max-width: 80px;
       max-height: 80px; margin-right:12px" crossorigin="anonymous" src="{{ result.avatar(80) }}" alt="useravatar">
-      <a class="user_popup post-text" href="{{ url_for('user', username=result.username ) }}">{{
+      <a class="user_popup post-text" href="{{ url_for('main.user', username=result.username ) }}">{{
         result.username }}</a>
     </div>
   </div>

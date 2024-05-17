@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify, current_app, send_from_directory
 from urllib.parse import urlsplit
-from app import app, db, mail
+from app import db
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, PostForm, EditProfileForm, EmptyForm, MessageForm, ReplyForm, SearchForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
@@ -13,16 +13,17 @@ import imghdr
 from werkzeug.utils import secure_filename
 import uuid
 from sqlalchemy import or_
+from app.blueprints import main
 
-@app.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def welcome():
 	return render_template('welcome.html')
 
-@app.route('/references', methods=['GET'])
+@main.route('/references', methods=['GET'])
 def references():
 	return render_template('references.html')
 
-@app.route('/index', methods=['GET', 'POST'])
+@main.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
 	form = PostForm()
@@ -31,20 +32,20 @@ def index():
 		current_user.timestamp = datetime.now()
 		db.session.add(post)
 		db.session.commit()
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	search_form = SearchForm()
 	page = request.args.get('page', 1, type=int)
 	all_post_query = sa.select(Post).order_by(Post.timestamp.desc())
-	all_posts = db.paginate(all_post_query, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+	all_posts = db.paginate(all_post_query, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
 	follow_posts = db.paginate(current_user.following_posts_only(),
-													 per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-	next_url_all = url_for('index', page=all_posts.next_num) \
+													 per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+	next_url_all = url_for('main.index', page=all_posts.next_num) \
 		if all_posts.has_next else None
-	prev_url_all = url_for('index', page=all_posts.prev_num) \
+	prev_url_all = url_for('main.index', page=all_posts.prev_num) \
 		if all_posts.has_prev else None
-	next_url_follow = url_for('index', page=follow_posts.next_num) \
+	next_url_follow = url_for('main.index', page=follow_posts.next_num) \
 		if follow_posts.has_next else None
-	prev_url_follow = url_for('index', page=follow_posts.prev_num) \
+	prev_url_follow = url_for('main.index', page=follow_posts.prev_num) \
 		if follow_posts.has_prev else None
 	
 	return render_template('index.html', title='Home', form=form,
@@ -53,35 +54,35 @@ def index():
 		prev_url_follow=prev_url_follow, next_url_follow=next_url_follow, 
 		search_form=search_form)
 
-@app.route('/login', methods=['GET', 'POST'])
+@main.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = db.session.scalar(
 			sa.select(User).where(User.username == form.username.data))
 		if user is None or not user.check_password(form.password.data):
 			flash('Invalid username or password')
-			return redirect(url_for('login'))
+			return redirect(url_for('main.login'))
 		login_user(user, remember=form.remember_me.data)
 		next_page = request.args.get('next')
 		if not next_page or urlsplit(next_page).netloc != '':
 			next_page = session.get('next_page')
 			session.pop('next_page', None)  # Clear next_page from session
 			if not next_page:
-				next_page = url_for('index')
+				next_page = url_for('main.index')
 		return redirect(next_page)
 	# Store the next_page in session before rendering login template
 	session['next_page'] = request.args.get('next')
 	return render_template('login.html', title='Sign In', form=form)
 
-@app.route('/logout')
+@main.route('/logout')
 def logout():
 	logout_user()
-	return redirect(url_for('index'))
+	return redirect(url_for('main.index'))
 
-@app.route('/delete', methods=['POST'])
+@main.route('/delete', methods=['POST'])
 @login_required
 def delete_account():
 	user_id = current_user.id
@@ -91,15 +92,15 @@ def delete_account():
 		db.session.commit()
 		logout_user()  # Logout the user after deletion
 		flash('Your account has been deleted successfully.')
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	else:
 		flash('User not found.')
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
     
-@app.route('/register', methods=['GET', 'POST'])
+@main.route('/register', methods=['GET', 'POST'])
 def register():
 	if current_user.is_authenticated:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	
 	form = RegistrationForm()
 	if form.validate_on_submit():
@@ -107,17 +108,17 @@ def register():
 		existing_user = User.query.filter((User.username == form.username.data) | (User.email == form.email.data)).first()
 		if existing_user:
 			flash('Username or email already exists.', 'error')
-			return redirect(url_for('register'))
+			return redirect(url_for('main.register'))
 		# Create new user
 		user = User(username=form.username.data, email=form.email.data)
 		user.set_password(form.password.data)
 		db.session.add(user)
 		db.session.commit()
 		flash('Congratulations, you are now a registered user!')
-		return redirect(url_for('login'))
+		return redirect(url_for('main.login'))
 	return render_template('register.html', title='Register', form=form)
 
-@app.route('/check_availability', methods=['POST'])
+@main.route('/check_availability', methods=['POST'])
 def check_availability():
 	username = request.json.get('username')
 	email = request.json.get('email')
@@ -148,10 +149,10 @@ def check_availability():
 	else:
 		return jsonify({'username_available': True, 'email_available': True})
 
-@app.route('/reset_password_request', methods=['GET', 'POST'])
+@main.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
 	if current_user.is_authenticated:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	form = ResetPasswordRequestForm()
 	if form.validate_on_submit():
 		user = db.session.scalar(
@@ -159,59 +160,59 @@ def reset_password_request():
 		if user:
 			send_password_reset_email(user)
 		flash('Check your email for the instructions to reset your password')
-		return redirect(url_for('login'))
+		return redirect(url_for('main.login'))
 	return render_template('reset-request.html',
 													title='Reset Password', form=form)
 
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@main.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
 	if current_user.is_authenticated:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	user = User.verify_reset_password_token(token)
 	if not user:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 	form = ResetPasswordForm()
 	if form.validate_on_submit():
 		user.set_password(form.password.data)
 		db.session.commit()
 		flash('Your password has been reset.')
-		return redirect(url_for('login'))
+		return redirect(url_for('main.login'))
 	return render_template('reset.html',title='Reset Password', form=form)
 
-@app.route('/user/<username>')
+@main.route('/user/<username>')
 @login_required
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     page = request.args.get('page', 1, type=int)
     post_query = user.posts.select().order_by(Post.timestamp.desc())
-    posts = db.paginate(post_query, page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    posts = db.paginate(post_query, page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     reply_query = user.replies.order_by(Reply.timestamp.desc())
-    replies = db.paginate(reply_query, page = page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-    next_url_post = url_for('user', username=user.username, page=posts.next_num) \
+    replies = db.paginate(reply_query, page = page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_post = url_for('main.user', username=user.username, page=posts.next_num) \
         if posts.has_next else None
-    prev_url_post = url_for('user', username=user.username, page=posts.prev_num) \
+    prev_url_post = url_for('main.user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
-    next_url_reply = url_for('user', username=user.username, page=replies.next_num) \
+    next_url_reply = url_for('main.user', username=user.username, page=replies.next_num) \
         if posts.has_next else None
-    prev_url_reply = url_for('user', username=user.username, page=replies.prev_num) \
+    prev_url_reply = url_for('main.user', username=user.username, page=replies.prev_num) \
         if posts.has_prev else None
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts,replies = replies, next_url_post=next_url_post, prev_url_post=prev_url_post, next_url_reply= next_url_reply,prev_url_reply =prev_url_reply,form=form)
 
-@app.route('/user/<username>/popup')
+@main.route('/user/<username>/popup')
 @login_required
 def user_popup(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     form = EmptyForm()
     return render_template('user_popup.html', user=user, form=form)
 
-@app.before_request
+@main.before_request
 def before_request():
 	if current_user.is_authenticated:
 		current_user.last_seen = datetime.now()
 		db.session.commit()
         
-@app.route('/edit_profile', methods=['GET', 'POST'])
+@main.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
 	form = EditProfileForm(current_user.username, current_user.email)
@@ -220,7 +221,7 @@ def edit_profile():
 		current_user.about_me = form.about_me.data
 		current_user.email = form.email.data
 		db.session.commit()
-		return redirect(url_for('edit_profile'))
+		return redirect(url_for('main.edit_profile'))
 	elif request.method == 'GET':
 		form.username.data = current_user.username
 		form.about_me.data = current_user.about_me
@@ -228,33 +229,33 @@ def edit_profile():
 	return render_template('edit_profile.html', title='Edit Profile', user=current_user, email=current_user.email,form=form)
 
 
-@app.route('/upload_avatar', methods=['POST'])
+@main.route('/upload_avatar', methods=['POST'])
 def upload_avatar():
     user = current_user
     if 'avatar-upload' in request.files:
       file = request.files['avatar-upload']
       if file.filename != '':
-        if file.content_length > app.config['MAX_FILE_SIZE_BYTES']:
+        if file.content_length > current_app.config['MAX_FILE_SIZE_BYTES']:
           flash('File size exceeds the limit.', 'error')
-          return redirect(url_for('edit_profile'))
+          return redirect(url_for('main.edit_profile'))
 
         # Validate file type using imghdr
         allowed_image_types = {'jpg', 'jpeg', 'png', 'gif'}
         file_type = imghdr.what(file)
         if file_type not in allowed_image_types:
           flash('Invalid image file format.', 'error')
-          return redirect(url_for('edit_profile'))
+          return redirect(url_for('main.edit_profile'))
 
         # Generate a unique filename
         unique_filename = str(uuid.uuid4()) + '_' + secure_filename(file.filename)
 
         # Delete the old avatar file if it exists
         if user.avatar_path:
-          old_avatar_path = os.path.join(app.config['UPLOAD_PATH'], user.avatar_path)
+          old_avatar_path = os.path.join(current_app.config['UPLOAD_PATH'], user.avatar_path)
           if os.path.exists(old_avatar_path):
             os.remove(old_avatar_path)
 
-        avatar_directory = app.config['UPLOAD_PATH']
+        avatar_directory = current_app.config['UPLOAD_PATH']
         if not os.path.exists(avatar_directory):
           os.makedirs(avatar_directory)  # Create the directory if it doesn't exist
         try:
@@ -264,18 +265,18 @@ def upload_avatar():
           flash('Avatar uploaded successfully.', 'success')
         except Exception as e:
           # Log the error
-          app.logger.error("Error uploading avatar: %s", str(e))
+          main.logger.error("Error uploading avatar: %s", str(e))
           flash('Internal Server Error.', 'error')
-    return redirect(url_for('edit_profile'))
+    return redirect(url_for('main.edit_profile'))
 
 
-@app.route('/set_default_avatar', methods=['POST'])
+@main.route('/set_default_avatar', methods=['POST'])
 def set_default_avatar():
     user = current_user
     
     # Delete the existing avatar file if it exists
     if user.avatar_path:
-        avatar_path = os.path.join(app.config['UPLOAD_PATH'], user.avatar_path)
+        avatar_path = os.path.join(current_app.config['UPLOAD_PATH'], user.avatar_path)
         if os.path.exists(avatar_path):
             os.remove(avatar_path)
 
@@ -284,13 +285,13 @@ def set_default_avatar():
     db.session.commit()
 
     # Redirect to edit_profile page
-    return redirect(url_for('edit_profile'))
+    return redirect(url_for('main.edit_profile'))
 
-@app.route('/uploaded_avatars/<filename>')
+@main.route('/uploaded_avatars/<filename>')
 def uploaded_avatars(filename):
-	return send_from_directory(app.config['UPLOAD_PATH'], filename)
+	return send_from_directory(current_app.config['UPLOAD_PATH'], filename)
 
-@app.route('/follow/<username>', methods=['POST'])
+@main.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
 	form = EmptyForm()
@@ -299,19 +300,19 @@ def follow(username):
 			sa.select(User).where(User.username == username))
 		if user is None:
 			flash(f'User {username} not found.')
-			return redirect(url_for('index'))
+			return redirect(url_for('main.index'))
 		if user == current_user:
 			flash('You cannot follow yourself!')
-			return redirect(url_for('user', username=username))
+			return redirect(url_for('main.user', username=username))
 		current_user.follow(user)
 		db.session.commit()
 		flash(f'You are following {username}!')
-		return redirect(url_for('user', username=username))
+		return redirect(url_for('main.user', username=username))
 	else:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 
 
-@app.route('/unfollow/<username>', methods=['POST'])
+@main.route('/unfollow/<username>', methods=['POST'])
 @login_required
 def unfollow(username):
 	form = EmptyForm()
@@ -320,18 +321,18 @@ def unfollow(username):
 			sa.select(User).where(User.username == username))
 		if user is None:
 			flash(f'User {username} not found.')
-			return redirect(url_for('index'))
+			return redirect(url_for('main.index'))
 		if user == current_user:
 			flash('You cannot unfollow yourself!')
-			return redirect(url_for('user', username=username))
+			return redirect(url_for('main.user', username=username))
 		current_user.unfollow(user)
 		db.session.commit()
 		flash(f'You are not following {username}.')
-		return redirect(url_for('user', username=username))
+		return redirect(url_for('main.user', username=username))
 	else:
-		return redirect(url_for('index'))
+		return redirect(url_for('main.index'))
 
-@app.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@main.route('/send_message/<recipient>', methods=['GET', 'POST'])
 @login_required
 def send_message(recipient):
     user = db.first_or_404(sa.select(User).where(User.username == recipient))
@@ -341,10 +342,10 @@ def send_message(recipient):
         db.session.add(msg)
         user.add_notification('unread_message_count',user.unread_message_count())
         db.session.commit()
-        return redirect(url_for('user', username=recipient))
+        return redirect(url_for('main.user', username=recipient))
     return render_template('send_message.html', title=('Send Message'),form=form, recipient=recipient)
   
-@app.route('/messages')
+@main.route('/messages')
 @login_required
 def messages():
     current_user.last_message_read_time = datetime.now()
@@ -353,13 +354,13 @@ def messages():
     page = request.args.get('page', 1, type=int)
     query = current_user.messages_received.select().order_by(Message.timestamp.desc())
     messages = db.paginate(query, page=page,per_page=current_app.config['POSTS_PER_PAGE'],error_out=False)
-    next_url = url_for('messages', page=messages.next_num) \
+    next_url = url_for('main.messages', page=messages.next_num) \
         if messages.has_next else None
-    prev_url = url_for('messages', page=messages.prev_num) \
+    prev_url = url_for('main.messages', page=messages.prev_num) \
         if messages.has_prev else None
     return render_template('messages.html',messages=messages,next_url=next_url, prev_url=prev_url)
   
-@app.route('/notifications')
+@main.route('/notifications')
 @login_required
 def notifications():
     since = request.args.get('since', 0.0, type=float)
@@ -372,7 +373,7 @@ def notifications():
         'timestamp': n.timestamp
     } for n in notifications]
 
-@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+@main.route('/post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def post_detail(post_id):
     post = Post.query.get_or_404(post_id)
@@ -381,29 +382,29 @@ def post_detail(post_id):
     reply_form = ReplyForm()
 
     page = request.args.get('page', 1, type=int)
-    reply_post = replies_query.paginate(page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-    next_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.next_num) \
+    reply_post = replies_query.paginate(page=page, per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url_reply = url_for('main.post_detail', post_id=post_id, page=reply_post.next_num) \
       if reply_post.has_next else None
-    prev_url_reply = url_for('post_detail', post_id=post_id, page=reply_post.prev_num) \
+    prev_url_reply = url_for('main.post_detail', post_id=post_id, page=reply_post.prev_num) \
 		if reply_post.has_prev else None
 
     if reply_form.validate_on_submit():
         reply = Reply(content=reply_form.content.data, user=current_user, post=post)
         db.session.add(reply)
         db.session.commit()
-        return redirect(url_for('post_detail', post_id=post.id))
+        return redirect(url_for('main.post_detail', post_id=post.id))
 
     return render_template('post_detail.html', title=post.title, post=post, replies=replies, reply_post=reply_post,
 				reply_form=reply_form, next_url_reply=next_url_reply, prev_url_reply=prev_url_reply, post_id=post.id)
 
-@app.route('/search', methods=['GET', 'POST'])
+@main.route('/search', methods=['GET', 'POST'])
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        return redirect(url_for('search_results', query=form.query.data, type=form.type.data))
+        return redirect(url_for('main.search_results', query=form.query.data, type=form.type.data))
     return render_template('index.html', form=form)
 
-@app.route('/search_results')
+@main.route('/search_results')
 def search_results():
     query = request.args.get('query', '', type=str)
     search_type = request.args.get('type', 'post', type=str)
@@ -426,10 +427,10 @@ def search_results():
     return render_template('search_results.html', results=results, search_type=search_type)
 
 
-@app.route('/delete_reply/<int:reply_id>', methods=['POST'])
+@main.route('/delete_reply/<int:reply_id>', methods=['POST'])
 @login_required
 def delete_reply(reply_id):
     reply = Reply.query.get_or_404(reply_id)
     db.session.delete(reply)
     db.session.commit()
-    return redirect(url_for('post_detail', post_id=reply.post_id))
+    return redirect(url_for('main.post_detail', post_id=reply.post_id))

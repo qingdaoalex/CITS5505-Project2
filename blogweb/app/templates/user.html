@@ -10,7 +10,7 @@
   <div class="user-page">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+        <li class="breadcrumb-item"><a href="{{url_for('main.index', page=1)}}">Home Page</a></li>
         <li class="breadcrumb-item active" aria-current="page">Profile</li>
       </ol>
     </nav>
@@ -53,17 +53,17 @@
               <p class="user-about-me-text"> {{ user.about_me }}</p>{% endif %}
 
               {% if user == current_user %}
-              <span><a href="{{ url_for('edit_profile') }}" class="btn btn-secondary" id="editprofiel">Edit your profile</a></span>
+              <span><a href="{{ url_for('main.edit_profile') }}" class="btn btn-secondary" id="editprofiel">Edit your profile</a></span>
               {% elif not current_user.is_following(user) %}
               <p>
-              <form action="{{ url_for('follow', username=user.username) }}" method="post">
+              <form action="{{ url_for('main.follow', username=user.username) }}" method="post">
                 {{ form.hidden_tag() }}
                 {{ form.submit(value='Follow', class="btn btn-primary") }}
               </form>
 
               {% else %}
               <p>
-              <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+              <form action="{{ url_for('main.unfollow', username=user.username) }}" method="post">
                 {{ form.hidden_tag() }}
                 {{ form.submit( value='Unfollow',class="btn btn-outline-primary") }}
               </form>
@@ -71,7 +71,7 @@
               {% endif %}<br>
               {% if user != current_user %}
               <div class="user-send-message">
-                <a class="user-send-message-text btn btn-secondary" href="{{ url_for('send_message',recipient=user.username) }}">{{ ('Send
+                <a class="user-send-message-text btn btn-secondary" href="{{ url_for('main.send_message',recipient=user.username) }}">{{ ('Send
                   private
                   message') }}</a>
               </div>
@@ -130,10 +130,10 @@
                   {% if posts.has_prev %}
 
                   <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user', username=user.username, page=1) }}">First</a>
+                      href="{{ url_for('main.user', username=user.username, page=1) }}">First</a>
                   </li>
                   <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user', username=user.username, page=posts.prev_num) }}">Prev</a></li>
+                      href="{{ url_for('main.user', username=user.username, page=posts.prev_num) }}">Prev</a></li>
                   {% else %}
 
                   <li class="page-item disabled"><span class="page-link">First</span></li>
@@ -141,7 +141,7 @@
 
                   {% if posts.page > 4 %}
                   <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user', username=user.username, page=1) }}">1</a>
+                      href="{{ url_for('main.user', username=user.username, page=1) }}">1</a>
                   </li>
                   <li class="page-item disabled"><span class="page-link">...</span></li>
                   {% endif %}
@@ -151,7 +151,7 @@
                     {% if p == posts.page %}
                     <span class="page-link">{{ p }}</span>
                     {% else %}
-                    <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+                    <a class="page-link" href="{{ url_for('main.user', username=user.username, page=p) }}">{{ p }}</a>
                     {% endif %}
                     </li>
                     {% endfor %}
@@ -159,15 +159,15 @@
                     {% if posts.page < posts.pages - 3 %} <li class="page-item disabled"><span
                         class="page-link">...</span></li>
                       <li class="page-item"><a class="page-link"
-                          href="{{ url_for('user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a>
+                          href="{{ url_for('main.user', username=user.username, page=posts.pages) }}">{{ posts.pages }}</a>
                       </li>
                       {% endif %}
 
                       {% if posts.has_next %}
                       <li class="page-item"><a class="page-link"
-                          href="{{ url_for('user', username=user.username, page=posts.next_num) }}">Next</a></li>
+                          href="{{ url_for('main.user', username=user.username, page=posts.next_num) }}">Next</a></li>
                       <li class="page-item"><a class="page-link"
-                          href="{{ url_for('user', username=user.username, page=posts.pages) }}">Last</a></li>
+                          href="{{ url_for('main.user', username=user.username, page=posts.pages) }}">Last</a></li>
                       {% else %}
                       <li class="page-item disabled"><span class="page-link">Next</span></li>
                       <li class="page-item disabled"><span class="page-link">Last</span></li>
@@ -216,9 +216,9 @@
                 <ul class="pagination justify-content-center">
                   {% if replies.has_prev %}
                   <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user',username=user.username, page=1) }}">First</a></li>
+                      href="{{ url_for('main.user',username=user.username, page=1) }}">First</a></li>
                   <li class="page-item"><a class="page-link"
-                      href="{{ url_for('user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
+                      href="{{ url_for('main.user', username=user.username, page=replies.prev_num) }}">Prev</a></li>
                   {% else %}
                   <li class="page-item disabled"><span class="page-link">Prev</span></li>
                   {% endif %}
@@ -228,16 +228,16 @@
                     {% if p == replies.page %}
                     <span class="page-link">{{ p }}</span>
                     {% else %}
-                    <a class="page-link" href="{{ url_for('user', username=user.username, page=p) }}">{{ p }}</a>
+                    <a class="page-link" href="{{ url_for('main.user', username=user.username, page=p) }}">{{ p }}</a>
                     {% endif %}
                     </li>
                     {% endfor %}
 
                     {% if replies.has_next %}
                     <li class="page-item"><a class="page-link"
-                        href="{{ url_for('user', username=user.username, page=replies.next_num) }}">Next</a></li>
+                        href="{{ url_for('main.user', username=user.username, page=replies.next_num) }}">Next</a></li>
                     <li class="page-item"><a class="page-link"
-                        href="{{ url_for('user',username=user.username, page=replies.pages) }}">Last</a>
+                        href="{{ url_for('main.user',username=user.username, page=replies.pages) }}">Last</a>
                     </li>
                     {% else %}
                     <li class="page-item disabled"><span class="page-link">Next</span></li>

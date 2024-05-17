@@ -75,15 +75,15 @@
 						<ul class="pagination justify-content-center">
 			
 							{% if all_posts.has_prev %}
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.prev_num) }}">Prev</a>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.prev_num) }}">Prev</a>
 							</li>
 							{% else %}
 							<li class="page-item disabled"><span class="page-link">First</span></li>
 							{% endif %}
 			
 							{% if all_posts.page > 4 %}
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">1</a></li>
 							<li class="page-item disabled"><span class="page-link">...</span></li>
 							{% endif %}
 			
@@ -92,21 +92,21 @@
 								{% if p == all_posts.page %}
 								<span class="page-link">{{ p }}</span>
 								{% else %}
-								<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+								<a class="page-link" href="{{ url_for('main.index', page=p) }}">{{ p }}</a>
 								{% endif %}
 								</li>
 								{% endfor %}
 			
 								{% if all_posts.page < all_posts.pages - 3 %} <li class="page-item disabled"><span
 										class="page-link">...</span></li>
-									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">{{
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.pages) }}">{{
 											all_posts.pages }}</a></li>
 									{% endif %}
 			
 									{% if all_posts.has_next %}
-									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.next_num) }}">Next</a>
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.next_num) }}">Next</a>
 									</li>
-									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=all_posts.pages) }}">Last</a>
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.pages) }}">Last</a>
 									</li>
 									{% else %}
 									<li class="page-item disabled"><span class="page-link">Next</span></li>
@@ -153,16 +153,16 @@
 						<ul class="pagination justify-content-center">
 
 							{% if follow_posts.has_prev %}
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">First</a></li>
 							<li class="page-item"><a class="page-link"
-									href="{{ url_for('index', page=follow_posts.prev_num) }}">Prev</a>
+									href="{{ url_for('main.index', page=follow_posts.prev_num) }}">Prev</a>
 							</li>
 							{% else %}
 							<li class="page-item disabled"><span class="page-link">First</span></li>
 							{% endif %}
 
 							{% if follow_posts.page > 4 %}
-							<li class="page-item"><a class="page-link" href="{{ url_for('index', page=1) }}">1</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">1</a></li>
 							<li class="page-item disabled"><span class="page-link">...</span></li>
 							{% endif %}
 
@@ -171,23 +171,23 @@
 								{% if p == follow_posts.page %}
 								<span class="page-link">{{ p }}</span>
 								{% else %}
-								<a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+								<a class="page-link" href="{{ url_for('main.index', page=p) }}">{{ p }}</a>
 								{% endif %}
 								</li>
 								{% endfor %}
 
 								{% if follow_posts.page < follow_posts.pages - 3 %} <li class="page-item disabled"><span
 										class="page-link">...</span></li>
-									<li class="page-item"><a class="page-link" href="{{ url_for('index', page=follow_posts.pages) }}">{{
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=follow_posts.pages) }}">{{
 											follow_posts.pages }}</a></li>
 									{% endif %}
 
 									{% if follow_posts.has_next %}
 									<li class="page-item"><a class="page-link"
-											href="{{ url_for('index', page=follow_posts.next_num) }}">Next</a>
+											href="{{ url_for('main.index', page=follow_posts.next_num) }}">Next</a>
 									</li>
 									<li class="page-item"><a class="page-link"
-											href="{{ url_for('index', page=follow_posts.pages) }}">Last</a>
+											href="{{ url_for('main.index', page=follow_posts.pages) }}">Last</a>
 									</li>
 									{% else %}
 									<li class="page-item disabled"><span class="page-link">Next</span></li>

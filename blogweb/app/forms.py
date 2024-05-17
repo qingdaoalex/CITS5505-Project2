@@ -6,7 +6,7 @@ import sqlalchemy as sa
 from app import db
 from app.models import User
 import re
-
+from app.blueprints import main
 class LoginForm(FlaskForm):
   username = StringField('User name', validators=[DataRequired()])
   password = PasswordField('Password', validators=[DataRequired()])

@@ -14,7 +14,7 @@
 	<div class="post-detail">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="{{url_for('index', page=1)}}">Home Page</a></li>
+				<li class="breadcrumb-item"><a href="{{url_for('main.index', page=1)}}">Home Page</a></li>
 				<li class="breadcrumb-item active" aria-current="page">Post Detail</li>
 			</ol>
 		</nav>
@@ -30,7 +30,7 @@
 					<button id="displayPostBtn" style="margin-top:20px; width:180px" type="button" onclick="displayreplyForm()"
 						class="btn btn-secondary">Click here to reply</button>
 
-					<form id="replyForm" method="POST" action="{{ url_for('post_detail', post_id=post.id) }}"
+					<form id="replyForm" method="POST" action="{{ url_for('main.post_detail', post_id=post.id) }}"
 						style=" display: none">
 						{{ reply_form.hidden_tag() }}
 						<div class="form-group" style="margin-top:20px">
@@ -99,16 +99,16 @@
 					<ul class="pagination justify-content-center">
 						{% if reply_post.has_prev %}
 						<li class="page-item"><a class="page-link"
-								href="{{ url_for('post_detail', post_id=post_id, page=1) }}">First</a></li>
+								href="{{ url_for('main.post_detail', post_id=post_id, page=1) }}">First</a></li>
 						<li class="page-item"><a class="page-link"
-								href="{{ url_for('post_detail', post_id=post_id, page=reply_post.prev_num) }}">Prev</a></li>
+								href="{{ url_for('main.post_detail', post_id=post_id, page=reply_post.prev_num) }}">Prev</a></li>
 						{% else %}
 						<li class="page-item disabled"><span class="page-link">First</span></li>
 						{% endif %}
 
 						{% if reply_post.page > 4 %}
 						<li class="page-item"><a class="page-link"
-								href="{{ url_for('post_detail', post_id=post_id, page=1) }}">1</a></li>
+								href="{{ url_for('main.post_detail', post_id=post_id, page=1) }}">1</a></li>
 						<li class="page-item disabled"><span class="page-link">...</span></li>
 						{% endif %}
 
@@ -117,7 +117,7 @@
 							{% if p == reply_post.page %}
 							<span class="page-link">{{ p }}</span>
 							{% else %}
-							<a class="page-link" href="{{ url_for('post_detail', post_id=post_id, page=p) }}">{{ p }}</a>
+							<a class="page-link" href="{{ url_for('main.post_detail', post_id=post_id, page=p) }}">{{ p }}</a>
 							{% endif %}
 							</li>
 							{% endfor %}
@@ -125,15 +125,15 @@
 							{% if reply_post.page < reply_post.pages - 3 %} <li class="page-item disabled"><span
 									class="page-link">...</span></li>
 								<li class="page-item"><a class="page-link"
-										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.pages) }}">{{ reply_post.pages
+										href="{{ url_for('main.post_detail', post_id=post_id, page=reply_post.pages) }}">{{ reply_post.pages
 										}}</a></li>
 								{% endif %}
 
 								{% if reply_post.has_next %}
 								<li class="page-item"><a class="page-link"
-										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.next_num) }}">Next</a></li>
+										href="{{ url_for('main.post_detail', post_id=post_id, page=reply_post.next_num) }}">Next</a></li>
 								<li class="page-item"><a class="page-link"
-										href="{{ url_for('post_detail', post_id=post_id, page=reply_post.pages) }}">Last</a></li>
+										href="{{ url_for('main.post_detail', post_id=post_id, page=reply_post.pages) }}">Last</a></li>
 								{% else %}
 								<li class="page-item disabled"><span class="page-link">Next</span></li>
 								<li class="page-item disabled"><span class="page-link">Last</span></li>
