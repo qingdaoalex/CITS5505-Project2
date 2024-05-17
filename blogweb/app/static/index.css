@@ -5,6 +5,7 @@
   height: 500px;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
 }
 
 .darkmode-layer,
@@ -210,7 +211,7 @@
 
 .index-tabcontent-post {
   min-height: 800px !important;
-  min-width:800px
+  min-width: 800px
 }
 
 .index-tabcontent:first-child {
@@ -269,11 +270,12 @@
   border-radius: 10px;
 
 }
+
 @media screen and (max-width: 1200px) {
-  .index-tabcontent{
+  .index-tabcontent {
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding:12px;
+    padding: 12px;
 
   }
 }
