@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_migrate import Migrate
 from flask_login import LoginManager
 import logging
 from app.ssl_handlers import SSLSMTPHandler
@@ -10,7 +10,7 @@ from flask_mail import Mail
 from config import DeploymentConfig, Config
 
 db = SQLAlchemy()
-
+migrate = Migrate()
 login = LoginManager()
 login.login_view = 'main.login'
 mail = Mail()
@@ -25,7 +25,7 @@ def create_app(config_class=DeploymentConfig):
     from app.blueprints import main
     app.register_blueprint(main)
     db.init_app(app)
-    
+    migrate.init_app(app, db) 
     from .forms import SearchForm
     @app.context_processor
     def inject_search_form():
