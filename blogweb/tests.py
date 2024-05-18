@@ -117,6 +117,45 @@ class UserModelCase(BaseModelTestCase):
         db.session.commit()
         self.assertEqual(u.about_me, 'Hello, this is John!')
 
+    def test_user_deletion(self):
+        user_count_before = User.query.count()
+        db.session.delete(self.user1)
+        db.session.commit()
+        user_count_after = User.query.count()
+        self.assertEqual(user_count_before - 1, user_count_after)
+
+    def test_error_on_duplicate_username(self):
+        with self.assertRaises(sa.exc.IntegrityError):
+            duplicate_user = User(username='john', email='newjohn@example.com')
+            db.session.add(duplicate_user)
+            db.session.commit()
+
+    def test_error_on_duplicate_email(self):
+        with self.assertRaises(sa.exc.IntegrityError):
+            duplicate_email_user = User(username='newuser', email='john@example.com')
+            db.session.add(duplicate_email_user)
+            db.session.commit()
+
+    def test_user_profile_update(self):
+        u = self.user1
+        u.bio = 'Updated bio'
+        db.session.commit()
+        updated_user = User.query.get(u.id)
+        self.assertEqual(updated_user.bio, 'Updated bio')
+
+
+    def test_unique_username(self):
+        user = User(username='john', email='unique@example.com')
+        db.session.add(user)
+        with self.assertRaises(sa.exc.IntegrityError):
+            db.session.commit()
+
+    def test_unique_email(self):
+        user = User(username='uniqueuser', email='john@example.com')
+        db.session.add(user)
+        with self.assertRaises(sa.exc.IntegrityError):
+            db.session.commit()
+        db.session.rollback()
 
 class PostModelCase(BaseModelTestCase):
     def test_post_replies_count(self):
@@ -148,6 +187,29 @@ class ReplyModelCase(BaseModelTestCase):
         self.assertEqual(r.user, u)
         self.assertEqual(r.post, p)
 
+    def test_edit_reply(self):
+        u = self.user1
+        p = Post(title='Test Post for Editing Reply', content='Test content', author=u)
+        r = Reply(content='Original Reply', user=u, post=p)
+        db.session.add_all([p, r])
+        db.session.commit()
+
+        r.content = 'Edited Reply'
+        db.session.commit()
+        updated_reply = Reply.query.get(r.id)
+        self.assertEqual(updated_reply.content, 'Edited Reply')
+
+    def test_user_delete_own_reply(self):
+        u = self.user1
+        p = Post(title='Post', content='Content here', author=u)
+        r = Reply(content='Reply to be deleted', user=u, post=p)
+        db.session.add_all([p, r])
+        db.session.commit()
+
+        db.session.delete(r)
+        db.session.commit()
+        self.assertIsNone(Reply.query.get(r.id))
+
 
 class MessageModelCase(BaseModelTestCase):
     def test_message_relationships(self):
@@ -170,6 +232,30 @@ class MessageModelCase(BaseModelTestCase):
         self.assertEqual(message.body, 'Hello Susan!')
         self.assertEqual(message.author, sender)
         self.assertEqual(message.recipient, recipient)
+    
+    def test_message_deletion(self):
+        sender = self.user1
+        recipient = self.user2
+        message = Message(body='Message to be deleted', author=sender, recipient=recipient)
+        db.session.add(message)
+        db.session.commit()
+
+        db.session.delete(message)
+        db.session.commit()
+        self.assertIsNone(Message.query.get(message.id))
+
+class NotificationModelCase(BaseModelTestCase):
+    ...
+
+    def test_notification_deletion(self):
+        user = self.user1
+        notification = Notification(name='delete_test', user=user, payload_json='{"info": "delete this"}')
+        db.session.add(notification)
+        db.session.commit()
+
+        db.session.delete(notification)
+        db.session.commit()
+        self.assertIsNone(Notification.query.get(notification.id))
 
 
 class NotificationModelCase(BaseModelTestCase):

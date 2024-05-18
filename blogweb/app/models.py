@@ -159,7 +159,7 @@ class Post(db.Model):
     author: so.Mapped[User] = so.relationship(back_populates='posts')
     replies: so.WriteOnlyMapped['Reply'] = so.relationship('Reply', back_populates='post', cascade='all, delete-orphan')
     def __repr__(self):
-        return '<Post {}>'.format(self.tktle)
+        return '<Post {}>'.format(self.title)
     ###function to count number of replies
     def replies_count(self):
         return db.session.query(sa.func.count(Reply.id)).filter(Reply.post_id == self.id).scalar()
