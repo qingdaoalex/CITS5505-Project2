@@ -1,5 +1,5 @@
 import os
-os.environ['DATABASE_URL'] = 'sqlite://'
+os.environ['DATABASE_URL'] = 'sqlite:///:memory:'
 import sys
 from microblog import app
 from datetime import datetime, timezone, timedelta

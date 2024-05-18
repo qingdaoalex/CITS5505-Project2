@@ -63,5 +63,5 @@ def configure_logging(app):
         app.logger.info('Webapp startup')
 
 
-
+from config import TestConfig  
 

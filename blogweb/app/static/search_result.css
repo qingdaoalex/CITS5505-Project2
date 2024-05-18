@@ -6,14 +6,19 @@
   background-color: rgba(255, 255, 255, 0.871);
   padding-top: 20px;
 }
+
 .search-result-page {
   width: 80%;
-  overflow-x:scroll;
+  overflow-x: scroll;
+  margin-top: 2%;
 }
-.search-result-table{
+
+.search-result-table {
   min-height: 800px !important;
   min-width: 800px !important;
+  margin: 2%;
 }
+
 .search-result-table-title {
   padding: 8px;
   height: 40px;
@@ -26,10 +31,11 @@
   font-size: 16px;
   border-radius: 10px;
 }
+
 @media screen and (max-width: 1200px) {
   .search-result-page {
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding:12px;
+    padding: 12px;
   }
 }
