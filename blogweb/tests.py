@@ -6,6 +6,7 @@ from datetime import datetime, timezone, timedelta
 import unittest
 from app import db
 from app.models import User, Post, Reply, Message, Notification
+from app.routes import check_availability
 import hashlib
 import sqlalchemy as sa
 
@@ -32,6 +33,23 @@ class BaseModelTestCase(unittest.TestCase):
 
 
 class UserModelCase(BaseModelTestCase):
+    def test_check_no_user_availability(self):
+        data = {'username': 'john', 'email': 'john@example.com'}
+        print(data, "data*******************")
+        # Make a POST request to the check_availability route
+        response = self.app.post('/check_availability', json=data)
+        expected_result = {'username_available': False, 'email_available': False}
+        self.assertEqual(response.get_json(), expected_result)
+
+    def test_check_user_availability(self):
+        data = {'username': 'test', 'email': 'test@example.com'}
+        # Make a POST request to the check_availability route
+        response = self.app.post('/check_availability', json=data)
+        expected_result = {'username_available': True, 'email_available': True}
+        self.assertEqual(response.get_json(), expected_result)
+
+
+
     def test_password_hashing(self):
         u = User(username='susan', email='susan@example.com')
         u.set_password('cat')
@@ -93,6 +111,50 @@ class UserModelCase(BaseModelTestCase):
         self.assertEqual(f2, [p2, p3])
         self.assertEqual(f3, [p3, p4])
         self.assertEqual(f4, [p4])
+
+   #test Only followed user posts without current user's own posts
+    def test_following_posts_only(self):
+        u1 = self.user1
+        u2 = self.user2
+        u3 = self.user3
+        u4 = self.user4
+        now = datetime.now(timezone.utc)
+        p1 = Post(title="Post from john", content="Contentfrom john", author=u1, timestamp=now + timedelta(seconds=1))
+        p2 = Post(title="Post from susan", content="Content from susan", author=u2, timestamp=now + timedelta(seconds=4))
+        p3 = Post(title="Post from mary", content="Content from mary", author=u3, timestamp=now + timedelta(seconds=3))
+        p4 = Post(title="Post from david", content="Content from david", author=u4, timestamp=now + timedelta(seconds=2))
+        db.session.add_all([p1, p2, p3, p4])
+        db.session.commit()
+        u1.follow(u2)
+        u1.follow(u3)
+        u1.follow(u4)
+        u2.follow(u3)
+        u3.follow(u4)
+        u4.follow(u2)
+        db.session.commit()
+        f1 = db.session.scalars(u1.following_posts_only()).all()
+        f2 = db.session.scalars(u2.following_posts_only()).all()
+        f3 = db.session.scalars(u3.following_posts_only()).all()
+        f4 = db.session.scalars(u4.following_posts_only()).all()
+        self.assertEqual(f1, [p2, p3, p4])
+        self.assertEqual(f2, [p3])
+        self.assertEqual(f3, [p4])
+        self.assertEqual(f4, [p2])
+
+   # test Only followed user posts without current user's own posts, User not follow anyone
+    def test_following_posts_only_no_follow(self):
+        u1 = self.user1
+        u2 = self.user2
+        now = datetime.now(timezone.utc)
+        p1 = Post(title="Post from john", content="Contentfrom john", author=u1, timestamp=now + timedelta(seconds=1))
+        p2 = Post(title="Post from susan", content="Content from susan", author=u2, timestamp=now + timedelta(seconds=4))
+        db.session.add_all([p1, p2])
+        db.session.commit()
+        f1 = db.session.scalars(u1.following_posts_only()).all()
+        f2 = db.session.scalars(u2.following_posts_only()).all()
+        self.assertEqual(f1, [])
+        self.assertEqual(f2, [])
+     
 
     def test_post(self):
         u = self.user1
@@ -267,7 +329,6 @@ class NotificationModelCase(BaseModelTestCase):
 
         self.assertEqual(notification.user, user)
         self.assertEqual(notification.get_data(), {'key': 'value'})
-
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
