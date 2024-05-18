@@ -33,22 +33,20 @@ class BaseModelTestCase(unittest.TestCase):
 
 
 class UserModelCase(BaseModelTestCase):
+    # Test if a user name and eamil already existed
     def test_check_no_user_availability(self):
         data = {'username': 'john', 'email': 'john@example.com'}
-        print(data, "data*******************")
-        # Make a POST request to the check_availability route
+        # Make a POST request to the check_availability to get response
         response = self.app.post('/check_availability', json=data)
         expected_result = {'username_available': False, 'email_available': False}
         self.assertEqual(response.get_json(), expected_result)
 
     def test_check_user_availability(self):
         data = {'username': 'test', 'email': 'test@example.com'}
-        # Make a POST request to the check_availability route
+        # Make a POST request to the check_availability to get response
         response = self.app.post('/check_availability', json=data)
         expected_result = {'username_available': True, 'email_available': True}
         self.assertEqual(response.get_json(), expected_result)
-
-
 
     def test_password_hashing(self):
         u = User(username='susan', email='susan@example.com')
@@ -83,6 +81,24 @@ class UserModelCase(BaseModelTestCase):
         self.assertEqual(u1.following_count(), 0)
         self.assertEqual(u2.followers_count(), 0)
 
+    # Test User's own posts with followed user posts.
+    def test_follow_posts_no_follow(self):
+        u1 = self.user1
+        u2 = self.user2
+
+        now = datetime.now(timezone.utc)
+        p1 = Post(title="Post from john", content="Content", author=u1, timestamp=now + timedelta(seconds=1))
+        p2 = Post(title="Post from susan", content="Content", author=u2, timestamp=now + timedelta(seconds=4))
+
+        db.session.add_all([p1, p2])
+        db.session.commit()
+
+        f1 = db.session.scalars(u1.following_posts()).all()
+        f2 = db.session.scalars(u2.following_posts()).all()
+     
+        self.assertEqual(f1, [p1])
+        self.assertEqual(f2, [p2])
+    
     def test_follow_posts(self):
         u1 = self.user1
         u2 = self.user2
@@ -112,7 +128,7 @@ class UserModelCase(BaseModelTestCase):
         self.assertEqual(f3, [p3, p4])
         self.assertEqual(f4, [p4])
 
-   #test Only followed user posts without current user's own posts
+   # Test Only followed user posts without current user's own posts
     def test_following_posts_only(self):
         u1 = self.user1
         u2 = self.user2
@@ -141,7 +157,7 @@ class UserModelCase(BaseModelTestCase):
         self.assertEqual(f3, [p4])
         self.assertEqual(f4, [p2])
 
-   # test Only followed user posts without current user's own posts, User not follow anyone
+   # Test Only followed user posts without current user's own posts, User not follow anyone
     def test_following_posts_only_no_follow(self):
         u1 = self.user1
         u2 = self.user2

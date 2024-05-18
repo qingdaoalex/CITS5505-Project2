@@ -11,6 +11,7 @@ $flask db upgrade
 
 Run tests.py:
 $python -m unittest tests.py
+$python  -m  unittest -v  tests.py
 
 Run test_selenium.py:
 $python -m unittest test_selenium.py
