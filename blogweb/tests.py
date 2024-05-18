@@ -30,6 +30,30 @@ class BaseModelTestCase(unittest.TestCase):
         db.session.add_all([self.user1, self.user2, self.user3, self.user4])
         db.session.commit()
 
+        #create 100 users
+        users = [User(username=f'user{i}', email=f'user{i}@example.com') for i in range(100)]
+        db.session.add_all(users)
+        db.session.commit()
+
+        # all users send 10 posts
+        posts = []
+        for user in users:
+            for j in range(10):
+                post = Post(title=f'Post {j} by {user.username}', content='Test content', author=user)
+                posts.append(post)
+        db.session.add_all(posts)
+        db.session.commit()
+
+        # 40 replies for each post
+        replies = []
+        for post in posts:
+            for k in range(40):
+                reply = Reply(content=f'Reply {k}', user=user, post=post)
+                replies.append(reply)
+        db.session.add_all(replies)
+        db.session.commit()
+
+
 
 class UserModelCase(BaseModelTestCase):
     def test_password_hashing(self):
