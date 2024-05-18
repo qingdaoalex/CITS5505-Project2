@@ -13,7 +13,7 @@ import jwt
 from flask import url_for
 import json
 from time import time
-
+from flask import current_app
 
 followers = sa.Table(
   'followers',
@@ -65,7 +65,7 @@ class User(UserMixin, db.Model):
   def get_reset_password_token(self, expires_in=600):
     return jwt.encode(
       {'reset_password': self.id, 'exp': time() + expires_in},
-      app.config['SECRET_KEY'], algorithm='HS256')
+      current_app.config['SECRET_KEY'], algorithm='HS256')
 
   def unread_message_count(self):
     last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
@@ -75,7 +75,7 @@ class User(UserMixin, db.Model):
   @staticmethod
   def verify_reset_password_token(token):
     try:
-        id = jwt.decode(token, app.config['SECRET_KEY'],
+        id = jwt.decode(token, current_app.config['SECRET_KEY'],
                         algorithms=['HS256'])['reset_password']
     except:
         return
