@@ -1,0 +1,19 @@
+.user-popup {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-top-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me {
+  font-family: 'Poppins', sans-serif;
+}
+
+.popup-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

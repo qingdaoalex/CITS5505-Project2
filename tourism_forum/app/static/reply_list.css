@@ -1,0 +1,68 @@
+/* -- rely list style -- */
+.reply-list-left {
+  width: 80px;
+}
+
+.user_popup {
+  width: 20px;
+  text-decoration: none;
+}
+
+.reply-list-middle {
+  display: flex;
+  flex-direction: row;
+  min-width: 58%;
+}
+
+.reply-list-middle-content {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 90%;
+  ;
+}
+
+.reply-list-middle-id {
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reply-list-title-text {
+  color: black;
+  display: inline-block;
+  max-width: 460px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.reply-list {
+  display: flex;
+  align-items: center;
+}
+
+.reply-list-title {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.reply-list-date {
+  display: flex;
+  justify-content: center;
+  min-width: 200px;
+}
+
+.reply-list-delete {
+  height: 100%;
+  min-width: 100px;
+  font-size: 20px;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #808080;
+  display: flex;
+  justify-content: center;
+}

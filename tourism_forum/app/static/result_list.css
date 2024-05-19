@@ -1,0 +1,14 @@
+/* -- result style -- */
+.result-list {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.result-list-text {
+  text-decoration: none;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
