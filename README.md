@@ -1,24 +1,39 @@
-CITS5505 group project plan (4.19-4.26)
-- 2024.4.19 meeting result(if this module can add back end):
-  - 1.home page -xiao
-  - 2.sign in page -yunfang
-  - 3.profile page -zhuowen
-  - 4.book review page -alex
-- the useful entensions in vscode:Git Graph,Git History, GitLens, Git supercharged
+# CITS5505 Group Project -- Tourism Forum
 
-How to run the web page:
-1. Create virtual environment：
-    - (linux) $ python3 -m venv venv then $ source venv/bin/activate
-    - (bash) $ python -m venv venv then $ source venv/Scripts/activate 
-    - (cmd) $ py -3 -m venv .venv then $ .venv\Scripts\activate
+## Ⅰ. Project Overview
+The Tourism Forum is an online community platform based on the Flask application, which aims to provide travel enthusiasts with a platform to communicate, share travel experiences and plan trips. Users can register an account, create a profile, post travel tips, communicate with other travelers, and participate in discussion topics posted by other users.
 
-2. Install all needed packages
-    - pip install -r requirements.txt
+## Ⅱ. Group Team Member
+| Name              | Student ID | Github Username    |
+|-------------------|------------|--------------------|
+| Xiao Zhang        | 23363869   | Maggiexz           |
+| Yunfang Lyu       | 23685059   | Yunfang-Lyu        |
+| Zixing(Alex) Wang | 24123115   | qingdaoalex        |
+| Philip Wu         | 23902134   | TroubledPhilip     |
 
-3. Initialize database(Before initialize database make sure there is no **"migrations"** folder):
-    - $flask db init
-    - $flask db migrate
-    - $flask db upgrade
 
-4. Run flask:
-    - $flask run
+## Ⅲ. Launch the application
+### 1. Create virtual environment：
+    (linux) $ python3 -m venv venv  
+            $ source venv/bin/activate
+    
+    (bash)  $ python -m venv venv  
+            $ source venv/Scripts/activate 
+    
+    (cmd)   $ py -3 -m venv .venv 
+            $ .venv\Scripts\activate
+
+### 2. Install all needed packages：
+      pip install -r requirements.txt
+
+### 3. Run the application based on a small database:
+     flask run
+
+## Ⅳ. Run the tests for the application
+### 1. Run unit test:
+    python -m unittest -v tests.py
+### 2. Run selenium test:
+    python -m unittest test_selenium.py
+## Ⅴ. Additonal Information
+### About selenium test:
+If you cannot run the selenium test because of the browser driver version number, you can directly view the video named **$\color{blue}{\text{"selenium-test.mp4"}}$** in the folder "deliverables".
