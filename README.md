@@ -30,6 +30,9 @@ The Tourism Forum is an online community platform based on the Flask application
 ### 3. Run the application based on a small database:
      cd tourism_forum
      flask run
+#### existing user login information:
+     username:mike
+     password:qwe123
 
 ## Ⅳ. Run the tests for the application
 ### 1. Run unit test:
