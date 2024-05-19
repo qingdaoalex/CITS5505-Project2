@@ -1,0 +1,364 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 sm-2 md-3 mb-2 index-container">
+	<div class="index-page">
+		<div class="questionform">
+		<h1>Hi, {{ current_user.username }}!</h1>
+		<button id="displayPostBtn" style="margin-top:2%; margin-bottom:2%" type="button" onclick="displayPostForm()"
+			class="btn btn-secondary" >Show Question form</button>
+
+		<!-- Form for submitting a new post -->
+		<form id="postForm" action="/index" method="POST" style="margin:20px 0px; display: none">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.title.label }}<br>
+				{{ form.title(size=50) }}<br>
+				{% for error in form.title.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form.content.label }}<br>
+				{{ form.content(cols=50, rows=4, id="post-contnet") }}<br>
+				{% for error in form.content.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>{{ form.submit(class="btn btn-secondary") }}</p>
+		</form>
+	</div>
+		<ul class="nav nav-tabs" style="cursor:pointer">
+			<li class="nav-item" style="color:#2e59a7">
+				<a class="nav-link active" aria-current="page" onclick="showTab(event, 'tab1')" >All Post</a>
+			</li>
+			<li class="nav-item" style="color:#2e59a7">
+				<a class="nav-link" onclick="showTab(event, 'tab2')" >Follwer Post</a>
+			</li>
+		</ul>
+		<div class="tabs-container">
+			
+			<!-- Tab content for All Posts -->
+			<div id="tab1" class="index-tabcontent" style="display: block;">
+				<div class="index-tabcontent-post">
+					<div class="index-tabcontent-post-title">
+						<div class="index-title-left">
+							Post
+						</div>
+						<div class="index-title-middle">
+							<div class="index-post-title">
+								Question Title
+							</div>			
+						</div>
+						<div class="index-title-right">
+							<div class="index-title-count">
+								Reply Count
+							</div>
+							<div class="index-title-date">
+								Date
+							</div>			
+						</div>			
+					</div>
+					{% if all_posts.items %}			
+					{% for post in all_posts %}
+					{% include '_post_list.html' %}
+					{% endfor %}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+			
+							{% if all_posts.has_prev %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.prev_num) }}">Prev</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled"><span class="page-link">First</span></li>
+							{% endif %}
+			
+							{% if all_posts.page > 4 %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">1</a></li>
+							<li class="page-item disabled"><span class="page-link">...</span></li>
+							{% endif %}
+			
+							{% for p in range(all_posts.page - 2, all_posts.page + 3) if p > 0 and p <= all_posts.pages %} <li
+								class="page-item {% if p == all_posts.page %}active{% endif %}">
+								{% if p == all_posts.page %}
+								<span class="page-link">{{ p }}</span>
+								{% else %}
+								<a class="page-link" href="{{ url_for('main.index', page=p) }}">{{ p }}</a>
+								{% endif %}
+								</li>
+								{% endfor %}
+			
+								{% if all_posts.page < all_posts.pages - 3 %} <li class="page-item disabled"><span
+										class="page-link">...</span></li>
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.pages) }}">{{
+											all_posts.pages }}</a></li>
+									{% endif %}
+			
+									{% if all_posts.has_next %}
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.next_num) }}">Next</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=all_posts.pages) }}">Last</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+									<li class="page-item disabled"><span class="page-link">Last</span></li>
+									{% endif %}
+						</ul>
+					</nav>
+					{% else %}
+					<!-- Empty page content -->
+					{% include 'empty.html' %}
+					{% endif %}
+			
+			
+				</div>
+			
+			</div>
+
+			<!-- Tab content for Follower Posts -->
+			<div id="tab2" class="index-tabcontent">
+				<div class="index-tabcontent-post">
+					<div class="index-tabcontent-post-title">
+						<div class="index-title-left">
+							Post
+						</div>
+						<div class="index-title-middle">
+							<div class="index-post-title">
+								Question Title
+							</div>
+						</div>
+						<div class="index-title-right">
+							<div class="index-title-count">
+								Reply Count
+							</div>
+							<div class="index-title-date">
+								Date
+							</div>
+						</div>
+					</div>
+					{% if follow_posts.items %}
+					{% for post in follow_posts %}
+					{% include '_post_list.html' %}
+					{% endfor %}
+					
+					<!-- pagination -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							{% if follow_posts.has_prev %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">First</a></li>
+							<li class="page-item"><a class="page-link"
+									href="{{ url_for('main.index', page=follow_posts.prev_num) }}">Prev</a>
+							</li>
+							{% else %}
+							<li class="page-item disabled"><span class="page-link">First</span></li>
+							{% endif %}
+
+							{% if follow_posts.page > 4 %}
+							<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=1) }}">1</a></li>
+							<li class="page-item disabled"><span class="page-link">...</span></li>
+							{% endif %}
+
+							{% for p in range(follow_posts.page - 2, follow_posts.page + 3) if p > 0 and p <= follow_posts.pages %}
+								<li class="page-item {% if p == follow_posts.page %}active{% endif %}">
+								{% if p == follow_posts.page %}
+								<span class="page-link">{{ p }}</span>
+								{% else %}
+								<a class="page-link" href="{{ url_for('main.index', page=p) }}">{{ p }}</a>
+								{% endif %}
+								</li>
+								{% endfor %}
+
+								{% if follow_posts.page < follow_posts.pages - 3 %} <li class="page-item disabled"><span
+										class="page-link">...</span></li>
+									<li class="page-item"><a class="page-link" href="{{ url_for('main.index', page=follow_posts.pages) }}">{{
+											follow_posts.pages }}</a></li>
+									{% endif %}
+
+									{% if follow_posts.has_next %}
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('main.index', page=follow_posts.next_num) }}">Next</a>
+									</li>
+									<li class="page-item"><a class="page-link"
+											href="{{ url_for('main.index', page=follow_posts.pages) }}">Last</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+									<li class="page-item disabled"><span class="page-link">Last</span></li>
+									{% endif %}
+						</ul>
+					</nav>
+					{% else %}
+					<!-- Empty page content -->
+					{% include 'empty.html' %}
+
+					{% endif %}
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="warnModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalTitle">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p id="modalContent">Modal Content</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Map display -->
+<div id="map-container">
+	<div id="map"></div>
+</div>
+
+<!-- Interaction-->
+<div class="interaction-container">
+	<div id="dialog">
+		<p></p>
+	</div>
+</div>
+
+	{% endblock %}
+
+
+
+
+	{% block script %}
+	<script>
+		function displayPostForm() {
+			let displayPostBtn = document.getElementById("displayPostBtn");
+			let postForm = document.getElementById("postForm")
+			if (postForm.style.display == "none") {
+				postForm.style.display = "block";
+				displayPostBtn.innerHTML = "Hide Question form";
+			}
+			else {
+				postForm.style.display = "none";
+				displayPostBtn.innerHTML = "Show Question form";
+
+			}
+		}
+
+		function showTab(event, tabName) {
+			let newUrl = window.location.pathname + '?page=1';
+			window.location.href = newUrl;
+			
+			navlink = document.getElementsByClassName("nav-link");
+			sessionStorage.setItem('activeTab', tabName);
+			if (tabName == "tab1") {
+				navlink[0].className = "nav-link active";
+				navlink[1].className = "nav-link";
+
+				document.getElementById("tab1").style.display = "block";
+				document.getElementById("tab2").style.display = "none";
+			} else if (tabName == "tab2") {
+				navlink[0].className = "nav-link"
+				navlink[1].className = "nav-link active";
+
+
+				document.getElementById("tab2").style.display = "block";
+				document.getElementById("tab1").style.display = "none";
+			}
+
+		}
+
+
+		// Retrieve and set the active tab when the page Domcontent loads then set the CSS style for the page
+		window.addEventListener('DOMContentLoaded', function () {
+		
+			let navlink = document.getElementsByClassName("nav-link");
+			let activeTab = sessionStorage.getItem('activeTab');
+
+			if (activeTab == "tab1") {
+				navlink[0].className = "nav-link active";
+				navlink[1].className = "nav-link";
+				document.getElementById("tab1").style.display = "block";
+				document.getElementById("tab2").style.display = "none";
+
+			} else if (activeTab == "tab2") {
+				navlink[0].className = "nav-link"
+				navlink[1].className = "nav-link active";
+				document.getElementById("tab2").style.display = "block";
+				document.getElementById("tab1").style.display = "none";
+
+			}
+		});
+
+	</script>
+	<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+	<script>
+		// Constants
+		const CONTENT_MIN_LENGTH = 1;
+		const CONTENT_MAX_LENGTH = 2000;
+		let content = "";
+		let title = "Warning!"
+
+		const postForm = document.getElementById('postForm');
+
+		// Selectors
+		const postContent = document.getElementById('post-contnet');
+
+		// Event listeners
+		postForm.addEventListener('submit', validateForm);
+
+
+		// Function to validate the post before submission
+		function validateForm(event) {
+			if (!validatePostContent()) {
+				event.preventDefault();
+				// Update modal title
+				document.getElementById('modalTitle').innerText = title;
+				// Update modal content
+				document.getElementById('modalContent').innerText = content;
+				let modal = new bootstrap.Modal(document.getElementById('warnModal'));
+				modal.show();
+				return;
+			}
+		}
+
+		function validatePostContent() {
+			// Retrieve CKEditor instance
+			let editor = CKEDITOR.instances['post-contnet'];
+			if (!editor) {
+				return false; // CKEditor instance not found
+			}
+
+			// Get the content
+			let postContentData = editor.getData().trim();
+
+			if (postContentData === '') {
+				content = "Question content is empty. Please enter question content!";
+				return false; // Field is empty, so it's invalid
+			} else if (postContentData.length > CONTENT_MAX_LENGTH) {
+				content = "Question content cannot exceed 2000 characters.";
+				return false; // Exceeds maximum length
+			}
+
+			return true; // Content is valid
+		}
+	</script>
+  <script src="{{ url_for('static', filename='dialog.js') }}"></script>
+									<script src="{{ url_for('static', filename='live2D.js') }}"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+  <script src="{{ url_for('static', filename='map.js') }}"></script>
+	{% endblock %}
+

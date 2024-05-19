@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Basic Page Needs -->
+		<meta charset="UTF-8">
+		<meta name="description" content="This is a welcome page for our web app. Everyone can see it.">
+		<meta name="author" content="Yunfang Lyu(23685059)">
+		<meta name="keywords" content="Tourism Forum">
+		<title>Welcome to Tourism Forum!</title>  <!-- Reference link: https://www.youtube.com/watch?v=1cFN7OBI9Yg&ab_channel=AsmrProg -->
+		<!-- Mobile Specific Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!-- Stylesheets -->
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='love.png') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='welcome.css') }}">
+	</head>
+  <body>
+    <div class="hero-image" style="background-image: url('{{ url_for('static', filename='background.jpg') }}')">
+      <div class="hero-text">
+        <h1>Tourism Forum</h1>
+        <p>Dive into a world of travel, adventure, and connection.
+          Join our community of explorers, share stories, 
+          and find inspiration for your next journey.
+          Let's explore together!</p>
+        <div class="nav-btn">
+          <a href="{{ url_for('main.login') }}" id="loginenter">Log in</a>
+          <a href="{{ url_for('main.register') }}">Sign up</a>
+        </div>
+      </div>
+    </div>
+    <div class="blank"></div>
+    <div class="hero-image second" style="background-image: url('{{ url_for('static', filename='background2.jpg') }}')">
+      <div class="card-container">
+        <div class="card">
+          <div class="info">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
+            <h3>Question</h3>
+            <p>You can post your travel experiences.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="info">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
+            <h3>Comment</h3>
+            <p>You can reply others' posts.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="info">
+            <img src="{{ url_for('static', filename='travel.jpg') }}" alt="background">
+            <h3>Message</h3>
+            <p>You can send a private message.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blank-2">
+      <div class="footer">
+        <div class="column">
+          <h3>Source Code</h3>
+          <ul>
+            <li><a href="https://github.com/qingdaoalex/CITS5505-Project2">Github Project</a></li>
+          </ul>
+        </div>
+        <div class="column">
+          <h3>Other</h3>
+          <ul>
+            <li><a href="{{ url_for('main.references')}}">References</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Get the .second container and the .card-container
+      const secondContainer = document.querySelector('.second');
+      const cardContainer = document.querySelector('.card-container');
+      // Set the min-height of the .second container to match the height of the .card-container
+      secondContainer.style.minHeight = `${cardContainer.offsetHeight}px`;
+    </script>
+  </body>
+</html>

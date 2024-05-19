@@ -1,0 +1,46 @@
+{% extends "base2.html" %}
+{% block content %}
+	<div class="flip-container">
+		<div class="flipper" id="flipper">
+			<div class="login" id="login">
+				<form class="form-container" id="login-form" action="" method="POST" novalidate>
+					{{ form.hidden_tag() }}
+					<h1 class="form-title">Log in</h1>
+					<div class="form-content">
+						<div class="form-box">
+							<i class="ri-user-3-line input-icon"></i>
+							<div class="input-box">
+								{{ form.username(size=32, class="input-area", id="login-user-name", placeholder=" ") }}
+								{{ form.username.label(class="input-label")}}
+							</div>
+						</div>
+					</div>
+					<div class="form-content">
+						<div class="form-box">
+							<i class="ri-lock-2-line input-icon"></i>
+							<div class="input-box">
+								{{ form.password(size=32,class="input-area",id="login-password",placeholder=" ") }}
+								{{ form.password.label(class="input-label")}}
+								<label></label>
+							</div>
+						</div>
+					</div>
+					<div class="check-container">
+						<div class="check-group">
+							{{ form.remember_me(class="check-box",id="login-check") }}
+							{{ form.remember_me.label(class="check-label") }}
+						</div>
+						<a class="flipbutton login-forgot" id="submit-button" href="{{ url_for('main.reset_password_request') }}">Forgot Password?</a>
+					</div>
+					{{ form.submit(class="submit-button",id="login-button") }}
+					<p class="reminder">
+						Don't have an account?
+						<br>
+						<a class="flipbutton" href="{{ url_for('main.register') }}" id="loginpage_registerenter">Register</a>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="{{ url_for('static', filename='remember.js') }}"></script>
+{% endblock %}
