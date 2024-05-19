@@ -24,15 +24,19 @@ The Tourism Forum is an online community platform based on the Flask application
             $ .venv\Scripts\activate
 
 ### 2. Install all needed packages：
+      cd tourism_forum
       pip install -r requirements.txt
 
 ### 3. Run the application based on a small database:
+     cd tourism_forum
      flask run
 
 ## Ⅳ. Run the tests for the application
 ### 1. Run unit test:
+    cd tourism_forum
     python -m unittest -v tests.py
 ### 2. Run selenium test:
+    cd tourism_forum
     python -m unittest test_selenium.py
 ## Ⅴ. Additonal Information
 ### About selenium test:
