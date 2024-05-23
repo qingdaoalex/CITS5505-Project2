@@ -1,18 +1,33 @@
-// Function to read and display the selected image before uploading
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#user-avatar').attr('src', e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
 
 $(document).ready(function() {
+  // Function to read and display the selected image before uploading
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#user-avatar').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   // Function to handle changes in the image upload input
   $("#image-upload").change(function() {
+    var file = this.files[0];
+    var maxSize = 500 * 1024; // 500 KB
+
+    if (file.size > maxSize) {
+      alert('File size exceeds the limit of 500 KB.');
+      this.value = ''; // Clear the input
+      return;
+    }
+
     readURL(this);
+  });
+
+  // Prevent the default form submission
+  $('#avatar-form').submit(function(event) {
+    event.preventDefault();
   });
 
   // Function to handle clicking on the image button
@@ -32,6 +47,7 @@ $(document).ready(function() {
             window.location.href = response.redirect_url;
           } else {
             alert('Avatar uploaded successfully!');
+            location.reload();
           }
         },
         error: function(_, _, error) {
