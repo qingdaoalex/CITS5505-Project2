@@ -13,14 +13,15 @@
   <div class="reply-list-middle">
     <div class="reply-list-middle-content">
       <div>
-        <a class="user_popup" href="{{ url_for('main.user', username=reply.user.username) }}">{{
-          reply.user.username }}</a>
+        
       </div>
 
 
       <div class="reply-list-title">
         <span class="reply-list-title-text">
-          <a class="result-list-text" href="{{ url_for('main.post_detail', post_id=reply.post_id) }}">{{ reply.post }}</a> {{ reply.content | safe}}
+          <a class="result-list-text" href="{{ url_for('main.post_detail', post_id=reply.post_id) }}"style="text-decoration:none; color:black;">{{ reply.post.title | safe }}</a><br>
+          <a class="user_popup" href="{{ url_for('main.user', username=reply.user.username) }}" style="font-size:18px">{{
+            reply.user.username }}</a> {{ reply.content | safe}}
         </span>
       </div>
     </div>

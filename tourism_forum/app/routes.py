@@ -266,8 +266,7 @@ def upload_avatar():
         try:
           file.save(os.path.join(avatar_directory, unique_filename))
           user.avatar_path = unique_filename
-          db.session.commit()
-          flash('Avatar uploaded successfully.', 'success')
+          db.session.commit()          
         except Exception as e:
           # Log the error
           main.logger.error("Error uploading avatar: %s", str(e))
