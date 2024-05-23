@@ -14,6 +14,9 @@ from werkzeug.utils import secure_filename
 import uuid
 from sqlalchemy import or_
 from app.blueprints import main
+from flask import abort
+from app.errors import *
+
 
 @main.route('/', methods=['GET', 'POST'])
 def welcome():
@@ -434,3 +437,12 @@ def delete_reply(reply_id):
     db.session.delete(reply)
     db.session.commit()
     return redirect(url_for('main.post_detail', post_id=reply.post_id))
+
+
+@main.route('/trigger404')
+def trigger404():
+    abort(404)  # 引发404错误
+
+@main.route('/trigger500')
+def trigger500():
+    raise Exception('Triggering 500 Error')  # 引发500错误
