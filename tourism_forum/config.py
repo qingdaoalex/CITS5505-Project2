@@ -15,7 +15,7 @@ class Config:
     ADMINS = ['l98lavie@gmail.com']
     # Upload configuration
     UPLOAD_PATH = os.path.join(basedir, 'app', 'static', 'avatar')
-    MAX_FILE_SIZE_BYTES = 1024 * 1024
+    MAX_FILE_SIZE_BYTES = 500 * 1024
 
 class DeploymentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
