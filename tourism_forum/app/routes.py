@@ -229,16 +229,20 @@ def edit_profile():
 		form.email.data = current_user.email
 	return render_template('edit_profile.html', title='Edit Profile', user=current_user, email=current_user.email,form=form)
 
-
 @main.route('/upload_avatar', methods=['POST'])
 def upload_avatar():
     user = current_user
     if 'avatar-upload' in request.files:
       file = request.files['avatar-upload']
       if file.filename != '':
-        if file.content_length > current_app.config['MAX_FILE_SIZE_BYTES']:
-          flash('File size exceeds the limit.', 'error')
-          return redirect(url_for('main.edit_profile'))
+        # Check file size manually
+        file.seek(0, os.SEEK_END)
+        file_length = file.tell()
+        file.seek(0, 0)  # Reset file pointer
+
+        if file_length > current_app.config['MAX_FILE_SIZE_BYTES']:
+            flash('File size exceeds the limit.', 'error')
+            return redirect(url_for('main.edit_profile'))
 
         # Validate file type using imghdr
         allowed_image_types = {'jpg', 'jpeg', 'png', 'gif'}
@@ -270,7 +274,6 @@ def upload_avatar():
           flash('Internal Server Error.', 'error')
     return redirect(url_for('main.edit_profile'))
 
-
 @main.route('/set_default_avatar', methods=['POST'])
 def set_default_avatar():
     user = current_user
@@ -280,7 +283,7 @@ def set_default_avatar():
         avatar_path = os.path.join(current_app.config['UPLOAD_PATH'], user.avatar_path)
         if os.path.exists(avatar_path):
             os.remove(avatar_path)
-
+        
     # Set avatar path to NULL
     user.avatar_path = None
     db.session.commit()
@@ -290,7 +293,7 @@ def set_default_avatar():
 
 @main.route('/uploaded_avatars/<filename>')
 def uploaded_avatars(filename):
-	return send_from_directory(current_app.config['UPLOAD_PATH'], filename)
+  return send_from_directory(current_app.config['UPLOAD_PATH'], filename)
 
 @main.route('/follow/<username>', methods=['POST'])
 @login_required
@@ -311,7 +314,6 @@ def follow(username):
 		return redirect(url_for('main.user', username=username))
 	else:
 		return redirect(url_for('main.index'))
-
 
 @main.route('/unfollow/<username>', methods=['POST'])
 @login_required
