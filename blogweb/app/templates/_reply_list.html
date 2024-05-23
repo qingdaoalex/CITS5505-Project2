@@ -20,7 +20,7 @@
 
       <div class="reply-list-title">
         <span class="reply-list-title-text">
-          {{ reply.content | safe}}
+          <a class="result-list-text" href="{{ url_for('main.post_detail', post_id=reply.post_id) }}">{{ reply.post }}</a>{{ reply.content | safe}}
         </span>
       </div>
     </div>
