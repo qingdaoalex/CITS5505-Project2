@@ -7,12 +7,12 @@ class Config:
     POSTS_PER_PAGE = 6
 
     # Mail configuration
-    MAIL_SERVER = 'smtp.qq.com'
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = 'cits5505webapp@qq.com'
-    MAIL_PASSWORD = 'woddizqutfukcjja'
-    ADMINS = ['l98lavie@gmail.com']
+    MAIL_SERVER = ''
+    MAIL_PORT = 
+    MAIL_USE_SSL = 
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
+    ADMINS = ['']
     # Upload configuration
     UPLOAD_PATH = os.path.join(basedir, 'app', 'static', 'avatar')
     MAX_FILE_SIZE_BYTES = 500 * 1024
